@@ -1,5 +1,6 @@
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { WHY_LUMINA } from "@/lib/data";
+import { LucideIcon } from "@/components/ui/LucideIcon";
 
 /**
  * WhyLumina
@@ -21,7 +22,9 @@ export default function WhyLumina() {
             key={pillar.title}
             className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center"
           >
-            <p className="text-4xl mb-4">{pillar.icon}</p>
+            <div className="text-[#C9A227] flex justify-center mb-4">
+              <LucideIcon name={pillar.icon} size={36} />
+            </div>
             <h3 className="text-white font-bold text-lg mb-3">{pillar.title}</h3>
             <p className="text-white/60 text-sm leading-relaxed">{pillar.description}</p>
           </div>

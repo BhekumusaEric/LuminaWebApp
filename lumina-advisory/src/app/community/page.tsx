@@ -3,6 +3,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { Button } from "@/components/ui/Button";
 import { COMMUNITY_BENEFITS, SITE } from "@/lib/data";
+import { LucideIcon } from "@/components/ui/LucideIcon";
 
 export const metadata: Metadata = {
   title: "Community",
@@ -35,7 +36,9 @@ export default function CommunityPage() {
               key={benefit.title}
               className="bg-white rounded-2xl p-6 shadow-sm border border-[#0F172A]/5 flex items-start gap-4"
             >
-              <p className="text-3xl shrink-0">{benefit.icon}</p>
+              <div className="text-[#C9A227] shrink-0 mt-0.5">
+                <LucideIcon name={benefit.icon} size={28} />
+              </div>
               <p className="font-semibold text-[#0F172A]">{benefit.title}</p>
             </div>
           ))}

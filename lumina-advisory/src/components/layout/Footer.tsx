@@ -14,9 +14,14 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Brand */}
         <div>
-          <p className="text-[#C9A227] font-bold text-xl mb-2 font-[family-name:var(--font-playfair)]">
-            Lumina Advisory
-          </p>
+          <Link href="/" className="flex items-center gap-1.5 mb-3 group inline-flex">
+            <span className="text-[#C9A227] font-bold text-xl tracking-wider font-heading">
+              Lumina
+            </span>
+            <span className="text-white font-light text-xl tracking-wider font-heading group-hover:text-[#C9A227] transition-colors duration-200">
+              Advisory
+            </span>
+          </Link>
           <p className="text-white/60 text-sm leading-relaxed max-w-xs">
             {SITE.tagline}
           </p>

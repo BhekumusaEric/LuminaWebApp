@@ -38,7 +38,7 @@ export const NAV_LINKS = [
 export const SERVICES = [
   {
     id: "career-development",
-    icon: "🎯",
+    icon: "Target",
     title: "Career & Personal Development",
     shortDescription:
       "Supporting individuals in navigating growth intentionally both personally and professionally.",
@@ -51,7 +51,7 @@ export const SERVICES = [
   },
   {
     id: "training-skills",
-    icon: "📚",
+    icon: "BookOpen",
     title: "Training & Skills Development",
     shortDescription:
       "Delivering engaging and practical learning experiences designed for growth and capability building.",
@@ -64,7 +64,7 @@ export const SERVICES = [
   },
   {
     id: "programme-direction",
-    icon: "🎙️",
+    icon: "Mic",
     title: "Programme Direction, Moderation & Hosting",
     shortDescription:
       "Professional moderation and facilitation for impactful events and conversations.",
@@ -77,7 +77,7 @@ export const SERVICES = [
   },
   {
     id: "consulting-advisory",
-    icon: "💼",
+    icon: "Briefcase",
     title: "Independent Consulting & Advisory",
     shortDescription:
       "Providing strategic consulting and advisory support to organisations.",
@@ -94,7 +94,7 @@ export const SERVICES = [
   },
   {
     id: "facilitation",
-    icon: "🤝",
+    icon: "Users",
     title: "Strategic Facilitation",
     shortDescription:
       "Facilitating impactful conversations that drive alignment, clarity, collaboration, and team effectiveness.",
@@ -106,7 +106,7 @@ export const SERVICES = [
   },
   {
     id: "leadership",
-    icon: "⭐",
+    icon: "Award",
     title: "Leadership Development",
     shortDescription:
       "Developing confident, self-aware, and high-performing leaders.",
@@ -128,19 +128,19 @@ export const TRUST_INDICATORS = [
 
 export const WHY_LUMINA = [
   {
-    icon: "🏛️",
+    icon: "Briefcase",
     title: "Consulting Expertise",
     description:
       "Drawing on experience across management consulting, banking, transformation, and organisational development.",
   },
   {
-    icon: "⚡",
+    icon: "Sparkles",
     title: "Practical Solutions",
     description:
       "Providing recommendations that are actionable, measurable, and aligned to organisational goals.",
   },
   {
-    icon: "❤️",
+    icon: "HeartHandshake",
     title: "People-Centred Approach",
     description:
       "Combining strategy and human insight to create sustainable outcomes.",
@@ -148,20 +148,20 @@ export const WHY_LUMINA = [
 ];
 
 export const CORE_VALUES = [
-  { icon: "🌱", title: "Intentional Growth" },
-  { icon: "👑", title: "Leadership" },
-  { icon: "🔄", title: "Transformation" },
-  { icon: "✨", title: "Excellence" },
-  { icon: "🤍", title: "Human Connection" },
+  { icon: "TrendingUp", title: "Intentional Growth" },
+  { icon: "Award", title: "Leadership" },
+  { icon: "RefreshCw", title: "Transformation" },
+  { icon: "Sparkles", title: "Excellence" },
+  { icon: "Heart", title: "Human Connection" },
 ];
 
 export const COMMUNITY_BENEFITS = [
-  { icon: "💬", title: "Career Development Conversations" },
-  { icon: "🎯", title: "Live Coaching Sessions" },
-  { icon: "👑", title: "Leadership Discussions" },
-  { icon: "🌐", title: "Networking Opportunities" },
-  { icon: "🪞", title: "Reflection Prompts" },
-  { icon: "📦", title: "Growth Resources" },
+  { icon: "MessageSquare", title: "Career Development Conversations" },
+  { icon: "Target", title: "Live Coaching Sessions" },
+  { icon: "Award", title: "Leadership Discussions" },
+  { icon: "Globe", title: "Networking Opportunities" },
+  { icon: "Compass", title: "Reflection Prompts" },
+  { icon: "Layers", title: "Growth Resources" },
 ];
 
 export const TESTIMONIALS = [

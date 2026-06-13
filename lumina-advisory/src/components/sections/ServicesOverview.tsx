@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SERVICES } from "@/lib/data";
+import { LucideIcon } from "@/components/ui/LucideIcon";
 
 /**
  * ServicesOverview
@@ -24,7 +25,9 @@ export default function ServicesOverview() {
             key={service.id}
             className="bg-white rounded-2xl p-6 border border-[#0F172A]/5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col"
           >
-            <p className="text-3xl mb-4">{service.icon}</p>
+            <div className="text-[#C9A227] mb-4">
+              <LucideIcon name={service.icon} size={32} />
+            </div>
             <h3 className="text-lg font-bold mb-2">{service.title}</h3>
             <p className="text-[#475569] text-sm leading-relaxed flex-1 mb-6">
               {service.shortDescription}

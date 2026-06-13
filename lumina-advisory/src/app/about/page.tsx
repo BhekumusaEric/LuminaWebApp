@@ -3,6 +3,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { FOUNDER, MISSION_VISION, CORE_VALUES } from "@/lib/data";
 import Image from "next/image";
+import { LucideIcon } from "@/components/ui/LucideIcon";
 
 export const metadata: Metadata = {
   title: "About",
@@ -143,7 +144,9 @@ export default function AboutPage() {
               key={value.title}
               className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center"
             >
-              <p className="text-3xl mb-3">{value.icon}</p>
+              <div className="text-[#C9A227] flex justify-center mb-3">
+                <LucideIcon name={value.icon} size={28} />
+              </div>
               <p className="text-white font-semibold text-sm">{value.title}</p>
             </div>
           ))}

@@ -38,11 +38,11 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-[#C9A227] font-bold text-xl tracking-wide font-[family-name:var(--font-playfair)]">
+        <Link href="/" className="flex items-center gap-1.5 group">
+          <span className="text-[#C9A227] font-bold text-xl md:text-2xl tracking-wider font-heading transition-colors duration-200">
             Lumina
           </span>
-          <span className="text-white font-light text-xl tracking-wide font-[family-name:var(--font-playfair)]">
+          <span className="text-white font-light text-xl md:text-2xl tracking-wider font-heading group-hover:text-[#C9A227] transition-colors duration-200">
             Advisory
           </span>
         </Link>
