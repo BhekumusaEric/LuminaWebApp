@@ -24,7 +24,7 @@ export default function HeroSection() {
           className="absolute min-w-full min-h-full object-cover opacity-15"
         >
           <source
-            src="https://assets.mixkit.co/videos/preview/mixkit-office-employees-collaborating-in-a-modern-space-43405-large.mp4"
+            src="https://cdn.pixabay.com/video/2016/02/29/2340-157269921_large.mp4"
             type="video/mp4"
           />
         </video>
