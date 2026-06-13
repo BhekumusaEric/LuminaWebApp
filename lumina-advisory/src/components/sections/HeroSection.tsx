@@ -28,29 +28,30 @@ export default function HeroSection() {
             type="video/mp4"
           />
         </video>
-        {/* Sleek left-to-right gradient overlay to preserve text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A]/75 via-[#0F172A]/35 to-transparent" />
+        {/* Sleek top-to-bottom gradient overlay to preserve text readability and blend headers/footers */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/80 via-[#0F172A]/50 to-[#0F172A]/90" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full grid md:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 py-20 w-full text-center flex flex-col items-center justify-center">
         {/* Text */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col items-center"
         >
           <p className="text-[#C9A227] font-semibold uppercase tracking-widest text-sm mb-4">
             Lumina Advisory
           </p>
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 font-heading">
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 font-heading max-w-3xl">
             Where ambition meets intentional growth.
           </h1>
-          <p className="text-white/70 text-lg leading-relaxed mb-10 max-w-lg">
+          <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
             A growth-focused consultancy supporting individuals and organisations
             through career growth, strategic advisory, leadership development,
             facilitation, and meaningful transformation.
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
             <Button href={SITE.calendly} variant="primary" external>
               Book Free Discovery Call
             </Button>
@@ -58,23 +59,6 @@ export default function HeroSection() {
               Work With Us
             </Button>
           </div>
-        </motion.div>
-
-        {/* Founder Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="relative h-[480px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 hidden md:block"
-        >
-          <Image
-            src={FOUNDER.image}
-            alt={FOUNDER.name}
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
         </motion.div>
       </div>
     </section>
