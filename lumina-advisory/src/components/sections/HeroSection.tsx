@@ -21,15 +21,15 @@ export default function HeroSection() {
           loop
           muted
           playsInline
-          className="absolute min-w-full min-h-full object-cover opacity-15"
+          className="absolute min-w-full min-h-full object-cover opacity-70"
         >
           <source
             src="https://cdn.pixabay.com/video/2016/02/29/2340-157269921_large.mp4"
             type="video/mp4"
           />
         </video>
-        {/* Sleek mesh-like gradient mask */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#0F172A] via-[#0F172A]/90 to-[#0F172A]/40" />
+        {/* Sleek left-to-right gradient overlay to preserve text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A]/75 via-[#0F172A]/35 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full grid md:grid-cols-2 gap-12 items-center">
