@@ -21,10 +21,10 @@ export default function HeroSection() {
           loop
           muted
           playsInline
-          className="absolute min-w-full min-h-full object-cover opacity-20"
+          className="absolute min-w-full min-h-full object-cover opacity-15"
         >
           <source
-            src="https://assets.mixkit.co/videos/preview/mixkit-abstract-dark-blue-futuristic-waves-background-loop-42841-large.mp4"
+            src="https://assets.mixkit.co/videos/preview/mixkit-office-employees-collaborating-in-a-modern-space-43405-large.mp4"
             type="video/mp4"
           />
         </video>
