@@ -52,7 +52,7 @@ export default function AboutPage() {
           {/* Company Image */}
           <div className="relative h-72 md:h-80 rounded-2xl overflow-hidden shadow-md border border-[#0F172A]/10">
             <Image
-              src="/images/stock/image3.jpeg"
+              src="/images/stock/image12.jpeg"
               alt="Lumina Advisory - Who We Are"
               fill
               className="object-cover"
