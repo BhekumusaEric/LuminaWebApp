@@ -1,13 +1,12 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { SITE } from "@/lib/data";
+import { SITE, FOUNDER } from "@/lib/data";
 
 /**
  * HeroSection
  * Home page hero. Full-height navy background with gold accents.
  * - Primary CTA: Book Free Discovery Call → Calendly
  * - Secondary CTA: Work With Us → /services
- * - Image placeholder: replace the div with an <Image> component
- *   once the founder photo is available in /public/images/founder.jpg
  */
 export default function HeroSection() {
   return (
@@ -36,14 +35,16 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Founder Image Placeholder */}
-        {/* TODO: Replace with:
-          <div className="relative h-[500px] rounded-2xl overflow-hidden">
-            <Image src="/images/founder.jpg" alt="Yolandi Pietersen" fill className="object-cover" priority />
-          </div>
-        */}
-        <div className="hidden md:flex items-center justify-center bg-white/5 rounded-2xl h-[480px] border border-white/10">
-          <p className="text-white/30 text-sm">[ Founder Photo ]</p>
+        {/* Founder Image */}
+        <div className="relative h-[480px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 hidden md:block">
+          <Image
+            src={FOUNDER.image}
+            alt={FOUNDER.name}
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
         </div>
       </div>
     </section>

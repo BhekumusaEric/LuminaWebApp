@@ -48,9 +48,15 @@ export default function AboutPage() {
               commitment: practical, purposeful, people-centred.
             </p>
           </div>
-          {/* Placeholder image block — replace src with a real image */}
-          <div className="bg-[#0F172A]/5 rounded-2xl h-72 md:h-80 flex items-center justify-center">
-            <p className="text-[#475569] text-sm">[ Company Image ]</p>
+          {/* Company Image */}
+          <div className="relative h-72 md:h-80 rounded-2xl overflow-hidden shadow-md border border-[#0F172A]/10">
+            <Image
+              src="/images/stock/image3.jpeg"
+              alt="Lumina Advisory - Who We Are"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
         </div>
       </SectionWrapper>
@@ -79,12 +85,15 @@ export default function AboutPage() {
       {/* Meet the Founder */}
       <SectionWrapper>
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Portrait placeholder */}
-          <div className="bg-[#0F172A]/5 rounded-2xl h-80 flex items-center justify-center order-1 md:order-none">
-            <p className="text-[#475569] text-sm">[ Founder Portrait ]</p>
-            {/* TODO: Replace with:
-            <Image src={FOUNDER.image} alt={FOUNDER.name} fill className="object-cover rounded-2xl" />
-            */}
+          {/* Founder Portrait */}
+          <div className="relative h-96 w-full rounded-2xl overflow-hidden shadow-lg border border-[#0F172A]/10 order-1 md:order-none">
+            <Image
+              src={FOUNDER.image}
+              alt={FOUNDER.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
           <div>
             <p className="text-[#C9A227] font-semibold uppercase tracking-wider text-sm mb-2">
@@ -93,7 +102,15 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-1">{FOUNDER.name}</h2>
             <p className="text-[#475569] mb-1">{FOUNDER.title}</p>
             <p className="text-[#C9A227] font-medium mb-6">{FOUNDER.qualifications}</p>
-            <p className="text-[#475569] leading-relaxed mb-8">{FOUNDER.shortBio}</p>
+            <div className="flex flex-col gap-4 mb-8 text-[#475569] leading-relaxed text-sm">
+              {FOUNDER.detailedBio ? (
+                FOUNDER.detailedBio.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))
+              ) : (
+                <p>{FOUNDER.shortBio}</p>
+              )}
+            </div>
 
             {/* Career Timeline */}
             <div>

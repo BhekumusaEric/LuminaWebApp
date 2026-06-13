@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { FOUNDER } from "@/lib/data";
 
@@ -13,10 +14,15 @@ export default function FounderIntro() {
   return (
     <SectionWrapper>
       <div className="grid md:grid-cols-2 gap-12 items-center">
-        {/* Photo Placeholder */}
-        {/* TODO: Replace with <Image src={FOUNDER.image} ... /> once photo is available */}
-        <div className="bg-[#0F172A]/5 rounded-2xl h-80 flex items-center justify-center">
-          <p className="text-[#475569] text-sm">[ Professional Photo ]</p>
+        {/* Founder Portrait */}
+        <div className="relative h-96 w-full rounded-2xl overflow-hidden shadow-lg border border-[#0F172A]/10">
+          <Image
+            src={FOUNDER.image}
+            alt={FOUNDER.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
         </div>
 
         {/* Content */}

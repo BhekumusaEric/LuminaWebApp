@@ -41,7 +41,7 @@ export const SERVICES = [
     icon: "🎯",
     title: "Career & Personal Development",
     shortDescription:
-      "Empowering individuals to take ownership of their career journey with clarity and confidence.",
+      "Supporting individuals in navigating growth intentionally both personally and professionally.",
     offerings: [
       "Career strategy sessions",
       "Personal development coaching",
@@ -54,7 +54,7 @@ export const SERVICES = [
     icon: "📚",
     title: "Training & Skills Development",
     shortDescription:
-      "Building capability through structured programmes for professionals at every stage.",
+      "Delivering engaging and practical learning experiences designed for growth and capability building.",
     offerings: [
       "Training programmes",
       "Graduate development sessions",
@@ -65,11 +65,11 @@ export const SERVICES = [
   {
     id: "programme-direction",
     icon: "🎙️",
-    title: "Programme Direction & Hosting",
+    title: "Programme Direction, Moderation & Hosting",
     shortDescription:
-      "Delivering polished, purposeful events that leave a lasting impression.",
+      "Professional moderation and facilitation for impactful events and conversations.",
     offerings: [
-      "Corporate events",
+      "Corporate events (Speaker, Host & Programme Director)",
       "Panel discussions",
       "Conferences",
       "Internal broadcasts and hosting",
@@ -80,7 +80,7 @@ export const SERVICES = [
     icon: "💼",
     title: "Independent Consulting & Advisory",
     shortDescription:
-      "Strategic advisory support that drives measurable organisational impact.",
+      "Providing strategic consulting and advisory support to organisations.",
     offerings: [
       "Strategy advisory",
       "Programme and project support",
@@ -97,7 +97,7 @@ export const SERVICES = [
     icon: "🤝",
     title: "Strategic Facilitation",
     shortDescription:
-      "Creating the conditions for teams and leaders to think clearly and move forward together.",
+      "Facilitating impactful conversations that drive alignment, clarity, collaboration, and team effectiveness.",
     offerings: [
       "Leadership alignment sessions",
       "Strategy workshops",
@@ -109,7 +109,7 @@ export const SERVICES = [
     icon: "⭐",
     title: "Leadership Development",
     shortDescription:
-      "Growing the next generation of confident, conscious leaders.",
+      "Developing confident, self-aware, and high-performing leaders.",
     offerings: [
       "Leadership workshops",
       "Women in leadership sessions",
@@ -168,22 +168,36 @@ export const TESTIMONIALS = [
   {
     id: 1,
     quote:
-      "Yolandi helped me gain clarity on my career direction. Her approach is both strategic and deeply human.",
-    author: "— Client Name", // TODO: Replace with real testimonial
+      "Yolandi helped me see my career from a completely different perspective. I left our session with clarity, confidence, and a practical action plan for my next steps.",
+    author: "Career Coaching Client",
     rating: 5,
   },
   {
     id: 2,
     quote:
-      "Professionally facilitated strategy session that aligned our leadership team in a way we hadn't achieved before.",
-    author: "— Client Name", // TODO: Replace with real testimonial
+      "The session was professionally facilitated, highly engaging, and left the team with clear outcomes and next steps. A truly valuable experience.",
+    author: "Corporate Workshop Client",
     rating: 5,
   },
   {
     id: 3,
     quote:
-      "The leadership development programme was transformative. Highly recommend Lumina Advisory.",
-    author: "— Client Name", // TODO: Replace with real testimonial
+      "The interview preparation session was incredibly valuable. I felt more prepared, more confident, and ultimately performed much better than I would have on my own.",
+    author: "Young Professional",
+    rating: 5,
+  },
+  {
+    id: 4,
+    quote:
+      "Yolandi brings energy, professionalism, and authenticity to every engagement. She connects with audiences in a way that inspires action.",
+    author: "Event Attendee",
+    rating: 5,
+  },
+  {
+    id: 5,
+    quote:
+      "Being part of the Lumina community has reminded me that growth doesn't have to happen alone. The conversations, resources, and support have been invaluable.",
+    author: "Community Member",
     rating: 5,
   },
 ];
@@ -193,7 +207,14 @@ export const FOUNDER = {
   title: "Founder & Managing Director",
   qualifications: "MBA Cum Laude",
   shortBio:
-    "Yolandi Pietersen is a seasoned consultant and facilitator with deep experience across management consulting, banking, and transformation. She founded Lumina Advisory to bring intentional, human-centred growth experiences to individuals and organisations across Africa.",
+    "Yolandi Pietersen is a consultant, facilitator, leadership development professional, and entrepreneur with a passion for helping individuals and organisations unlock their full potential. Throughout her career, she has advised organisations across the public and private sectors on strategy, transformation, leadership, and digital growth initiatives.",
+  detailedBio: [
+    "Yolandi Pietersen is a consultant, facilitator, leadership development professional, and entrepreneur with a passion for helping individuals and organisations unlock their full potential.",
+    "With a career spanning management consulting, banking, leadership development, and strategic transformation, Yolandi brings a unique combination of corporate expertise and people-centred development to every engagement. Throughout her career, she has advised organisations across the public and private sectors on strategy, transformation, organisational effectiveness, leadership development, digital transformation, and business growth initiatives.",
+    "Yolandi holds an MBA, which she completed Cum Laude. Her academic achievements, combined with practical industry experience, have shaped her belief that meaningful growth happens when strategy, leadership, and personal development come together.",
+    "As the founder of Lumina Advisory, Yolandi is committed to creating transformative development experiences that empower professionals, leaders, and organisations to grow with clarity, confidence, and purpose. Through facilitation, training, coaching, and thought leadership, she aims to inspire intentional growth and lasting impact.",
+    "Her mission is simple: To help people become the most confident, capable, and purposeful versions of themselves."
+  ],
   timeline: [
     "Management Consulting",
     "Banking",
@@ -201,7 +222,7 @@ export const FOUNDER = {
     "Leadership Development",
     "Lumina Advisory",
   ],
-  image: "/images/founder.jpg", // TODO: Replace with real image
+  image: "/images/founder.png",
 };
 
 export const MISSION_VISION = {
