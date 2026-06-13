@@ -1,23 +1,48 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SITE, FOUNDER } from "@/lib/data";
 
 /**
  * HeroSection
- * Home page hero. Full-height navy background with gold accents.
+ * Home page hero. Loop video background overlayed with navy glassmorphism.
  * - Primary CTA: Book Free Discovery Call → Calendly
  * - Secondary CTA: Work With Us → /services
  */
 export default function HeroSection() {
   return (
-    <section className="min-h-screen bg-[#0F172A] text-white flex items-center pt-20">
-      <div className="max-w-6xl mx-auto px-6 py-20 w-full grid md:grid-cols-2 gap-12 items-center">
+    <section className="relative min-h-screen bg-[#0F172A] text-white flex items-center pt-20 overflow-hidden">
+      {/* Background Video with Backdrop Overlay */}
+      <div className="absolute inset-0 overflow-hidden z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute min-w-full min-h-full object-cover opacity-20"
+        >
+          <source
+            src="https://assets.mixkit.co/videos/preview/mixkit-abstract-dark-blue-futuristic-waves-background-loop-42841-large.mp4"
+            type="video/mp4"
+          />
+        </video>
+        {/* Sleek mesh-like gradient mask */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#0F172A] via-[#0F172A]/90 to-[#0F172A]/40" />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full grid md:grid-cols-2 gap-12 items-center">
         {/* Text */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <p className="text-[#C9A227] font-semibold uppercase tracking-widest text-sm mb-4">
             Lumina Advisory
           </p>
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 font-heading">
             Where ambition meets intentional growth.
           </h1>
           <p className="text-white/70 text-lg leading-relaxed mb-10 max-w-lg">
@@ -33,10 +58,15 @@ export default function HeroSection() {
               Work With Us
             </Button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Founder Image */}
-        <div className="relative h-[480px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 hidden md:block">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="relative h-[480px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 hidden md:block"
+        >
           <Image
             src={FOUNDER.image}
             alt={FOUNDER.name}
@@ -45,7 +75,7 @@ export default function HeroSection() {
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
