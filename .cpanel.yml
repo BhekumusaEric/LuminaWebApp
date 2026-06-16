@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/YOUR_CPANEL_USERNAME/public_html
+    - export DEPLOYPATH=/home/luminale/public_html
     - /bin/rsync -av --delete lumina-advisory/out/ $DEPLOYPATH
