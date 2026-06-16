@@ -9,7 +9,7 @@
   --color-white: #FFFFFF;
 
   /* Typography */
-  --font-heading: var(--font-playfair);
+  --font-heading: var(--font-cormorant);
   --font-body: var(--font-inter);
 }
 
@@ -29,7 +29,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
 }
 
 /* Focus styles for accessibility */
