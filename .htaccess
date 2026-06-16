@@ -1,0 +1,22 @@
+# Disable directory listing
+Options -Indexes
+
+# Prevent Apache from automatically appending slashes when accessing directories
+DirectorySlash On
+
+# Set default document index
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Serve existing files/directories directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Fallback for routing
+  RewriteRule ^(.*)/$ $1/index.html [L]
+  RewriteRule ^(.*)$ $1/index.html [L]
+</IfModule>
