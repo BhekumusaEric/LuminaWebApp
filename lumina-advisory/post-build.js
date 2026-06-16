@@ -34,8 +34,26 @@ if (fs.existsSync(oldPath)) {
     // Clean up if newPath already exists from a previous run
     fs.rmSync(newPath, { recursive: true, force: true });
   }
-  fs.renameSync(oldPath, newPath);
-  console.log('Successfully renamed _next folder to next');
+  
+  let retries = 10;
+  let delay = 1000;
+  while (retries > 0) {
+    try {
+      fs.renameSync(oldPath, newPath);
+      console.log('Successfully renamed _next folder to next');
+      break;
+    } catch (err) {
+      if (err.code === 'EPERM' && retries > 1) {
+        console.warn(`Rename failed with EPERM. OneDrive/Windows file lock detected. Retrying in ${delay}ms... (${retries - 1} retries left)`);
+        retries--;
+        // Synchronous sleep
+        const limit = Date.now() + delay;
+        while (Date.now() < limit) {}
+      } else {
+        throw err;
+      }
+    }
+  }
 }
 
 console.log('Static export post-processing complete.');
