@@ -24,6 +24,11 @@ export const SITE = {
   web3forms: {
     accessKey: "", // TODO: Add Web3Forms access key from web3forms.com
   },
+  googleSheets: {
+    spreadsheetId: "", // TODO: Add Google Spreadsheet ID (from published link)
+    articlesGid: "0",     // GID of the Articles tab (usually 0 for the first sheet)
+    eventsGid: "",      // TODO: Add GID of the Events tab
+  },
 };
 
 export const NAV_LINKS = [

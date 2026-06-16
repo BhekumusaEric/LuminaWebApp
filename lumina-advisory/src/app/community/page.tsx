@@ -4,6 +4,7 @@ import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { Button } from "@/components/ui/Button";
 import { COMMUNITY_BENEFITS, SITE } from "@/lib/data";
 import { LucideIcon } from "@/components/ui/LucideIcon";
+import EventsList from "@/components/sections/EventsList";
 
 export const metadata: Metadata = {
   title: "Community",
@@ -13,9 +14,7 @@ export const metadata: Metadata = {
 
 /**
  * COMMUNITY PAGE
- * Events section: currently shows "Coming Soon".
- * When events are ready, add them to an EVENTS array in data.ts
- * and replace the placeholder below with event cards.
+ * Events list is loaded dynamically from Google Sheets.
  */
 export default function CommunityPage() {
   return (
@@ -56,14 +55,7 @@ export default function CommunityPage() {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Upcoming Events
         </h2>
-        {/* TODO: Replace this block with event cards once events are available.
-            Add events to an EVENTS array in src/lib/data.ts and map over them here. */}
-        <div className="text-center py-16 border border-white/10 rounded-2xl">
-          <p className="text-white/50 text-lg">Events Coming Soon</p>
-          <p className="text-white/30 text-sm mt-2">
-            Stay connected via WhatsApp for updates.
-          </p>
-        </div>
+        <EventsList />
       </SectionWrapper>
 
       {/* Final CTA */}
