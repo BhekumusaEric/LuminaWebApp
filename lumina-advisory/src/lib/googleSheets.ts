@@ -108,8 +108,8 @@ export async function fetchSheetData(spreadsheetId: string, gid: string): Promis
     return [];
   }
   const targetUrl = `https://docs.google.com/spreadsheets/d/e/${spreadsheetId}/pub?output=csv&gid=${gid}`;
-  // Use a reliable CORS proxy to prevent browser "Failed to fetch" (CORS) errors on client-side requests
-  const url = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+  // Use AllOrigins as a more reliable CORS proxy to prevent "Failed to fetch"
+  const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
   
   try {
     const response = await fetch(url);
