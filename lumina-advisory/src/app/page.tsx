@@ -6,7 +6,6 @@ import WhyLumina from "@/components/sections/WhyLumina";
 import ServicesOverview from "@/components/sections/ServicesOverview";
 import InsightsList from "@/components/sections/InsightsList";
 import CommunityCTA from "@/components/sections/CommunityCTA";
-import Testimonials from "@/components/sections/Testimonials";
 import FinalCTA from "@/components/sections/FinalCTA";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
@@ -49,7 +48,6 @@ export default function HomePage() {
         <InsightsList />
       </SectionWrapper>
       <CommunityCTA />
-      <Testimonials />
       <FinalCTA />
     </>
   );
