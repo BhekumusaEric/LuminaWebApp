@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/FadeIn";
 import { TESTIMONIALS } from "@/lib/data";
 
 /**
@@ -10,56 +9,42 @@ import { TESTIMONIALS } from "@/lib/data";
  */
 export default function Testimonials() {
   return (
-    <SectionWrapper dark>
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center mb-12"
-      >
-        <h2 className="text-3xl md:text-4xl font-bold text-white">
-          What People Are Saying
-        </h2>
-      </motion.div>
+    <section className="bg-white py-24 px-6">
+      <div className="max-w-6xl mx-auto">
+        <FadeIn className="text-center mb-16" yOffset={20}>
+          <p className="text-[#C9A227] text-xs font-bold uppercase tracking-widest">
+            WHAT CLIENTS SAY
+          </p>
+        </FadeIn>
 
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-40px" }}
-        variants={{
-          hidden: {},
-          visible: {
-            transition: { staggerChildren: 0.1 }
-          }
-        }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
-      >
-        {TESTIMONIALS.map((testimonial) => (
-          <motion.div
-            key={testimonial.id}
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-            }}
-            whileHover={{ y: -6, scale: 1.015, backgroundColor: "rgba(255, 255, 255, 0.08)" }}
-            className="bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col gap-4 transition-all duration-300"
-          >
-            {/* Star rating */}
-            <div className="flex gap-1">
-              {Array.from({ length: testimonial.rating }).map((_, i) => (
-                <span key={i} className="text-[#C9A227]">★</span>
-              ))}
-            </div>
-            <p className="text-white/80 text-sm leading-relaxed italic">
-              "{testimonial.quote}"
-            </p>
-            <p className="text-[#C9A227] text-sm font-semibold mt-auto">
-              {testimonial.author}
-            </p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </SectionWrapper>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {TESTIMONIALS.slice(0, 3).map((testimonial) => (
+            <StaggerItem key={testimonial.id} yOffset={20}>
+              <div
+                className="bg-white rounded-none p-10 border border-[#F0F0F0] shadow-sm hover:shadow-lg transition-all duration-300 relative flex flex-col h-full hover:-translate-y-1.5 hover:scale-[1.015]"
+              >
+                {/* Large Quote Mark */}
+                <div className="text-5xl text-[#C9A227] font-serif leading-none mb-4 opacity-80">
+                  &ldquo;
+                </div>
+                <p className="text-[#666666] text-[15px] leading-relaxed mb-6 flex-1 font-body">
+                  {testimonial.quote}
+                </p>
+                <p className="text-[#2D2D2D] text-xs font-bold font-body">
+                  &mdash; {testimonial.author}
+                </p>
+              </div>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+        
+        {/* Carousel Dots (Static representation as per mockup) */}
+        <div className="flex justify-center gap-2 mt-10">
+          <div className="w-8 h-1 bg-[#C9A227]"></div>
+          <div className="w-8 h-1 bg-[#D1D5DB]"></div>
+          <div className="w-8 h-1 bg-[#D1D5DB]"></div>
+        </div>
+      </div>
+    </section>
   );
 }

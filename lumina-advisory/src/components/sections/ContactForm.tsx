@@ -43,7 +43,7 @@ export default function ContactForm() {
   }
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-[#0F172A]/15 bg-white text-[#0F172A] text-sm placeholder:text-[#475569]/50 focus:outline-none focus:ring-2 focus:ring-[#C9A227]";
+    "w-full px-4 py-3 rounded-xl border border-[#2B2118]/15 bg-white text-[#2B2118] text-sm placeholder:text-[#475569]/50 focus:outline-none focus:ring-2 focus:ring-[#C9A227]";
 
   return (
     <div>
@@ -95,7 +95,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="bg-[#C9A227] text-[#0F172A] font-semibold px-6 py-3 rounded-xl hover:bg-[#b8911f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="bg-[#C9A227] text-[#2B2118] font-semibold px-6 py-3 rounded-xl hover:bg-[#b8911f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {status === "loading" ? "Sending…" : "Send Message"}
           </button>

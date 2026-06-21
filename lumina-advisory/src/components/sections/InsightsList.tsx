@@ -49,13 +49,13 @@ export default function InsightsList() {
         {[1, 2, 3].map((n) => (
           <div
             key={n}
-            className="animate-pulse bg-white rounded-2xl overflow-hidden border border-[#0F172A]/5 p-6"
+            className="animate-pulse bg-white rounded-none overflow-hidden border border-[#2B2118]/5 p-6"
           >
-            <div className="bg-[#0F172A]/5 h-44 rounded-xl mb-4" />
-            <div className="h-4 bg-[#0F172A]/10 rounded w-1/4 mb-3" />
-            <div className="h-6 bg-[#0F172A]/10 rounded w-3/4 mb-2" />
-            <div className="h-4 bg-[#0F172A]/5 rounded w-full mb-1" />
-            <div className="h-4 bg-[#0F172A]/5 rounded w-5/6" />
+            <div className="bg-[#2B2118]/5 h-44 rounded-none mb-4" />
+            <div className="h-4 bg-[#2B2118]/10 rounded w-1/4 mb-3" />
+            <div className="h-6 bg-[#2B2118]/10 rounded w-3/4 mb-2" />
+            <div className="h-4 bg-[#2B2118]/5 rounded w-full mb-1" />
+            <div className="h-4 bg-[#2B2118]/5 rounded w-5/6" />
           </div>
         ))}
       </div>
@@ -91,8 +91,8 @@ export default function InsightsList() {
     <>
       {/* Featured Article */}
       {featured && (
-        <div className="mb-16 bg-white rounded-2xl overflow-hidden shadow-sm border border-[#0F172A]/5">
-          <div className="bg-[#0F172A]/5 h-64 flex items-center justify-center">
+        <div className="mb-16 bg-white rounded-none overflow-hidden shadow-sm border border-[#2B2118]/5">
+          <div className="bg-[#2B2118]/5 h-64 flex items-center justify-center">
             {featured.image ? (
               <img
                 src={featured.image}
@@ -126,9 +126,9 @@ export default function InsightsList() {
             <a
               key={article.id}
               href={`/insights/${article.slug}`}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#0F172A]/5 hover:shadow-md transition-shadow group"
+              className="bg-white rounded-none overflow-hidden shadow-sm border border-[#2B2118]/5 hover:shadow-md transition-shadow group"
             >
-              <div className="bg-[#0F172A]/5 h-44 flex items-center justify-center overflow-hidden">
+              <div className="bg-[#2B2118]/5 h-44 flex items-center justify-center overflow-hidden">
                 {article.image ? (
                   <img
                     src={article.image}

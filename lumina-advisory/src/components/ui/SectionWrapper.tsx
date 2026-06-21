@@ -21,8 +21,8 @@ export function SectionWrapper({
   return (
     <section
       id={id}
-      className={`w-full px-6 py-16 md:py-24 ${
-        dark ? "bg-[#0F172A] text-white" : "bg-[#F8F7F4] text-[#0F172A]"
+      className={`w-full px-6 py-20 md:py-32 border-t ${
+        dark ? "bg-wood bg-[#2B2118] text-white border-white/5" : "bg-[#F8F7F4] text-[#2D2D2D] border-[#2B2118]/5"
       } ${className}`}
     >
       <div className="max-w-6xl mx-auto">{children}</div>

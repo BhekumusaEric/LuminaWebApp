@@ -2,7 +2,8 @@
 
 @theme inline {
   /* Brand Colors */
-  --color-navy: #0F172A;
+  --color-navy: #2B2118;
+  --color-dark-brown: #2B2118;
   --color-gold: #C9A227;
   --color-ivory: #F8F7F4;
   --color-slate: #475569;
@@ -29,7 +30,7 @@ html {
 
 body {
   background-color: #F8F7F4;
-  color: #0F172A;
+  color: #2D2D2D;
   font-family: var(--font-inter), system-ui, sans-serif;
   max-width: 100%;
   overflow-x: hidden;
@@ -43,4 +44,19 @@ h1, h2, h3, h4, h5, h6 {
 :focus-visible {
   outline: 2px solid #C9A227;
   outline-offset: 2px;
+}
+
+/* Premium Wood Texture Background (Glossy Boardroom Finish) */
+.bg-wood {
+  background-color: #2B2118;
+  background-image: 
+    /* 1. Glossy spotlight reflection (the 'finish' sheen) */
+    radial-gradient(ellipse at 50% 0%, rgba(201, 162, 39, 0.15) 0%, transparent 70%),
+    /* 2. Deep vignette to keep text readable and edges rich */
+    radial-gradient(circle at 50% 50%, rgba(20, 15, 10, 0.4) 0%, rgba(20, 15, 10, 0.95) 100%),
+    /* 3. Highly pronounced, wavy wood grain texture */
+    url('https://images.unsplash.com/photo-1588693899748-038202d59160?q=80&w=2070&auto=format&fit=crop');
+  background-blend-mode: screen, normal, overlay;
+  background-size: 100% 100%, cover, cover;
+  background-position: center, center, center;
 }

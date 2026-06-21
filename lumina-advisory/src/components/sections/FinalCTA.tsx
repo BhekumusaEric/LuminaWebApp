@@ -10,34 +10,36 @@ import { SITE } from "@/lib/data";
  */
 export default function FinalCTA() {
   return (
-    <section className="relative py-24 bg-[#0F172A] overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0 opacity-15">
-        <Image
-          src="/images/stock/image7.jpeg"
-          alt="Growth and Ambition Skyscrapers"
-          fill
-          className="object-cover filter grayscale contrast-125"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-[#0F172A]/85 to-[#0F172A]" />
-      </div>
+    <section className="bg-wood bg-[#2B2118] py-16 px-6 border-b border-white/10 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[#2B2118]/40 z-0" />
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+        
+        {/* Left Side: Logo & Text */}
+        <div className="flex items-center gap-6">
+          {/* Logo Icon Placeholder */}
+          <div className="text-[#C9A227] hidden md:block">
+            <svg width="48" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22v-6M12 16a4 4 0 0 0-4-4M12 16a4 4 0 0 1 4-4M8 12a4 4 0 0 0-4-4M16 12a4 4 0 0 1 4-4M4 8a4 4 0 0 1 4-4M20 8a4 4 0 0 0-4-4" />
+            </svg>
+          </div>
+          <div className="text-left">
+            <h2 className="text-[#C9A227] font-heading text-4xl md:text-5xl font-bold mb-4">
+              Let's start the conversation.
+            </h2>
+            <p className="text-white/80 font-body text-[15px] max-w-xl leading-loose">
+              Whether you're looking for a facilitator, speaker, leadership partner,
+              or development consultant, we'd love to hear from you.
+            </p>
+          </div>
+        </div>
 
-      <div className="relative z-10 text-center max-w-2xl mx-auto px-6">
-        <p className="text-[#C9A227] font-semibold uppercase tracking-widest text-xs mb-4">
-          Take Action
-        </p>
-        <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight font-heading">
-          Growth starts with one intentional step.
-        </h2>
-        <div className="flex flex-wrap justify-center gap-4">
+        {/* Right Side: Button */}
+        <div className="flex-shrink-0 mt-6 md:mt-0">
           <Button href={SITE.calendly} variant="primary" external>
-            Book Discovery Call
-          </Button>
-          <Button href="/contact" variant="outline">
-            Contact Us
+            SCHEDULE A DISCOVERY CALL
           </Button>
         </div>
+
       </div>
     </section>
   );

@@ -6,56 +6,97 @@ import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { FOUNDER } from "@/lib/data";
 
+import { Button } from "@/components/ui/Button";
+
 /**
- * FounderIntro
- * Brief founder introduction on the home page.
- * Portrait slides in from left, text details slide in from right.
+ * FounderIntro (now About & Founder combo)
+ * 3-column layout on desktop: About Text | Founder Image | Founder Text
  */
 export default function FounderIntro() {
   return (
-    <SectionWrapper>
-      <div className="grid md:grid-cols-2 gap-12 items-center overflow-hidden">
-        {/* Founder Portrait */}
+    <section className="bg-[#F8F7F4] py-24 px-6">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 items-center">
+        
+        {/* Left Column: About */}
         <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative h-96 w-full rounded-2xl overflow-hidden shadow-lg border border-[#0F172A]/10"
+          className="flex flex-col"
         >
+          <p className="text-[#C9A227] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">
+            ABOUT LUMINA ADVISORY
+          </p>
+          <h2 className="text-5xl md:text-6xl font-heading text-[#2D2D2D] mb-6 leading-tight">
+            Empowering meaningful transformation.
+          </h2>
+          <p className="text-[#666666] leading-relaxed mb-8 font-body">
+            We are a boutique leadership and development consultancy
+            focused on empowering individuals, teams, and organisations
+            through intentional growth, leadership development, and
+            people-centred transformation.
+          </p>
+          <Link
+            href="/about"
+            className="text-[#C9A227] text-xs font-bold uppercase tracking-widest hover:text-[#b8911f] transition-colors flex items-center gap-2 w-fit"
+          >
+            LEARN MORE ABOUT US <span className="text-lg leading-none">→</span>
+          </Link>
+        </motion.div>
+
+        {/* Center Column: Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="relative h-[450px] md:h-[600px] w-full"
+        >
+          {/* We use object-contain and bottom-0 to have the portrait rest on the bottom like the mockup */}
           <Image
             src={FOUNDER.image}
             alt={FOUNDER.name}
             fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover md:object-contain object-bottom"
+            sizes="(max-width: 768px) 100vw, 33vw"
           />
         </motion.div>
 
-        {/* Content */}
+        {/* Right Column: Founder */}
         <motion.div
-          initial={{ opacity: 0, x: 60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+          className="flex flex-col"
         >
-          <p className="text-[#C9A227] font-semibold uppercase tracking-widest text-sm mb-3">
-            Meet the Founder
+          <p className="text-[#C9A227] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">
+            THE FOUNDER
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-1 text-[#0F172A]">{FOUNDER.name}</h2>
-          <p className="text-[#475569] mb-1">{FOUNDER.title}</p>
-          <p className="text-[#C9A227] font-medium mb-6">{FOUNDER.qualifications}</p>
-          <p className="text-[#475569] leading-relaxed mb-8 text-sm">
-            {FOUNDER.shortBio}
+          <h2 className="text-5xl md:text-6xl font-heading text-[#2D2D2D] mb-6 leading-tight">
+            I’m passionate about seeing people win.
+          </h2>
+          <p className="text-[#666666] leading-relaxed mb-4 font-body">
+            Yolandi is a leadership and development professional,
+            facilitator, consultant, and entrepreneur with a passion
+            for helping individuals and organisations unlock their
+            full potential.
           </p>
-          <Link
-            href="/about"
-            className="text-[#0F172A] font-semibold border-b-2 border-[#C9A227] pb-0.5 hover:text-[#C9A227] transition-colors"
-          >
-            Read More →
-          </Link>
+          <p className="text-[#666666] leading-relaxed mb-8 font-body">
+            With extensive experience in consulting, banking,
+            leadership development, and strategic transformation,
+            she brings a unique blend of corporate expertise and
+            people-centred insight to every engagement.
+          </p>
+          <div>
+            <Button href="/about" variant="outline">
+              READ YOLANDI'S FULL STORY
+            </Button>
+          </div>
         </motion.div>
+
       </div>
-    </SectionWrapper>
+    </section>
   );
 }

@@ -1,45 +1,44 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SITE } from "@/lib/data";
 
 /**
- * CommunityCTA
- * Mid-page banner encouraging visitors to join the WhatsApp Community.
- * Community link is set in SITE.whatsapp.communityLink (data.ts).
+ * CommunityCTA & Why Partner Split Section
  */
 export default function CommunityCTA() {
   return (
-    <SectionWrapper>
-      <div className="bg-[#0F172A] rounded-3xl overflow-hidden grid md:grid-cols-2 max-w-5xl mx-auto items-center shadow-xl border border-white/5">
-        {/* Content */}
-        <div className="p-8 md:p-12 text-left">
-          <p className="text-[#C9A227] font-semibold uppercase tracking-widest text-xs mb-3">
-            Lumina Network
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight font-heading">
-            Join the Lumina Community
-          </h2>
-          <p className="text-white/70 mb-8 text-base leading-relaxed">
-            Grow intentionally alongside ambitious professionals. Gain access to shared insights, networking opportunities, and resources designed to support your development journey.
-          </p>
-          <Button href={SITE.whatsapp.communityLink} variant="primary" external>
-            Join WhatsApp Community
-          </Button>
-        </div>
-        {/* Image */}
-        <div className="relative h-64 md:h-full min-h-[320px] w-full">
-          <Image
-            src="/images/stock/image6.jpeg"
-            alt="Lumina Community Professionals collaborating"
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-          {/* Soft gradient overlay on image */}
-          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0F172A] via-transparent to-transparent" />
-        </div>
+    <section className="relative w-full min-h-[500px] bg-[#2B2118] flex items-center justify-center p-12 md:py-32 overflow-hidden border-t border-white/5">
+      {/* Background Image with Overlay */}
+      <Image
+        src="/images/stock/image6.jpeg"
+        alt="Lumina Community Background"
+        fill
+        className="object-cover opacity-40 grayscale"
+        sizes="100vw"
+      />
+      <div className="absolute inset-0 bg-[#2B2118]/70 mix-blend-multiply" />
+      
+      <div className="relative z-10 max-w-3xl w-full flex flex-col items-center text-center">
+        <p className="text-[#C9A227] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">
+          JOIN THE LUMINA COMMUNITY
+        </p>
+        <h2 className="text-5xl md:text-6xl font-heading text-white mb-8 leading-tight">
+          A community for growth, connection and inspiration.
+        </h2>
+        
+        <ul className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-12">
+          {["Career conversations", "Live development sessions", "Leadership insights", "Networking opportunities", "Growth resources"].map((item, i) => (
+            <li key={i} className="flex items-center gap-3 text-white">
+              <span className="text-[#C9A227] font-bold">✓</span>
+              <span className="font-medium text-[15px]">{item}</span>
+            </li>
+          ))}
+        </ul>
+        
+        <Button href={SITE.whatsapp.communityLink} variant="primary" external>
+          JOIN THE COMMUNITY
+        </Button>
       </div>
-    </SectionWrapper>
+    </section>
   );
 }

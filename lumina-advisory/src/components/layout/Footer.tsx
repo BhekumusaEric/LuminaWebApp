@@ -10,8 +10,9 @@ import { NAV_LINKS, SITE } from "@/lib/data";
  */
 export default function Footer() {
   return (
-    <footer className="bg-[#0F172A] text-white px-6 py-14">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+    <footer className="bg-wood bg-[#2B2118] text-white px-6 py-14 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[#2B2118]/80 z-0" />
+      <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Brand */}
         <div>
           <Link href="/" className="flex items-center gap-1.5 mb-3 group inline-flex">

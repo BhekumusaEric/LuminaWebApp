@@ -33,12 +33,12 @@ export default function CommunityPage() {
           {COMMUNITY_BENEFITS.map((benefit) => (
             <div
               key={benefit.title}
-              className="bg-white rounded-2xl p-6 shadow-sm border border-[#0F172A]/5 flex items-start gap-4"
+              className="bg-white rounded-none p-6 shadow-sm border border-[#2B2118]/5 flex items-start gap-4"
             >
               <div className="text-[#C9A227] shrink-0 mt-0.5">
                 <LucideIcon name={benefit.icon} size={28} />
               </div>
-              <p className="font-semibold text-[#0F172A]">{benefit.title}</p>
+              <p className="font-semibold text-[#2B2118]">{benefit.title}</p>
             </div>
           ))}
         </div>

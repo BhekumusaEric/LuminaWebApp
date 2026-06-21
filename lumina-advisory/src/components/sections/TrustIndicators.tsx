@@ -1,43 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/FadeIn";
 import { TRUST_INDICATORS } from "@/lib/data";
 
 /**
  * TrustIndicators
- * Horizontal strip of trust badges with staggered scroll reveals.
- * Update indicators in src/lib/data.ts → TRUST_INDICATORS array.
+ * Statistics or metrics that build credibility, displayed in a simple flex/grid.
  */
 export default function TrustIndicators() {
   return (
-    <section className="bg-[#C9A227] py-6 px-6">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-30px" }}
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1 }
-          }
-        }}
-        className="max-w-6xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10"
+    <section className="bg-white border-y border-black/5 py-12 px-6">
+      <StaggerContainer
+        className="max-w-6xl mx-auto flex flex-wrap justify-center gap-8 md:gap-16"
+        staggerDelay={0.1}
       >
         {TRUST_INDICATORS.map((item) => (
-          <motion.div
+          <StaggerItem
             key={item.label}
-            variants={{
-              hidden: { opacity: 0, y: 15 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-            }}
+            yOffset={10}
             className="flex items-center gap-2"
           >
-            <span className="text-[#0F172A] font-bold text-base">✓</span>
-            <span className="text-[#0F172A] font-semibold text-sm">{item.label}</span>
-          </motion.div>
+            <span className="text-[#2B2118] font-bold text-base">✓</span>
+            <span className="text-[#2B2118] font-semibold text-sm">{item.label}</span>
+          </StaggerItem>
         ))}
-      </motion.div>
+      </StaggerContainer>
     </section>
   );
 }

@@ -47,14 +47,14 @@ export default function EventsList() {
         {[1, 2, 3].map((n) => (
           <div
             key={n}
-            className="animate-pulse bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
+            className="animate-pulse bg-white/5 border border-white/10 rounded-none p-6 flex flex-col gap-4"
           >
-            <div className="h-4 bg-white/10 rounded w-1/3 mb-2" />
-            <div className="h-6 bg-white/20 rounded w-3/4 mb-1" />
-            <div className="h-4 bg-white/10 rounded w-1/2 mb-2" />
-            <div className="h-4 bg-white/5 rounded w-full mb-1" />
-            <div className="h-4 bg-white/5 rounded w-5/6 mb-4" />
-            <div className="h-10 bg-white/20 rounded w-full" />
+            <div className="h-4 bg-white/10 rounded-none w-1/3 mb-2" />
+            <div className="h-6 bg-white/20 rounded-none w-3/4 mb-1" />
+            <div className="h-4 bg-white/10 rounded-none w-1/2 mb-2" />
+            <div className="h-4 bg-white/5 rounded-none w-full mb-1" />
+            <div className="h-4 bg-white/5 rounded-none w-5/6 mb-4" />
+            <div className="h-10 bg-white/20 rounded-none w-full" />
           </div>
         ))}
       </div>
@@ -74,8 +74,8 @@ export default function EventsList() {
 
   if (events.length === 0) {
     return (
-      <div className="text-center py-16 border border-white/10 rounded-2xl">
-        <p className="text-white/50 text-lg">Events Coming Soon</p>
+      <div className="text-center py-16 border border-white/10 rounded-none">
+        <p className="text-white/50 text-lg font-heading">Events Coming Soon</p>
         <p className="text-white/30 text-sm mt-2">
           Stay connected via WhatsApp for updates.
         </p>
@@ -93,10 +93,10 @@ export default function EventsList() {
         return (
           <div
             key={event.id}
-            className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300 flex flex-col justify-between"
+            className="bg-white/5 border border-white/10 rounded-none p-6 hover:border-white/20 transition-all duration-500 flex flex-col justify-between group"
           >
             <div>
-              <div className="flex items-center gap-2 text-xs text-[#C9A227] font-semibold uppercase tracking-wider mb-3">
+              <div className="flex items-center gap-2 text-xs text-[#C9A227] font-semibold uppercase tracking-widest mb-4">
                 <span>{event.date}</span>
                 {event.time && (
                   <>
@@ -105,13 +105,13 @@ export default function EventsList() {
                   </>
                 )}
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{event.title}</h3>
+              <h3 className="text-2xl font-heading font-bold text-white mb-3 group-hover:text-[#C9A227] transition-colors">{event.title}</h3>
               {event.location && (
-                <p className="text-white/50 text-xs mb-3 flex items-center gap-1">
+                <p className="text-white/50 text-xs mb-4 flex items-center gap-1 uppercase tracking-wider">
                   <span>📍</span> {event.location}
                 </p>
               )}
-              <p className="text-white/70 text-sm leading-relaxed mb-6 whitespace-pre-line">
+              <p className="text-white/70 text-sm leading-loose mb-8 whitespace-pre-line">
                 {event.description}
               </p>
             </div>
@@ -119,7 +119,7 @@ export default function EventsList() {
               href={rsvpLink}
               target={isExternal ? "_blank" : undefined}
               rel={isExternal ? "noopener noreferrer" : undefined}
-              className="inline-flex items-center justify-center bg-white text-[#0F172A] font-semibold text-sm px-5 py-2.5 rounded-xl hover:bg-white/90 transition-colors mt-auto w-full text-center"
+              className="inline-flex items-center justify-center bg-white text-[#2B2118] font-semibold text-xs tracking-widest uppercase px-5 py-3.5 rounded-none hover:bg-[#C9A227] hover:text-white transition-colors mt-auto w-full text-center"
             >
               RSVP & Join
             </a>

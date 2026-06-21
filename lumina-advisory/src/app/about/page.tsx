@@ -50,7 +50,7 @@ export default function AboutPage() {
             </p>
           </div>
           {/* Company Image */}
-          <div className="relative h-72 md:h-80 rounded-2xl overflow-hidden shadow-md border border-[#0F172A]/10">
+          <div className="relative h-72 md:h-80 rounded-none overflow-hidden shadow-md border border-[#2B2118]/10">
             <Image
               src="/images/stock/image12.jpeg"
               alt="Lumina Advisory - Who We Are"
@@ -87,7 +87,7 @@ export default function AboutPage() {
       <SectionWrapper>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Founder Portrait */}
-          <div className="relative h-96 w-full rounded-2xl overflow-hidden shadow-lg border border-[#0F172A]/10 order-1 md:order-none">
+          <div className="relative h-96 w-full rounded-none overflow-hidden shadow-lg border border-[#2B2118]/10 order-1 md:order-none">
             <Image
               src={FOUNDER.image}
               alt={FOUNDER.name}
@@ -115,7 +115,7 @@ export default function AboutPage() {
 
             {/* Career Timeline */}
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wider text-[#0F172A] mb-4">
+              <p className="text-sm font-semibold uppercase tracking-wider text-[#2B2118] mb-4">
                 Career Journey
               </p>
               <ol className="flex flex-col gap-3">

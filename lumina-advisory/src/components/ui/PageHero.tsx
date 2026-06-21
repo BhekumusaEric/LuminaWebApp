@@ -9,9 +9,9 @@ interface PageHeroProps {
 
 export function PageHero({ headline, subheading }: PageHeroProps) {
   return (
-    <section className="relative w-full bg-[#0F172A] text-white px-6 py-20 md:py-28 overflow-hidden">
-      {/* Subtle executive background glow */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A] via-[#0F172A] to-[#1E293B]/40 z-0" />
+    <section className="relative w-full bg-wood bg-[#2B2118] text-white px-6 py-20 md:py-28 overflow-hidden">
+      {/* Dynamic Gradient Overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#2B2118]/80 via-[#2B2118]/50 to-black/20 z-0" />
 
       <motion.div
         initial={{ opacity: 0, y: -20 }}

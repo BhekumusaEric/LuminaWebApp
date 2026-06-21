@@ -31,7 +31,7 @@ export default function ServicesPage() {
               <p className="text-4xl mb-4">{service.icon}</p>
               <h2
                 className={`text-3xl font-bold mb-4 ${
-                  index % 2 !== 0 ? "text-white" : "text-[#0F172A]"
+                  index % 2 !== 0 ? "text-white" : "text-[#2B2118]"
                 }`}
               >
                 {service.title}
@@ -53,7 +53,7 @@ export default function ServicesPage() {
             <div>
               <p
                 className={`text-sm font-semibold uppercase tracking-wider mb-4 ${
-                  index % 2 !== 0 ? "text-[#C9A227]" : "text-[#0F172A]"
+                  index % 2 !== 0 ? "text-[#C9A227]" : "text-[#2B2118]"
                 }`}
               >
                 What We Offer

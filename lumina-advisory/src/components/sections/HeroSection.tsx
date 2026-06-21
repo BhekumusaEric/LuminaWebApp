@@ -13,52 +13,52 @@ import { SITE, FOUNDER } from "@/lib/data";
  */
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-[#0F172A] text-white flex items-center pt-20 overflow-hidden">
-      {/* Background Video with Backdrop Overlay */}
-      <div className="absolute inset-0 overflow-hidden z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute min-w-full min-h-full object-cover opacity-70"
-        >
-          <source
-            src="https://cdn.pixabay.com/video/2016/02/29/2340-157269921_large.mp4"
-            type="video/mp4"
-          />
-        </video>
-        {/* Sleek top-to-bottom gradient overlay to preserve text readability and blend headers/footers */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/80 via-[#0F172A]/50 to-[#0F172A]/90" />
-      </div>
+    <section className="relative min-h-screen bg-[#F8F7F4] flex items-center pt-20">
+      {/* Optional: subtle background gradient/shape on the left */}
+      <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-br from-white/50 to-transparent z-0" />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 py-20 w-full text-center flex flex-col items-center justify-center">
-        {/* Text */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 w-full flex flex-col md:flex-row items-center justify-between gap-12">
+        {/* Left Side: Text */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col items-center"
+          className="flex-1 flex flex-col items-start text-left"
         >
-          <p className="text-[#C9A227] font-semibold uppercase tracking-widest text-sm mb-4">
-            Lumina Advisory
-          </p>
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 font-heading max-w-3xl">
-            Where ambition meets intentional growth.
+          <h1 className="text-5xl md:text-7xl font-heading text-[#2D2D2D] leading-tight mb-8">
+            Developing <span className="text-[#C9A227]">people.</span><br />
+            Strengthening <span className="text-[#C9A227]">leaders.</span><br />
+            Transforming <span className="text-[#C9A227]">organisations.</span>
           </h1>
-          <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
-            A growth-focused consultancy supporting individuals and organisations
-            through career growth, strategic advisory, leadership development,
-            facilitation, and meaningful transformation.
+          <p className="text-[#666666] text-[15px] leading-loose mb-12 max-w-xl font-body">
+            Lumina Advisory partners with individuals, teams, and
+            organisations to unlock potential, strengthen leadership,
+            and drive meaningful transformation.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Button href={SITE.calendly} variant="primary" external>
-              Book Free Discovery Call
+          <div className="flex flex-wrap gap-4">
+            <Button href="/contact" variant="primary">
+              WORK WITH US
             </Button>
             <Button href="/services" variant="outline">
-              Work With Us
+              EXPLORE SERVICES
             </Button>
           </div>
+        </motion.div>
+
+        {/* Right Side: Image */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="flex-1 w-full relative h-[500px] md:h-[700px] rounded-none overflow-hidden shadow-2xl before:absolute before:inset-0 before:bg-[#2B2118]/10 before:z-10"
+        >
+          {/* Placeholder image resembling the mockup (workshop/presentation) */}
+          <Image
+            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop"
+            alt="Lumina Advisory Workshop"
+            fill
+            className="object-cover"
+          />
         </motion.div>
       </div>
     </section>

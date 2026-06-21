@@ -39,8 +39,22 @@ export const metadata: Metadata = {
       "Growth-focused consultancy supporting individuals and organisations through career, leadership, and personal development.",
     url: "https://luminalegacy.co.za",
     siteName: "Lumina Advisory",
+    images: [
+      {
+        url: "/images/stock/image1.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Lumina Advisory - Leadership & Career Development",
+      },
+    ],
     locale: "en_ZA",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lumina Advisory | Leadership & Career Development",
+    description: "Growth-focused consultancy supporting individuals and organisations.",
+    images: ["/images/stock/image1.jpeg"],
   },
   robots: { index: true, follow: true },
 };

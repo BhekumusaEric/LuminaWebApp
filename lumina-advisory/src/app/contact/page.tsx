@@ -36,7 +36,7 @@ export default function ContactPage() {
                 </p>
                 <a
                   href={SITE.phoneLink}
-                  className="text-[#475569] hover:text-[#0F172A] transition-colors"
+                  className="text-[#475569] hover:text-[#2B2118] transition-colors"
                 >
                   {SITE.phone}
                 </a>
@@ -47,7 +47,7 @@ export default function ContactPage() {
                 </p>
                 <a
                   href={`mailto:${SITE.email}`}
-                  className="text-[#475569] hover:text-[#0F172A] transition-colors"
+                  className="text-[#475569] hover:text-[#2B2118] transition-colors"
                 >
                   {SITE.email}
                 </a>
@@ -66,7 +66,7 @@ export default function ContactPage() {
                   href={SITE.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#475569] hover:text-[#0F172A] transition-colors"
+                  className="text-[#475569] hover:text-[#2B2118] transition-colors"
                 >
                   Lumina Advisory on LinkedIn
                 </a>
@@ -74,7 +74,7 @@ export default function ContactPage() {
             </ul>
 
             {/* WhatsApp CTA */}
-            <div className="mt-12 bg-[#0F172A] rounded-2xl p-6">
+            <div className="mt-12 bg-[#2B2118] rounded-2xl p-6">
               <p className="text-white font-semibold mb-2">Prefer WhatsApp?</p>
               <p className="text-white/60 text-sm mb-4">
                 Chat directly with us — we typically respond within a few hours.

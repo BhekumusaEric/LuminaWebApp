@@ -1,4 +1,38 @@
-import * as LucideIcons from "lucide-react";
+import {
+  Target,
+  BookOpen,
+  Mic,
+  Briefcase,
+  Users,
+  Award,
+  Sparkles,
+  HeartHandshake,
+  TrendingUp,
+  RefreshCw,
+  Heart,
+  MessageSquare,
+  Globe,
+  Compass,
+  Layers,
+} from "lucide-react";
+
+const iconMap: Record<string, React.ElementType> = {
+  Target,
+  BookOpen,
+  Mic,
+  Briefcase,
+  Users,
+  Award,
+  Sparkles,
+  HeartHandshake,
+  TrendingUp,
+  RefreshCw,
+  Heart,
+  MessageSquare,
+  Globe,
+  Compass,
+  Layers,
+};
 
 interface LucideIconProps {
   name: string;
@@ -7,7 +41,7 @@ interface LucideIconProps {
 }
 
 export function LucideIcon({ name, className, size = 24 }: LucideIconProps) {
-  const IconComponent = (LucideIcons as any)[name];
+  const IconComponent = iconMap[name];
   if (!IconComponent) {
     // Fallback if icon name is incorrect or not found
     return null;

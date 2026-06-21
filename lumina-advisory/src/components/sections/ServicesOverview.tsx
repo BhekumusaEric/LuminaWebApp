@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/FadeIn";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SERVICES } from "@/lib/data";
 import { LucideIcon } from "@/components/ui/LucideIcon";
+import { Button } from "@/components/ui/Button";
 
 /**
  * ServicesOverview
@@ -13,58 +15,47 @@ import { LucideIcon } from "@/components/ui/LucideIcon";
  */
 export default function ServicesOverview() {
   return (
-    <SectionWrapper>
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center mb-12"
-      >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#0F172A]">How We Support Growth</h2>
-        <p className="text-[#475569] max-w-xl mx-auto">
-          Tailored services for individuals and organisations at every stage of their journey.
-        </p>
-      </motion.div>
+    <section className="bg-[#F8F7F4] py-24 px-6">
+      <div className="max-w-[1400px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center mb-16 flex flex-col items-center"
+        >
+          <p className="text-[#C9A227] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">
+            WHAT WE DO
+          </p>
+          <h2 className="text-5xl md:text-6xl font-heading text-[#2D2D2D]">
+            Solutions that empower growth and drive results.
+          </h2>
+        </motion.div>
 
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-40px" }}
-        variants={{
-          hidden: {},
-          visible: {
-            transition: { staggerChildren: 0.1 }
-          }
-        }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        {SERVICES.map((service) => (
-          <motion.div
-            key={service.id}
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-            }}
-            whileHover={{ y: -6, scale: 1.015, borderColor: "rgba(201, 162, 39, 0.3)" }}
-            className="bg-white rounded-2xl p-6 border border-[#0F172A]/5 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col"
-          >
-            <div className="text-[#C9A227] mb-4">
-              <LucideIcon name={service.icon} size={32} />
-            </div>
-            <h3 className="text-lg font-bold mb-2 text-[#0F172A]">{service.title}</h3>
-            <p className="text-[#475569] text-sm leading-relaxed flex-1 mb-6">
-              {service.shortDescription}
-            </p>
-            <Link
-              href={`/services#${service.id}`}
-              className="text-[#C9A227] text-sm font-semibold hover:underline mt-auto self-start"
-            >
-              Learn More →
-            </Link>
-          </motion.div>
-        ))}
-      </motion.div>
-    </SectionWrapper>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {SERVICES.map((service) => (
+            <StaggerItem key={service.id} yOffset={20}>
+              <div
+                className="bg-white rounded-none p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-lg transition-all duration-500 flex flex-col items-center text-center h-full hover:scale-[1.01]"
+              >
+                <div className="text-[#C9A227] mb-6 flex items-center justify-center">
+                  <LucideIcon name={service.icon} size={32} />
+                </div>
+                <h3 className="text-xl font-heading font-bold mb-4 text-[#2D2D2D]">{service.title}</h3>
+                <p className="text-[#666666] text-sm leading-relaxed flex-1 font-body">
+                  {service.shortDescription}
+                </p>
+              </div>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+
+        <div className="flex justify-center">
+          <Button href="/services" variant="outline">
+            VIEW ALL SERVICES
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 }
