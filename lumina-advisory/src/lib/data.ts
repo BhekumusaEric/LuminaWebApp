@@ -25,9 +25,9 @@ export const SITE = {
     accessKey: "", // TODO: Add Web3Forms access key from web3forms.com
   },
   googleSheets: {
-    spreadsheetId: "", // TODO: Add Google Spreadsheet ID (from published link)
-    articlesGid: "0",     // GID of the Articles tab (usually 0 for the first sheet)
-    eventsGid: "",      // TODO: Add GID of the Events tab
+    spreadsheetId: "2PACX-1vR1LcScz_C6XnwFVPPZjkGPXtz9tTy9x4Dsby0lC8mhOFB56vU8DtN7GK9X5qWz-rxwTZ0CIzJbcVAT", // Linked to user's Google Sheet
+    articlesGid: "0",     // GID of the Insights tab
+    eventsGid: "",      // TODO: Add GID of the Events tab when created
   },
 };
 
