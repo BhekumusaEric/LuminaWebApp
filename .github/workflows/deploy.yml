@@ -33,6 +33,8 @@ jobs:
 
       - name: Build static export
         working-directory: lumina-advisory
+        env:
+          NEXT_PUBLIC_BASE_PATH: /LuminaWebApp
         run: npm run build
 
       - name: Deploy to gh-pages branch
