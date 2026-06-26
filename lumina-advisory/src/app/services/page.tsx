@@ -3,6 +3,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { Button } from "@/components/ui/Button";
 import { SERVICES, SITE } from "@/lib/data";
+import { LucideIcon } from "@/components/ui/LucideIcon";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -28,7 +29,9 @@ export default function ServicesPage() {
         <SectionWrapper key={service.id} dark={index % 2 !== 0}>
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div>
-              <p className="text-4xl mb-4">{service.icon}</p>
+              <div className="text-[#C9A227] mb-4">
+                <LucideIcon name={service.icon} size={36} />
+              </div>
               <h2
                 className={`text-3xl font-bold mb-4 ${
                   index % 2 !== 0 ? "text-white" : "text-[#2B2118]"
