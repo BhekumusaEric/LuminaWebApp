@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[95288,["/next/static/chunks/1g-jqw39gyjet.js","/next/static/chunks/0-6xoo7b9jyji.js","/next/static/chunks/30dfvlqz2qgkk.js","/next/static/chunks/0pi3_0gr_ag5n.js"],"PageHero"]
-3:I[71111,["/next/static/chunks/1g-jqw39gyjet.js","/next/static/chunks/0-6xoo7b9jyji.js","/next/static/chunks/30dfvlqz2qgkk.js","/next/static/chunks/0pi3_0gr_ag5n.js"],"default"]
-4:I[32853,["/next/static/chunks/1g-jqw39gyjet.js","/next/static/chunks/0-6xoo7b9jyji.js","/next/static/chunks/30dfvlqz2qgkk.js"],"OutletBoundary"]
+2:I[95288,["/next/static/chunks/1behkxv-jedzp.js","/next/static/chunks/0-6xoo7b9jyji.js","/next/static/chunks/30dfvlqz2qgkk.js","/next/static/chunks/1cau-aubv2-z9.js"],"PageHero"]
+3:I[71111,["/next/static/chunks/1behkxv-jedzp.js","/next/static/chunks/0-6xoo7b9jyji.js","/next/static/chunks/30dfvlqz2qgkk.js","/next/static/chunks/1cau-aubv2-z9.js"],"default"]
+4:I[32853,["/next/static/chunks/1behkxv-jedzp.js","/next/static/chunks/0-6xoo7b9jyji.js","/next/static/chunks/30dfvlqz2qgkk.js"],"OutletBoundary"]
 5:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[[["$","$L2",null,{"headline":"Insights for intentional growth."}],["$","section",null,{"className":"w-full px-6 py-20 md:py-32 border-t bg-[#F8F7F4] text-[#2D2D2D] border-[#2B2118]/5 ","children":["$","div",null,{"className":"max-w-6xl mx-auto","children":["$","$L3",null,{}]}]}]],[["$","script","script-0",{"src":"/next/static/chunks/0pi3_0gr_ag5n.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"laLitigtBHJmr6IpdEl4o"}
+0:{"rsc":["$","$1","c",{"children":[[["$","$L2",null,{"headline":"Insights for intentional growth."}],["$","section",null,{"className":"w-full px-6 py-20 md:py-32 border-t bg-[#F8F7F4] text-[#2D2D2D] border-[#2B2118]/5 ","children":["$","div",null,{"className":"max-w-6xl mx-auto","children":["$","$L3",null,{}]}]}]],[["$","script","script-0",{"src":"/next/static/chunks/1cau-aubv2-z9.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"9FKhM4SlCgGBnVW04J8Q7"}
 6:null
