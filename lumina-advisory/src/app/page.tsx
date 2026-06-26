@@ -8,6 +8,7 @@ import InsightsList from "@/components/sections/InsightsList";
 import CommunityCTA from "@/components/sections/CommunityCTA";
 import FinalCTA from "@/components/sections/FinalCTA";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { ScrollSnapController } from "@/components/ui/ScrollSnapController";
 
 export const metadata: Metadata = {
   title: "Lumina Advisory | Leadership & Career Development South Africa",
@@ -18,37 +19,64 @@ export const metadata: Metadata = {
 /**
  * HOME PAGE
  * Sections (in order):
- * 1. Hero
- * 2. Trust Indicators
- * 3. About & Founder
- * 4. Why Partner With Us
- * 5. Services Overview
- * 6. Insights
- * 7. Community CTA
- * 8. Testimonials
- * 9. Final CTA
+ * 1. Hero & Trust Indicators (Snapped together)
+ * 2. About & Founder
+ * 3. Why Partner With Us
+ * 4. Services Overview
+ * 5. Insights
+ * 6. Community CTA
+ * 7. Final CTA
  */
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
-      <TrustIndicators />
-      <FounderIntro />
-      <WhyLumina />
-      <ServicesOverview />
-      <SectionWrapper>
-        <div className="text-center mb-16 flex flex-col items-center">
-          <p className="text-[#C9A227] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">
-            THOUGHT LEADERSHIP
-          </p>
-          <h2 className="text-5xl md:text-6xl font-heading text-[#2D2D2D]">
-            Latest Insights
-          </h2>
-        </div>
-        <InsightsList />
-      </SectionWrapper>
-      <CommunityCTA />
-      <FinalCTA />
+      <ScrollSnapController />
+
+      {/* 1. Hero & Trust Indicators Snapped Together */}
+      <div className="snap-section">
+        <HeroSection />
+        <TrustIndicators />
+      </div>
+
+      {/* 2. About & Founder */}
+      <div className="snap-section">
+        <FounderIntro />
+      </div>
+
+      {/* 3. Why Partner With Us */}
+      <div className="snap-section">
+        <WhyLumina />
+      </div>
+
+      {/* 4. Services Overview */}
+      <div className="snap-section">
+        <ServicesOverview />
+      </div>
+
+      {/* 5. Insights */}
+      <div className="snap-section">
+        <SectionWrapper>
+          <div className="text-center mb-16 flex flex-col items-center">
+            <p className="text-[#C9A227] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">
+              THOUGHT LEADERSHIP
+            </p>
+            <h2 className="text-5xl md:text-6xl font-heading text-[#2D2D2D]">
+              Latest Insights
+            </h2>
+          </div>
+          <InsightsList />
+        </SectionWrapper>
+      </div>
+
+      {/* 6. Community CTA */}
+      <div className="snap-section">
+        <CommunityCTA />
+      </div>
+
+      {/* 7. Final CTA */}
+      <div className="snap-section">
+        <FinalCTA />
+      </div>
     </>
   );
 }

@@ -60,3 +60,16 @@ h1, h2, h3, h4, h5, h6 {
   background-size: 100% 100%, cover, cover;
   background-position: center, center, center;
 }
+
+/* Scroll Snapping Experience (strictly for Home Page) */
+html.snap-enabled {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  /* Shift scroll snapping container to account for sticky navbar */
+  scroll-margin-top: 80px; 
+}

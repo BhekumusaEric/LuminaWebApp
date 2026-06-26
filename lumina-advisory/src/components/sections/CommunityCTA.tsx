@@ -10,7 +10,7 @@ export default function CommunityCTA() {
     <section className="relative w-full min-h-[500px] bg-[#2B2118] flex items-center justify-center p-12 md:py-32 overflow-hidden border-t border-white/5">
       {/* Background Image with Overlay */}
       <Image
-        src={getImagePath("/images/stock/image6.jpeg")}
+        src={getImagePath("/images/stock/image6.png")}
         alt="Lumina Community Background"
         fill
         className="object-cover opacity-40 grayscale"

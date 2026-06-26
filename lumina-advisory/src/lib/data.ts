@@ -227,7 +227,7 @@ export const FOUNDER = {
     "Leadership Development",
     "Lumina Advisory",
   ],
-  image: "/images/stock/image9.jpeg",
+  image: "/images/stock/image9.png",
 };
 
 export const MISSION_VISION = {
