@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { FOUNDER } from "@/lib/data";
+import { FOUNDER, getImagePath } from "@/lib/data";
 
 import { Button } from "@/components/ui/Button";
 
@@ -55,7 +55,7 @@ export default function FounderIntro() {
         >
           {/* We use object-contain and bottom-0 to have the portrait rest on the bottom like the mockup */}
           <Image
-            src={FOUNDER.image}
+            src={getImagePath(FOUNDER.image)}
             alt={FOUNDER.name}
             fill
             className="object-cover md:object-contain object-bottom"

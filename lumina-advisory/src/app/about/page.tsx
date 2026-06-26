@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { FOUNDER, MISSION_VISION, CORE_VALUES } from "@/lib/data";
+import { FOUNDER, MISSION_VISION, CORE_VALUES, getImagePath } from "@/lib/data";
 import Image from "next/image";
 import { LucideIcon } from "@/components/ui/LucideIcon";
 
@@ -52,7 +52,7 @@ export default function AboutPage() {
           {/* Company Image */}
           <div className="relative h-72 md:h-80 rounded-none overflow-hidden shadow-md border border-[#2B2118]/10">
             <Image
-              src="/images/stock/image12.jpeg"
+              src={getImagePath("/images/stock/image12.jpeg")}
               alt="Lumina Advisory - Who We Are"
               fill
               className="object-cover"
@@ -89,7 +89,7 @@ export default function AboutPage() {
           {/* Founder Portrait */}
           <div className="relative h-96 w-full rounded-none overflow-hidden shadow-lg border border-[#2B2118]/10 order-1 md:order-none">
             <Image
-              src={FOUNDER.image}
+              src={getImagePath(FOUNDER.image)}
               alt={FOUNDER.name}
               fill
               className="object-cover"

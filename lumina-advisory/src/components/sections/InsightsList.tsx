@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SITE } from "@/lib/data";
+import { SITE, getImagePath } from "@/lib/data";
 import { fetchSheetData, type SheetArticle } from "@/lib/googleSheets";
+import Link from "next/link";
 
 export default function InsightsList() {
   const [articles, setArticles] = useState<SheetArticle[]>([]);
@@ -95,7 +96,7 @@ export default function InsightsList() {
           <div className="bg-[#2B2118]/5 h-64 flex items-center justify-center">
             {featured.image ? (
               <img
-                src={featured.image}
+                src={getImagePath(featured.image)}
                 alt={featured.title}
                 className="w-full h-full object-cover"
               />
@@ -109,12 +110,12 @@ export default function InsightsList() {
             </p>
             <h2 className="text-2xl font-bold mb-3">{featured.title}</h2>
             <p className="text-[#475569] mb-6">{featured.summary}</p>
-            <a
+            <Link
               href={`/insights/${featured.slug}`}
               className="text-[#C9A227] font-semibold hover:underline"
             >
               Read Article →
-            </a>
+            </Link>
           </div>
         </div>
       )}
@@ -123,15 +124,15 @@ export default function InsightsList() {
       {rest.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {rest.map((article) => (
-            <a
+            <Link
               key={article.id}
               href={`/insights/${article.slug}`}
-              className="bg-white rounded-none overflow-hidden shadow-sm border border-[#2B2118]/5 hover:shadow-md transition-shadow group"
+              className="bg-white rounded-none overflow-hidden shadow-sm border border-[#2B2118]/5 hover:shadow-md transition-shadow group block"
             >
               <div className="bg-[#2B2118]/5 h-44 flex items-center justify-center overflow-hidden">
                 {article.image ? (
                   <img
-                    src={article.image}
+                    src={getImagePath(article.image)}
                     alt={article.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
@@ -154,7 +155,7 @@ export default function InsightsList() {
                   {article.summary}
                 </p>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       )}
