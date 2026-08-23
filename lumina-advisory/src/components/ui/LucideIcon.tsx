@@ -14,6 +14,15 @@ import {
   Globe,
   Compass,
   Layers,
+  Building2,
+  Eye,
+  Quote,
+  Star,
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
+  ArrowUp,
+  Phone,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -32,6 +41,15 @@ const iconMap: Record<string, React.ElementType> = {
   Globe,
   Compass,
   Layers,
+  Building2,
+  Eye,
+  Quote,
+  Star,
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
+  ArrowUp,
+  Phone,
 };
 
 interface LucideIconProps {

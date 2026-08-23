@@ -21,7 +21,7 @@ export default function ServicesOverview() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" as const }}
           className="text-center mb-16 flex flex-col items-center"
         >
           <p className="text-[#C9A227] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">

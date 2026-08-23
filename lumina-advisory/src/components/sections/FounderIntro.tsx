@@ -22,7 +22,7 @@ export default function FounderIntro() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" as const }}
           className="flex flex-col"
         >
           <p className="text-[#C9A227] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">
@@ -50,7 +50,7 @@ export default function FounderIntro() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" as const, delay: 0.2 }}
           className="relative h-[450px] md:h-[600px] w-full"
         >
           {/* We use object-contain and bottom-0 to have the portrait rest on the bottom like the mockup */}
@@ -68,7 +68,7 @@ export default function FounderIntro() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+          transition={{ duration: 0.8, ease: "easeOut" as const, delay: 0.4 }}
           className="flex flex-col"
         >
           <p className="text-[#C9A227] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">

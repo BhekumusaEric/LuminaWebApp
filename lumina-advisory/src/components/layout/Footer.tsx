@@ -54,12 +54,20 @@ export default function Footer() {
           </p>
           <ul className="flex flex-col gap-2 text-white/70 text-sm">
             <li>
-              <a href={SITE.phoneLink} className="hover:text-[#C9A227] transition-colors">
+              <a 
+                href={SITE.phoneLink} 
+                className="hover:text-[#C9A227] transition-colors flex items-center gap-2"
+              >
+                <span className="md:hidden">📞</span>
                 {SITE.phone}
               </a>
             </li>
             <li>
-              <a href={`mailto:${SITE.email}`} className="hover:text-[#C9A227] transition-colors">
+              <a 
+                href={`mailto:${SITE.email}`} 
+                className="hover:text-[#C9A227] transition-colors flex items-center gap-2"
+              >
+                <span className="md:hidden">✉️</span>
                 {SITE.email}
               </a>
             </li>

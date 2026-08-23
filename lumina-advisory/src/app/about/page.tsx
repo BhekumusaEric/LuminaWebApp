@@ -1,157 +1,198 @@
-import type { Metadata } from "next";
-import { PageHero } from "@/components/ui/PageHero";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { FOUNDER, MISSION_VISION, CORE_VALUES, getImagePath } from "@/lib/data";
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { PageHero } from "@/components/ui/PageHero";
+import { FOUNDER, MISSION_VISION } from "@/lib/data";
 import { LucideIcon } from "@/components/ui/LucideIcon";
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Learn about Lumina Advisory, our founding story, mission, vision, and the expertise of founder Yolandi Pietersen.",
-};
-
-/**
- * ABOUT PAGE
- * Sections:
- * 1. Hero
- * 2. Company Story
- * 3. Mission & Vision
- * 4. Meet the Founder
- * 5. Core Values
- */
 export default function AboutPage() {
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" as const },
+    },
+  };
+
   return (
     <>
       <PageHero
-        headline="About Lumina Advisory"
-        subheading="Creating transformative development experiences."
+        headline="ABOUT LUMINA ADVISORY"
+        subheading="Where ambition meets intentional growth"
       />
 
-      {/* Company Story */}
-      <SectionWrapper>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Who We Are</h2>
-            <p className="text-[#475569] leading-relaxed mb-4">
-              Lumina Advisory was founded in 2024 with a clear purpose: to create
-              transformative development experiences that empower individuals and
-              organisations to grow with clarity, confidence, and purpose.
-            </p>
-            <p className="text-[#475569] leading-relaxed mb-4">
-              As a proudly Level 1 BBBEE consultancy based in Johannesburg, we
-              bring together strategic expertise and a deeply human approach to
-              every engagement.
-            </p>
-            <p className="text-[#475569] leading-relaxed">
-              Whether supporting a professional navigating a career transition or
-              a leadership team aligning on strategy, we show up with the same
-              commitment: practical, purposeful, people-centred.
-            </p>
-          </div>
-          {/* Company Image */}
-          <div className="relative h-72 md:h-80 rounded-none overflow-hidden shadow-md border border-[#2B2118]/10">
-            <Image
-              src={getImagePath("/images/stock/image12.png")}
-              alt="Lumina Advisory - Who We Are"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+      {/* Who We Are Section */}
+      <section className="bg-[#f9f7f4] px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-5xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="mb-12 text-center"
+          >
+            <h2 className="mb-6 text-3xl font-bold tracking-[-0.05em] text-[#1d1b18] md:text-4xl">
+              WHO WE ARE
+            </h2>
+          </motion.div>
+
+          <div className="space-y-6 text-base leading-relaxed text-[#4a4641] md:text-lg">
+            {MISSION_VISION.whoWeAre?.map((paragraph, index) => (
+              <motion.p
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                {paragraph}
+              </motion.p>
+            ))}
           </div>
         </div>
-      </SectionWrapper>
+      </section>
 
-      {/* Mission & Vision */}
-      <SectionWrapper dark>
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Our Purpose
-        </h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
-            <p className="text-[#C9A227] font-semibold uppercase tracking-wider text-sm mb-3">
-              Mission
-            </p>
-            <p className="text-white/80 leading-relaxed">{MISSION_VISION.mission}</p>
-          </div>
-          <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
-            <p className="text-[#C9A227] font-semibold uppercase tracking-wider text-sm mb-3">
-              Vision
-            </p>
-            <p className="text-white/80 leading-relaxed">{MISSION_VISION.vision}</p>
-          </div>
-        </div>
-      </SectionWrapper>
-
-      {/* Meet the Founder */}
-      <SectionWrapper>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Founder Portrait */}
-          <div className="relative h-96 w-full rounded-none overflow-hidden shadow-lg border border-[#2B2118]/10 order-1 md:order-none">
-            <Image
-              src={getImagePath(FOUNDER.image)}
-              alt={FOUNDER.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-          <div>
-            <p className="text-[#C9A227] font-semibold uppercase tracking-wider text-sm mb-2">
-              Meet the Founder
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-1">{FOUNDER.name}</h2>
-            <p className="text-[#475569] mb-1">{FOUNDER.title}</p>
-            <p className="text-[#C9A227] font-medium mb-6">{FOUNDER.qualifications}</p>
-            <div className="flex flex-col gap-4 mb-8 text-[#475569] leading-relaxed text-sm">
-              {FOUNDER.detailedBio ? (
-                FOUNDER.detailedBio.map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))
-              ) : (
-                <p>{FOUNDER.shortBio}</p>
-              )}
-            </div>
-
-            {/* Career Timeline */}
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wider text-[#2B2118] mb-4">
-                Career Journey
-              </p>
-              <ol className="flex flex-col gap-3">
-                {FOUNDER.timeline.map((step, i) => (
-                  <li key={i} className="flex items-center gap-3 text-[#475569] text-sm">
-                    <span className="w-6 h-6 rounded-full bg-[#C9A227] text-white text-xs flex items-center justify-center font-bold shrink-0">
-                      {i + 1}
-                    </span>
-                    {step}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </div>
-      </SectionWrapper>
-
-      {/* Core Values */}
-      <SectionWrapper dark>
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Core Values
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-          {CORE_VALUES.map((value) => (
-            <div
-              key={value.title}
-              className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center"
+      {/* Mission & Vision Section */}
+      <section className="bg-[#2B2118] px-6 py-20 text-white md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-12 md:grid-cols-2">
+            {/* Mission */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-sm md:p-10"
             >
-              <div className="text-[#C9A227] flex justify-center mb-3">
-                <LucideIcon name={value.icon} size={28} />
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#C9A227]/20">
+                <LucideIcon name="Target" size={32} className="text-[#C9A227]" />
               </div>
-              <p className="text-white font-semibold text-sm">{value.title}</p>
-            </div>
-          ))}
+              <h3 className="mb-4 text-2xl font-bold tracking-[-0.05em] md:text-3xl">
+                OUR MISSION
+              </h3>
+              <p className="text-base leading-relaxed text-white/80 md:text-lg">
+                {MISSION_VISION.mission}
+              </p>
+            </motion.div>
+
+            {/* Vision */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-sm md:p-10"
+            >
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#C9A227]/20">
+                <LucideIcon name="Eye" size={32} className="text-[#C9A227]" />
+              </div>
+              <h3 className="mb-4 text-2xl font-bold tracking-[-0.05em] md:text-3xl">
+                OUR VISION
+              </h3>
+              <p className="text-base leading-relaxed text-white/80 md:text-lg">
+                {MISSION_VISION.vision}
+              </p>
+            </motion.div>
+          </div>
         </div>
-      </SectionWrapper>
+      </section>
+
+      {/* Founder Section */}
+      <section className="bg-[#f6f3ee] px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="mb-12 text-center"
+          >
+            <h2 className="mb-4 text-3xl font-bold tracking-[-0.05em] text-[#1d1b18] md:text-4xl">
+              OUR FOUNDER
+            </h2>
+          </motion.div>
+
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
+            {/* Founder Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
+              <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem] border border-[#ebe0d2] bg-[#efe7de] shadow-[0_24px_70px_rgba(29,27,24,0.08)]">
+                <Image
+                  src={FOUNDER.image}
+                  alt={`${FOUNDER.name} - ${FOUNDER.title}`}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mt-6 text-center"
+              >
+                <h3 className="text-2xl font-bold text-[#1d1b18]">
+                  {FOUNDER.name}
+                </h3>
+                <p className="mt-1 text-sm font-semibold uppercase tracking-wider text-[#C9A227]">
+                  {FOUNDER.qualifications}
+                </p>
+                <p className="mt-2 text-base text-[#4a4641]">
+                  {FOUNDER.title}
+                </p>
+              </motion.div>
+            </motion.div>
+
+            {/* Founder Bio */}
+            <div className="flex flex-col justify-center">
+              <div className="space-y-5 text-base leading-relaxed text-[#4a4641]">
+                {FOUNDER.detailedBio.map((paragraph, index) => (
+                  <motion.p
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    {paragraph}
+                  </motion.p>
+                ))}
+              </div>
+
+              {/* Career Timeline */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-10 rounded-[1.5rem] border border-[#e7e0d7] bg-white p-6"
+              >
+                <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-[#C9A227]">
+                  CAREER JOURNEY
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {FOUNDER.timeline.map((item, index) => (
+                    <span
+                      key={index}
+                      className="rounded-full border border-[#e7e0d7] bg-[#f9f7f4] px-4 py-2 text-sm font-medium text-[#2B2118]"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

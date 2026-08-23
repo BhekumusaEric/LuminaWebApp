@@ -34,30 +34,33 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-wood bg-[#2B2118] shadow-lg" : "bg-wood bg-[#2B2118]"
+        scrolled ? "bg-[#2B2118]/95 shadow-[0_12px_34px_rgba(20,14,11,0.12)] backdrop-blur-md" : "bg-[#2B2118]/90 backdrop-blur-md"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-1.5 group">
-          <span className="text-[#C9A227] font-bold text-xl md:text-2xl tracking-wider font-heading transition-colors duration-200">
-            Lumina
-          </span>
-          <span className="text-white font-light text-xl md:text-2xl tracking-wider font-heading group-hover:text-[#C9A227] transition-colors duration-200">
-            Advisory
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 md:h-20">
+        <Link href="/" className="group flex flex-col leading-none">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="text-[#E0C76C] text-lg font-semibold tracking-[0.18em] transition-colors duration-200 sm:text-xl md:text-2xl">
+              LUMINA
+            </span>
+            <span className="text-white text-lg font-light tracking-[0.18em] transition-colors duration-200 group-hover:text-[#E0C76C] sm:text-xl md:text-2xl">
+              ADVISORY
+            </span>
+          </div>
+          <span className="mt-1.5 text-[7px] uppercase tracking-[0.16em] text-white/70 sm:text-[8px] md:text-[9px]">
+            WHERE AMBITION MEETS INTENTIONAL GROWTH
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden items-center gap-8 md:flex lg:gap-10">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-xs uppercase tracking-widest transition-colors duration-200 ${
+              className={`text-[10px] uppercase tracking-[0.2em] transition-colors duration-200 ${
                 pathname === link.href
-                  ? "text-[#C9A227] font-bold"
-                  : "text-white/90 hover:text-[#C9A227] font-semibold"
+                  ? "text-[#E0C76C] font-semibold"
+                  : "text-white/80 hover:text-[#E0C76C] font-medium"
               }`}
             >
               {link.label}
@@ -65,68 +68,98 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Desktop CTA */}
         <div className="hidden md:block">
-          <Button href={SITE.calendly} variant="primary" external>
+          <Button href={SITE.calendly} variant="primary" external className="px-5 py-2.5 text-[10px] tracking-[0.18em] hover:brightness-110">
             BOOK A CONSULTATION
           </Button>
         </div>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile Hamburger - Animated X */}
         <button
-          className="md:hidden text-white p-2"
+          className="md:hidden text-white p-2 relative z-50"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
         >
-          <span className="block w-6 h-0.5 bg-white mb-1.5 transition-all" />
-          <span className="block w-6 h-0.5 bg-white mb-1.5 transition-all" />
-          <span className="block w-6 h-0.5 bg-white transition-all" />
+          <div className="w-6 h-5 flex flex-col justify-between">
+            <span
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+                menuOpen ? "rotate-45 translate-y-2" : ""
+              }`}
+            />
+            <span
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+                menuOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
+            />
+          </div>
         </button>
       </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-wood bg-[#2B2118] border-t border-white/10 px-6 py-6 flex flex-col gap-4 overflow-hidden relative"
-          >
-            <div className="absolute inset-0 bg-[#2B2118]/80 z-0" />
-            <div className="relative z-10 flex flex-col gap-4">
-            {NAV_LINKS.map((link, i) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 + 0.1 }}
-              >
-                <Link
-                  href={link.href}
-                  className={`block text-sm uppercase tracking-widest py-1 ${
-                    pathname === link.href
-                      ? "text-[#C9A227] font-bold"
-                      : "text-white/90 font-semibold"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
+          <>
+            {/* Backdrop overlay - click to close */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+              onClick={() => setMenuOpen(false)}
+            />
+            
+            {/* Menu panel */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: NAV_LINKS.length * 0.05 + 0.1 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" as const }}
+              className="md:hidden bg-[#2B2118] border-t border-white/10 px-6 py-6 flex flex-col gap-4 relative z-40"
             >
-              <Button href={SITE.calendly} variant="primary" external className="mt-4 w-full">
-                BOOK A CONSULTATION
-              </Button>
+              <div className="flex flex-col gap-4">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 + 0.1 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className={`block text-sm uppercase tracking-widest py-3 px-2 rounded-lg transition-colors ${
+                        pathname === link.href
+                          ? "text-[#C9A227] font-bold bg-[#C9A227]/10"
+                          : "text-white/90 font-semibold hover:bg-white/5"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: NAV_LINKS.length * 0.05 + 0.1 }}
+                >
+                  <Button 
+                    href={SITE.calendly} 
+                    variant="primary" 
+                    external 
+                    className="mt-4 w-full py-4 text-sm"
+                  >
+                    BOOK A CONSULTATION
+                  </Button>
+                </motion.div>
+              </div>
             </motion.div>
-            </div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

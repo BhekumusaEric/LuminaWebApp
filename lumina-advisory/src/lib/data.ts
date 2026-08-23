@@ -36,7 +36,7 @@ export const NAV_LINKS = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Community", href: "/community" },
-  { label: "Insights", href: "/insights" },
+  { label: "What People Are Saying", href: "/testimonials" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -131,7 +131,36 @@ export const TRUST_INDICATORS = [
   { label: "Johannesburg, South Africa" },
 ];
 
+export const QUICK_FACTS = [
+  {
+    icon: "Users",
+    title: "100% Black South African Female-Owned",
+    description: "A purpose-led consultancy built on inclusion and impact.",
+  },
+  {
+    icon: "Briefcase",
+    title: "10+ Years Corporate & Consulting Experience",
+    description: "Deep expertise across management consulting, banking, and transformation.",
+  },
+  {
+    icon: "Award",
+    title: "MBA Cum Laude Leadership Expertise",
+    description: "Academic excellence combined with practical industry experience.",
+  },
+  {
+    icon: "Building2",
+    title: "Private & Public Sector Experience",
+    description: "Trusted partner across government and corporate sectors.",
+  },
+];
+
 export const WHY_LUMINA = [
+  {
+    icon: "HeartHandshake",
+    title: "People-Centred",
+    description:
+      "We combine strategy and human insight to create sustainable outcomes.",
+  },
   {
     icon: "Briefcase",
     title: "Consulting Expertise",
@@ -139,16 +168,10 @@ export const WHY_LUMINA = [
       "Drawing on experience across management consulting, banking, transformation, and organisational development.",
   },
   {
-    icon: "Sparkles",
+    icon: "Target",
     title: "Practical Solutions",
     description:
       "Providing recommendations that are actionable, measurable, and aligned to organisational goals.",
-  },
-  {
-    icon: "HeartHandshake",
-    title: "People-Centred Approach",
-    description:
-      "Combining strategy and human insight to create sustainable outcomes.",
   },
 ];
 
@@ -212,7 +235,7 @@ export const FOUNDER = {
   title: "Founder & Managing Director",
   qualifications: "MBA Cum Laude",
   shortBio:
-    "Yolandi Pietersen is a consultant, facilitator, leadership development professional, and entrepreneur with a passion for helping individuals and organisations unlock their full potential. Throughout her career, she has advised organisations across the public and private sectors on strategy, transformation, leadership, and digital growth initiatives.",
+    "Yolandi Pietersen is a consultant, facilitator, leadership development professional, and entrepreneur with a passion for helping individuals and organisations unlock their full potential.",
   detailedBio: [
     "Yolandi Pietersen is a consultant, facilitator, leadership development professional, and entrepreneur with a passion for helping individuals and organisations unlock their full potential.",
     "With a career spanning management consulting, banking, leadership development, and strategic transformation, Yolandi brings a unique combination of corporate expertise and people-centred development to every engagement. Throughout her career, she has advised organisations across the public and private sectors on strategy, transformation, organisational effectiveness, leadership development, digital transformation, and business growth initiatives.",
@@ -235,6 +258,13 @@ export const MISSION_VISION = {
     "To create transformative development experiences that empower individuals and organisations to grow with clarity, confidence, and purpose.",
   vision:
     "To become a trusted partner for career, leadership, and personal development across Africa and beyond.",
+  whoWeAre: [
+    "Lumina Advisory, is a Level 1 BBBEE boutique advisory and development consultancy focused on people development, strategic facilitation, leadership, and organisational growth.",
+    "We partner with corporates, professionals, and emerging leaders to provide strategic advisory, leadership development, facilitation, and capability-building interventions that drive meaningful transformation and sustainable growth.",
+    "Our work combines strategic insight, practical industry experience, and people-centred development to create solutions that are both intentional and results-driven.",
+    "We provide services across independent consulting and advisory, strategic facilitation, leadership development, training and skills development, career and personal development, as well as programme direction, moderation, and hosting.",
+    "Through every engagement, Lumina Advisory aims to create spaces that inspire growth, strengthen leadership, and empower individuals and organisations to perform with clarity, confidence, and purpose."
+  ],
 };
 
 // TODO: Replace with real articles once content is ready

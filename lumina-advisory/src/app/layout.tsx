@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import MobileCallButton from "@/components/layout/MobileCallButton";
+import BackToTop from "@/components/ui/BackToTop";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -65,10 +67,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
       <body className="min-h-screen flex flex-col bg-ivory text-navy antialiased overflow-x-hidden">
+        {/* Skip to main content link for keyboard users */}
+        <a href="#main-content" className="skip-to-main">
+          Skip to main content
+        </a>
         <Navbar />
-        <main className="flex-1 overflow-x-hidden">{children}</main>
+        <main id="main-content" className="flex-1 overflow-x-hidden">{children}</main>
         <Footer />
+        <MobileCallButton />
         <WhatsAppButton />
+        <BackToTop />
       </body>
     </html>
   );
