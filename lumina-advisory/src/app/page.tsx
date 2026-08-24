@@ -57,7 +57,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="snap-section">
+      <div className="snap-section snap-section-full">
         <HeroSection />
       </div>
 
@@ -118,9 +118,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="snap-section">
-        <TestimonialsSection />
-      </div>
+      <TestimonialsSection />
 
       <section className="snap-section relative bg-[#f9f7f4] px-6 py-20 md:py-24 overflow-hidden">
         {/* Subtle decorative background elements */}
@@ -279,7 +277,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="snap-section relative bg-[#2B2118] px-6 py-20 text-white md:py-24 overflow-hidden">
+      <section className="snap-section snap-section-full relative bg-[#2B2118] px-6 py-20 text-white md:py-24 overflow-hidden flex items-center">
         {/* Animated background gradient orbs */}
         <motion.div
           animate={{

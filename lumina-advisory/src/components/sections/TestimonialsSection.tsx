@@ -44,7 +44,7 @@ export default function TestimonialsSection() {
 
   return (
     <section 
-      className="bg-gradient-to-br from-[#2B2118] via-[#342820] to-[#2B2118] px-6 py-20 md:py-28 relative overflow-hidden min-h-screen flex items-center"
+      className="snap-section bg-gradient-to-br from-[#2B2118] via-[#342820] to-[#2B2118] px-6 py-20 md:py-28 relative overflow-hidden min-h-screen flex items-center"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

@@ -127,16 +127,19 @@ select:focus-visible {
 
 /* Scroll Snapping Experience (Home Page) */
 html.snap-enabled {
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
 }
 
 .snap-section {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
-  min-height: 100vh;
   /* Shift scroll snapping container to account for sticky navbar */
   scroll-margin-top: 80px; 
+}
+
+/* For sections that should fill viewport */
+.snap-section-full {
+  min-height: 100vh;
 }
 
 /* Disable scroll snap on mobile for better experience */
@@ -147,6 +150,5 @@ html.snap-enabled {
   
   .snap-section {
     scroll-snap-align: none;
-    min-height: auto;
   }
 }
