@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { PageHero } from "@/components/ui/PageHero";
 import { Button } from "@/components/ui/Button";
@@ -28,6 +29,16 @@ export default function CommunityPage() {
       },
     }),
   };
+
+  // Assign background images to each benefit card
+  const benefitImages = [
+    "/images/stock/image3.jpeg",  // Career Development Conversations
+    "/images/stock/image6.jpeg",  // Live Coaching Sessions
+    "/images/stock/image9.jpeg",  // Leadership Discussions
+    "/images/stock/image10.jpeg", // Networking Opportunities
+    "/images/stock/image5.jpeg",  // Reflection Prompts
+    "/images/stock/image11.jpeg", // Growth Resources
+  ];
 
   return (
     <>
@@ -91,14 +102,30 @@ export default function CommunityPage() {
                 viewport={{ once: true }}
                 variants={cardVariants}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="rounded-[1.6rem] border border-[#e7e0d7] bg-[#f9f7f4] p-6 shadow-[0_10px_28px_rgba(35,26,20,0.03)] transition-shadow duration-300 hover:shadow-[0_18px_38px_rgba(35,26,20,0.08)]"
+                className="group relative overflow-hidden rounded-[1.6rem] border border-[#e7e0d7] shadow-[0_10px_28px_rgba(35,26,20,0.03)] transition-all duration-300 hover:shadow-[0_18px_38px_rgba(35,26,20,0.12)]"
               >
-                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#C9A227]/10">
-                  <LucideIcon name={benefit.icon} size={28} className="text-[#C9A227]" />
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <Image
+                    src={benefitImages[index]}
+                    alt={benefit.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Dark overlay for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/95 via-[#2B2118]/70 to-[#2B2118]/40" />
                 </div>
-                <h3 className="text-lg font-bold leading-tight text-[#2B2118]">
-                  {benefit.title}
-                </h3>
+
+                {/* Content */}
+                <div className="relative z-10 flex min-h-[260px] flex-col justify-end p-6">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#C9A227]/90 backdrop-blur-sm">
+                    <LucideIcon name={benefit.icon} size={28} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold leading-tight text-white">
+                    {benefit.title}
+                  </h3>
+                </div>
               </motion.div>
             ))}
           </div>
