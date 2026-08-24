@@ -19,13 +19,13 @@ export default function TestimonialsSection() {
   const [isPaused, setIsPaused] = useState(false);
   const [direction, setDirection] = useState(0);
 
-  // Assign background images to each testimonial
+  // Assign beautiful, professional background images to each testimonial
   const testimonialImages = [
-    "/images/stock/image4.jpeg",  // Career Coaching
-    "/images/stock/image7.jpeg",  // Corporate Workshop
-    "/images/stock/image8.jpeg",  // Young Professional
-    "/images/stock/image10.jpeg", // Event Attendee
-    "/images/stock/image5.jpeg",  // Community Member
+    "/images/stock/image3.jpeg",  // Career Coaching - Professional setting
+    "/images/stock/image6.jpeg",  // Corporate Workshop - Business environment
+    "/images/stock/image11.jpeg", // Young Professional - Career growth
+    "/images/stock/image12.jpeg", // Event Attendee - Conference/speaking
+    "/images/stock/image9.jpeg",  // Community Member - Community/connection
   ];
 
   // Auto-slide every 8 seconds
@@ -123,11 +123,12 @@ export default function TestimonialsSection() {
                     alt={`${TESTIMONIALS[currentIndex].author} testimonial`}
                     fill
                     sizes="(max-width: 768px) 100vw, 1200px"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-[8000ms] ease-linear"
                     priority={currentIndex === 0}
+                    style={{ transform: isPaused ? 'scale(1)' : 'scale(1.05)' }}
                   />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/98 via-[#2B2118]/85 to-[#2B2118]/50" />
+                  {/* Gradient Overlay - Lighter to show more of the beautiful image */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/95 via-[#2B2118]/70 to-[#2B2118]/20" />
                 </div>
 
                 {/* Content */}
