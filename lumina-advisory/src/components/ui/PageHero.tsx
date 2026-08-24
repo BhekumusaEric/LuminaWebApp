@@ -9,7 +9,7 @@ interface PageHeroProps {
 
 export function PageHero({ headline, subheading }: PageHeroProps) {
   return (
-    <section className="relative w-full bg-wood bg-[#2B2118] text-white px-6 py-20 md:py-28 overflow-hidden">
+    <section className="relative w-full bg-wood bg-[#000000] text-white px-6 py-20 md:py-28 overflow-hidden">
       {/* Dynamic Gradient Overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#2B2118]/80 via-[#2B2118]/50 to-black/20 z-0" />
 

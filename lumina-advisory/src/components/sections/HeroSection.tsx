@@ -17,7 +17,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-[680px] overflow-hidden bg-[#2B2118] pt-20 md:min-h-[760px]">
+    <section className="relative min-h-[680px] overflow-hidden bg-[#000000] pt-20 md:min-h-[760px]">
       {/* Video Background - with fallback to SVG */}
       {!videoError && (
         <video

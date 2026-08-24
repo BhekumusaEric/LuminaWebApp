@@ -34,7 +34,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#2B2118]/95 shadow-[0_12px_34px_rgba(20,14,11,0.12)] backdrop-blur-md" : "bg-[#2B2118]/90 backdrop-blur-md"
+        scrolled ? "bg-[#000000]/98 shadow-[0_12px_34px_rgba(0,0,0,0.4)] backdrop-blur-md" : "bg-[#000000]/95 backdrop-blur-md"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 md:h-20">
@@ -121,7 +121,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, ease: "easeInOut" as const }}
-              className="md:hidden bg-[#2B2118] border-t border-white/10 px-6 py-6 flex flex-col gap-4 relative z-40"
+              className="md:hidden bg-[#000000] border-t border-white/10 px-6 py-6 flex flex-col gap-4 relative z-40"
             >
               <div className="flex flex-col gap-4">
                 {NAV_LINKS.map((link, i) => (
