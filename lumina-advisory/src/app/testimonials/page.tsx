@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageHero } from "@/components/ui/PageHero";
 import { LucideIcon } from "@/components/ui/LucideIcon";
@@ -10,6 +11,15 @@ import { TESTIMONIALS, SITE } from "@/lib/data";
 export default function TestimonialsPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+
+  // Assign beautiful images to testimonials
+  const testimonialImages = [
+    "/images/stock/image3.jpeg",  // Career Coaching
+    "/images/stock/image6.jpeg",  // Corporate Workshop
+    "/images/stock/image11.jpeg", // Young Professional
+    "/images/stock/image12.jpeg", // Event Attendee
+    "/images/stock/image9.jpeg",  // Community Member
+  ];
 
   // Auto-rotate every 8 seconds
   useEffect(() => {
@@ -190,29 +200,57 @@ export default function TestimonialsPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="rounded-[2rem] border border-[#e7e0d7] bg-white p-8 shadow-[0_10px_28px_rgba(35,26,20,0.04)] transition-shadow duration-300 hover:shadow-[0_18px_38px_rgba(35,26,20,0.08)]"
+                className="group relative overflow-hidden rounded-[2rem] border border-[#e7e0d7] shadow-[0_10px_28px_rgba(35,26,20,0.04)] transition-all duration-300 hover:shadow-[0_18px_38px_rgba(35,26,20,0.12)]"
               >
-                {/* Star Rating */}
-                <div className="mb-4 flex gap-1">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <LucideIcon 
-                      key={i} 
-                      name="Star" 
-                      size={16} 
-                      className="fill-[#C9A227] text-[#C9A227]" 
-                    />
-                  ))}
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <Image
+                    src={testimonialImages[index]}
+                    alt={`${testimonial.author} testimonial`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/96 via-[#2B2118]/85 to-[#2B2118]/40" />
                 </div>
 
-                {/* Quote */}
-                <blockquote className="mb-6 text-base leading-relaxed text-[#4a4641]">
-                  "{testimonial.quote}"
-                </blockquote>
+                {/* Content */}
+                <div className="relative z-10 flex min-h-[320px] flex-col justify-end p-8">
+                  {/* Quote Icon */}
+                  <div className="mb-4 flex">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#C9A227]/90 backdrop-blur-sm">
+                      <LucideIcon name="Quote" size={20} className="text-white" />
+                    </div>
+                  </div>
 
-                {/* Author */}
-                <p className="text-sm font-semibold uppercase tracking-wider text-[#C9A227]">
-                  — {testimonial.author}
-                </p>
+                  {/* Quote */}
+                  <blockquote className="mb-6 text-base leading-relaxed text-white">
+                    "{testimonial.quote}"
+                  </blockquote>
+
+                  {/* Star Rating & Author */}
+                  <div className="flex items-center gap-3">
+                    {/* Star Rating */}
+                    <div className="flex gap-1">
+                      {Array.from({ length: testimonial.rating }).map((_, i) => (
+                        <LucideIcon 
+                          key={i} 
+                          name="Star" 
+                          size={16} 
+                          className="fill-[#C9A227] text-[#C9A227]" 
+                        />
+                      ))}
+                    </div>
+
+                    <span className="h-1 w-1 rounded-full bg-white/40" />
+
+                    {/* Author */}
+                    <p className="text-sm font-semibold uppercase tracking-wider text-[#E0C76C]">
+                      {testimonial.author}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -221,45 +259,130 @@ export default function TestimonialsPage() {
 
       {/* Why Work With Lumina */}
       <section className="bg-white px-6 py-20 md:py-28">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-6xl">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
+            className="mb-12 text-center"
           >
-            <h2 className="mb-8 text-3xl font-bold tracking-[-0.05em] text-[#1d1b18] md:text-4xl">
+            <h2 className="mb-4 text-3xl font-bold tracking-[-0.05em] text-[#1d1b18] md:text-4xl">
               WHY WORK WITH LUMINA?
             </h2>
-            <div className="mb-8 space-y-6 text-left text-base leading-relaxed text-[#4a4641] md:text-lg">
-              <div className="rounded-[1.5rem] border border-[#e7e0d7] bg-[#f9f7f4] p-6">
-                <h3 className="mb-2 text-lg font-bold text-[#2B2118]">
+            <p className="text-base text-[#4a4641] md:text-lg">
+              Combining expertise, practical solutions, and people-centered approach
+            </p>
+          </motion.div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {/* Card 1 - Consulting Expertise */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group relative overflow-hidden rounded-[1.8rem] border border-[#e7e0d7] shadow-[0_10px_28px_rgba(35,26,20,0.04)] transition-all duration-300 hover:shadow-[0_18px_38px_rgba(35,26,20,0.12)]"
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                <Image
+                  src="/images/stock/image4.jpeg"
+                  alt="Consulting expertise"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/95 via-[#2B2118]/75 to-[#2B2118]/30" />
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 flex min-h-[280px] flex-col justify-end p-6">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#C9A227]/90 backdrop-blur-sm">
+                  <LucideIcon name="Briefcase" size={24} className="text-white" />
+                </div>
+                <h3 className="mb-2 text-xl font-bold text-white">
                   Consulting Expertise
                 </h3>
-                <p>
+                <p className="text-sm leading-relaxed text-white/90">
                   Drawing on experience across management consulting, banking,
                   transformation, and organisational development.
                 </p>
               </div>
-              <div className="rounded-[1.5rem] border border-[#e7e0d7] bg-[#f9f7f4] p-6">
-                <h3 className="mb-2 text-lg font-bold text-[#2B2118]">
+            </motion.div>
+
+            {/* Card 2 - Practical Solutions */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group relative overflow-hidden rounded-[1.8rem] border border-[#e7e0d7] shadow-[0_10px_28px_rgba(35,26,20,0.04)] transition-all duration-300 hover:shadow-[0_18px_38px_rgba(35,26,20,0.12)]"
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                <Image
+                  src="/images/stock/image7.jpeg"
+                  alt="Practical solutions"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/95 via-[#2B2118]/75 to-[#2B2118]/30" />
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 flex min-h-[280px] flex-col justify-end p-6">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#C9A227]/90 backdrop-blur-sm">
+                  <LucideIcon name="Target" size={24} className="text-white" />
+                </div>
+                <h3 className="mb-2 text-xl font-bold text-white">
                   Practical Solutions
                 </h3>
-                <p>
+                <p className="text-sm leading-relaxed text-white/90">
                   Providing recommendations that are actionable, measurable, and aligned
                   to organisational goals.
                 </p>
               </div>
-              <div className="rounded-[1.5rem] border border-[#e7e0d7] bg-[#f9f7f4] p-6">
-                <h3 className="mb-2 text-lg font-bold text-[#2B2118]">
+            </motion.div>
+
+            {/* Card 3 - People-Centered Approach */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group relative overflow-hidden rounded-[1.8rem] border border-[#e7e0d7] shadow-[0_10px_28px_rgba(35,26,20,0.04)] transition-all duration-300 hover:shadow-[0_18px_38px_rgba(35,26,20,0.12)]"
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                <Image
+                  src="/images/stock/image10.jpeg"
+                  alt="People-centered approach"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/95 via-[#2B2118]/75 to-[#2B2118]/30" />
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 flex min-h-[280px] flex-col justify-end p-6">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#C9A227]/90 backdrop-blur-sm">
+                  <LucideIcon name="Users" size={24} className="text-white" />
+                </div>
+                <h3 className="mb-2 text-xl font-bold text-white">
                   People-Centered Approach
                 </h3>
-                <p>
+                <p className="text-sm leading-relaxed text-white/90">
                   Combining strategy and human insight to create sustainable outcomes.
                 </p>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
