@@ -16,6 +16,18 @@
   --font-body: var(--font-inter);
 }
 
+/* ─────────────────────────────────────────────────────────────
+ * DESIGN TOKENS — spacing + container widths.
+ * Use these instead of ad-hoc py-20 / max-w-* so everything
+ * lines up across pages.
+ * ───────────────────────────────────────────────────────────── */
+:root {
+  --lumina-container: 1200px;
+  --lumina-section-y: 6rem;      /* mobile */
+  --lumina-section-y-lg: 8rem;   /* desktop */
+  --lumina-gap: 2rem;
+}
+
 /* Smooth scroll and responsive root font size */
 html {
   scroll-behavior: smooth;
@@ -31,8 +43,8 @@ html {
 }
 
 body {
-  background-color: #FFFFFF;
-  color: #000000;
+  background-color: #08060a;
+  color: #EFEBE3;
   font-family: var(--font-inter), system-ui, sans-serif;
   letter-spacing: -0.01em;
   max-width: 100%;
@@ -127,31 +139,68 @@ select:focus-visible {
   background-position: center, center, center;
 }
 
-/* Scroll Snapping Experience (Home Page) */
+/* ─────────────────────────────────────────────────────────────
+ * SCROLL SNAPPING — strict "one section per scroll" experience
+ * ─────────────────────────────────────────────────────────────
+ * Every .snap-section takes the full viewport height and
+ * centers its content vertically, so you never land halfway
+ * between two sections.
+ *
+ * `mandatory` = the browser MUST snap to a section, not just
+ * close to one. `snap-stop: always` = a single scroll gesture
+ * catches on every section (can't skip over one at high speed).
+ *
+ * Softer on mobile: proximity + snap-stop: normal so the user
+ * can still pull-to-refresh and scroll fast without fighting
+ * the browser.
+ * ───────────────────────────────────────────────────────────── */
 html.snap-enabled {
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
 
 .snap-section {
   scroll-snap-align: start;
-  /* Shift scroll snapping container to account for sticky navbar */
-  scroll-margin-top: 80px; 
+  scroll-snap-stop: always;
+  scroll-margin-top: 80px;         /* offset for the sticky navbar */
+
+  /* Fill the viewport so we never land in the gap between sections.
+     100svh handles mobile browser chrome collapse cleanly. */
+  min-height: 100vh;
+  min-height: 100svh;
+
+  /* Vertically centre the content — short sections don't float at the top */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* For sections that should fill viewport */
+/* Legacy modifier kept for compatibility; every snap-section is
+ * already full-height now, this is a no-op alias. */
 .snap-section-full {
   min-height: 100vh;
+  min-height: 100svh;
 }
 
-/* Disable scroll snap on mobile for better experience */
+/* Softer behaviour on mobile — mandatory snap fights pull-to-refresh
+ * and long-content overscroll on touch devices. */
 @media (max-width: 768px) {
   html.snap-enabled {
-    scroll-snap-type: none;
+    scroll-snap-type: y proximity;
   }
-  
+
   .snap-section {
-    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+    /* Allow tall content to grow past the viewport on mobile so long
+       forms / lists don't get clipped. */
+    min-height: auto;
+  }
+}
+
+/* Users who prefer reduced motion — disable the smooth scroll animation */
+@media (prefers-reduced-motion: reduce) {
+  html.snap-enabled {
+    scroll-behavior: auto;
   }
 }
 
@@ -201,4 +250,267 @@ html.snap-enabled {
 
 .border-gold-contrast {
   border-color: rgba(212, 175, 55, 0.4) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * TYPOGRAPHY — Balanced Justified Body Copy
+ * Justifies text but keeps the last line flush-left and
+ * enables proper hyphenation so we don't get ugly gaps.
+ * Use on paragraph-heavy blocks (bios, intros, long-form copy).
+ * ───────────────────────────────────────────────────────────── */
+.text-balance-justify {
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  overflow-wrap: break-word;
+  word-spacing: 0.02em;
+}
+
+/* Only justify on wider screens; short lines on mobile look worse justified */
+@media (max-width: 640px) {
+  .text-balance-justify {
+    text-align: left;
+    hyphens: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * HERO — Cinematic Fallback Motion
+ * Layered animations that read as a subtle background video.
+ * Used until the client-provided growth-tree.mp4 is dropped in.
+ * ───────────────────────────────────────────────────────────── */
+
+/* Slow Ken Burns pan + zoom on the hero SVG */
+@keyframes hero-ken-burns {
+  0% {
+    transform: scale(1.05) translate3d(0, 0, 0);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.15) translate3d(-2%, -1.5%, 0);
+    filter: brightness(1.05);
+  }
+  100% {
+    transform: scale(1.05) translate3d(0, 0, 0);
+    filter: brightness(1);
+  }
+}
+
+.hero-ken-burns {
+  animation: hero-ken-burns 30s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Drifting warm glow orbs */
+@keyframes hero-glow-a {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate3d(6%, -4%, 0) scale(1.15);
+    opacity: 0.55;
+  }
+}
+
+@keyframes hero-glow-b {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate3d(-5%, 5%, 0) scale(1.2);
+    opacity: 0.45;
+  }
+}
+
+.hero-glow-a {
+  animation: hero-glow-a 18s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hero-glow-b {
+  animation: hero-glow-b 22s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Slow particle drift (representing "growth" — soft upward motion) */
+@keyframes hero-particle {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate3d(20px, -140vh, 0);
+    opacity: 0;
+  }
+}
+
+.hero-particle {
+  position: absolute;
+  bottom: -20px;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(224, 199, 108, 0.9) 0%, rgba(224, 199, 108, 0) 70%);
+  animation: hero-particle linear infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-ken-burns,
+  .hero-glow-a,
+  .hero-glow-b,
+  .hero-particle {
+    animation: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * LAYOUT PRIMITIVES — use everywhere so spacing/width is uniform
+ * ───────────────────────────────────────────────────────────── */
+.lumina-container {
+  width: 100%;
+  max-width: var(--lumina-container);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .lumina-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.lumina-section {
+  padding-top: var(--lumina-section-y);
+  padding-bottom: var(--lumina-section-y);
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .lumina-section {
+    padding-top: var(--lumina-section-y-lg);
+    padding-bottom: var(--lumina-section-y-lg);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * GLASS SURFACES
+ * .lumina-glass       → light frosted pane over the backdrop
+ * .lumina-glass-dark  → warm brown frosted pane over the backdrop
+ * .lumina-glass-line  → hairline gold border variant (subtle)
+ *
+ * All variants share the same springy hover transition so hover
+ * effects feel expensive (as in the portfolio reference).
+ * ───────────────────────────────────────────────────────────── */
+.lumina-glass {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px) saturate(115%);
+  -webkit-backdrop-filter: blur(18px) saturate(115%);
+  border: 1px solid rgba(184, 144, 32, 0.16);
+  border-radius: 1.5rem;
+  box-shadow:
+    0 12px 40px rgba(29, 27, 24, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              box-shadow 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              border-color 0.4s ease;
+}
+
+.lumina-glass:hover {
+  border-color: rgba(184, 144, 32, 0.35);
+  box-shadow:
+    0 20px 60px rgba(29, 27, 24, 0.14),
+    0 0 0 1px rgba(184, 144, 32, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* Dark glass — more opaque (72%) so text sits on a stable surface,
+ * less show-through so the underlying orbs don't create hotspots.  */
+.lumina-glass-dark {
+  background: rgba(18, 13, 9, 0.72);
+  backdrop-filter: blur(22px) saturate(110%);
+  -webkit-backdrop-filter: blur(22px) saturate(110%);
+  border: 1px solid rgba(200, 171, 86, 0.12);
+  border-radius: 1.5rem;
+  box-shadow:
+    0 14px 48px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              box-shadow 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              border-color 0.4s ease;
+  color: rgba(239, 235, 227, 0.92);
+}
+
+.lumina-glass-dark:hover {
+  border-color: rgba(200, 171, 86, 0.3);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(200, 171, 86, 0.14),
+    0 0 24px rgba(184, 144, 32, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * SHIMMER GRADIENT TEXT (for hero keyword highlights)
+ * ───────────────────────────────────────────────────────────── */
+@keyframes lumina-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.lumina-shimmer {
+  background: linear-gradient(
+    100deg,
+    #B08A20 0%,
+    #C8A24C 30%,
+    #D8B96F 50%,
+    #C8A24C 70%,
+    #B08A20 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: lumina-shimmer 12s ease-in-out infinite;
+  filter: drop-shadow(0 1px 8px rgba(184, 144, 32, 0.15));
+}
+
+/* Slow, soft entrance for scroll-reveal blocks. Apply directly
+ * or use Framer Motion — this is a fallback / non-JS path. */
+@keyframes lumina-rise {
+  from { opacity: 0; transform: translate3d(0, 20px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.lumina-rise {
+  animation: lumina-rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Reduced motion — kill shimmer & rise */
+@media (prefers-reduced-motion: reduce) {
+  .lumina-shimmer,
+  .lumina-rise {
+    animation: none !important;
+  }
+  .lumina-shimmer {
+    color: #C8A24C;
+    -webkit-text-fill-color: #C8A24C;
+  }
 }

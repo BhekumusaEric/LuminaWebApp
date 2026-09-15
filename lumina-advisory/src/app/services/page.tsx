@@ -1,20 +1,25 @@
 "use client";
 
-import type { Metadata } from "next";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { PageHero } from "@/components/ui/PageHero";
 import { Button } from "@/components/ui/Button";
 import { SERVICES, SITE } from "@/lib/data";
-import { LucideIcon } from "@/components/ui/LucideIcon";
 
 /**
- * SERVICES PAGE
- * Each service block renders with alternating image/content layout
- * Images assigned to each service for visual appeal
- */
+ * SERVICES PAGE — editorial full-bleed layout
+ * ─────────────────────────────────────────────────────────────
+ * Each service = a full-viewport-height section with the
+ * service image bleeding to the edges (like a McKinsey / BCG
+ * magazine spread). Content column alternates left / right so
+ * consecutive services feel like turning a page.
+ *
+ * Typography does the heavy lifting: an oversized service
+ * title, a numbered eyebrow, a tight description, then a
+ * calm "What we offer" list with hairline dividers. No cards
+ * fighting the image — the image is the atmosphere.
+ * ───────────────────────────────────────────────────────────── */
 export default function ServicesPage() {
-  // Map services to images
   const serviceImages = [
     "/images/stock/image4.jpeg",  // Career & Personal Development
     "/images/stock/image5.jpeg",  // Training & Skills Development
@@ -24,143 +29,148 @@ export default function ServicesPage() {
     "/images/stock/image11.jpeg", // Leadership Development
   ];
 
+  const total = SERVICES.length;
+
   return (
     <>
       <PageHero
         headline="SERVICES"
-        subheading="Supporting individuals and organisations through intentional development"
+        subheading="Supporting individuals and organisations through intentional development."
+        backgroundImage="/images/heroes/services.jpg"
       />
 
-      {/* Service Sections — alternating layout */}
+      {/* One editorial spread per service */}
       {SERVICES.map((service, index) => {
         const isEven = index % 2 === 0;
-        const bgColor = isEven ? "bg-white" : "bg-[#f9f7f4]";
-        const textColor = isEven ? "text-[#2B2118]" : "text-[#2B2118]";
-        const subTextColor = isEven ? "text-[#4a4641]" : "text-[#4a4641]";
 
         return (
-          <section key={service.id} className={`${bgColor} px-6 py-16 md:py-20`}>
-            <div className="mx-auto max-w-7xl">
-              <div className={`grid gap-10 lg:grid-cols-2 lg:gap-16 items-center ${!isEven ? "lg:grid-flow-dense" : ""}`}>
-                
-                {/* Content Side */}
-                <motion.div
-                  initial={{ opacity: 0, x: isEven ? -40 : 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className={`flex flex-col ${!isEven ? "lg:col-start-2" : ""}`}
-                >
-                  {/* Icon */}
-                  <motion.div
-                    initial={{ scale: 0, rotate: -90 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                    className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f3e7ba] text-[#2B2118]"
-                  >
-                    <LucideIcon name={service.icon} size={28} />
-                  </motion.div>
+          <section
+            key={service.id}
+            className="relative isolate flex min-h-[100vh] items-center overflow-hidden"
+          >
+            {/* Full-bleed background image — sits at low opacity, serves as atmosphere */}
+            <div className="absolute inset-0" aria-hidden>
+              <Image
+                src={serviceImages[index] || "/images/stock/image3.jpeg"}
+                alt=""
+                fill
+                sizes="100vw"
+                priority={index < 2}
+                className="object-cover"
+              />
+            </div>
 
-                  {/* Title */}
-                  <h2 className={`mb-4 text-3xl font-bold tracking-[-0.02em] ${textColor} md:text-4xl`}>
-                    {service.title}
-                  </h2>
+            {/* Dark warm wash — content-side heavier so text is always legible.
+                Alternates per service so we're always darkening the content column. */}
+            <div
+              className="absolute inset-0"
+              aria-hidden
+              style={{
+                background: isEven
+                  ? "linear-gradient(90deg, rgba(8,6,10,0.96) 0%, rgba(8,6,10,0.86) 35%, rgba(8,6,10,0.55) 65%, rgba(8,6,10,0.35) 100%)"
+                  : "linear-gradient(270deg, rgba(8,6,10,0.96) 0%, rgba(8,6,10,0.86) 35%, rgba(8,6,10,0.55) 65%, rgba(8,6,10,0.35) 100%)",
+              }}
+            />
 
-                  {/* Description */}
-                  <p className={`mb-6 text-base leading-relaxed ${subTextColor} md:text-lg`}>
-                    {service.shortDescription}
+            {/* Extra top/bottom vignette so the image doesn't fight adjacent sections */}
+            <div
+              className="absolute inset-0"
+              aria-hidden
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(6,5,6,0.6) 0%, transparent 15%, transparent 85%, rgba(6,5,6,0.6) 100%)",
+              }}
+            />
+
+            {/* Content column — alternates left/right */}
+            <div className="lumina-container relative z-10 py-24 md:py-28">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                className={`max-w-xl md:max-w-[560px] ${isEven ? "" : "ml-auto"}`}
+              >
+                {/* Numbered eyebrow — the McKinsey signature move */}
+                <div className="mb-8 flex items-center gap-4">
+                  <span className="text-xs font-semibold tracking-[0.32em] text-[#C8A24C]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="h-px w-12 bg-[#C8A24C]/50" />
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#EFEBE3]/60">
+                    Service {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+                  </span>
+                </div>
+
+                {/* Massive service title */}
+                <h2 className="mb-8 text-4xl font-bold uppercase leading-[0.98] tracking-[-0.04em] text-white md:text-5xl lg:text-[3.75rem]">
+                  {service.title}
+                </h2>
+
+                {/* Description */}
+                <p className="text-balance-justify mb-12 text-lg leading-relaxed text-[#EFEBE3]/85 md:text-xl">
+                  {service.shortDescription}
+                </p>
+
+                {/* "What we offer" — hairline-separated list, editorial style */}
+                <div className="mb-14">
+                  <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                    What we offer
                   </p>
+                  <ul className="border-t border-white/10">
+                    {service.offerings.map((offering, idx) => (
+                      <motion.li
+                        key={idx}
+                        initial={{ opacity: 0, x: -12 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          delay: 0.15 + idx * 0.08,
+                          duration: 0.6,
+                          ease: "easeOut" as const,
+                        }}
+                        className="group flex items-baseline gap-6 border-b border-white/10 py-4 text-base text-[#EFEBE3]/85 transition-colors hover:text-white md:text-lg"
+                      >
+                        <span className="text-xs font-mono tabular-nums text-[#C8A24C]/60 group-hover:text-[#C8A24C]">
+                          {String(idx + 1).padStart(2, "0")}
+                        </span>
+                        <span className="flex-1">{offering}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
 
-                  {/* What We Offer */}
-                  <div className="mb-8">
-                    <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-[#C9A227]">
-                      What We Offer
-                    </h3>
-                    <ul className="grid gap-3">
-                      {service.offerings.map((offering, idx) => (
-                        <motion.li
-                          key={idx}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.3 + idx * 0.1 }}
-                          className={`flex items-start gap-3 text-sm ${subTextColor}`}
-                        >
-                          <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#C9A227]/20 text-xs font-bold text-[#C9A227]">
-                            ✓
-                          </span>
-                          <span>{offering}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* CTA Button */}
-                  <div>
-                    <Button
-                      href={`/contact?service=${service.id}`}
-                      variant="primary"
-                    >
-                      Enquire About This Service
-                    </Button>
-                  </div>
-                </motion.div>
-
-                {/* Image Side */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className={`relative h-[400px] overflow-hidden rounded-[2rem] shadow-[0_20px_50px_rgba(29,27,24,0.1)] md:h-[500px] lg:h-[600px] ${!isEven ? "lg:col-start-1 lg:row-start-1" : ""}`}
-                >
-                  <Image
-                    src={serviceImages[index] || "/images/stock/image3.jpeg"}
-                    alt={`${service.title} - Professional business setting`}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    priority={index < 2}
-                  />
-                  {/* Gradient overlay for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/20 to-transparent" />
-                </motion.div>
-
-              </div>
+                {/* CTA */}
+                <Button href={`/contact?service=${service.id}`} variant="outline">
+                  Enquire About This Service
+                </Button>
+              </motion.div>
             </div>
           </section>
         );
       })}
 
-      {/* Final CTA Section */}
-      <section className="bg-gradient-to-br from-[#2B2118] to-[#342820] px-6 py-20 text-white md:py-28">
-        <div className="mx-auto max-w-3xl text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="mb-5 text-3xl font-bold tracking-[-0.02em] md:text-4xl"
-          >
-            Not Sure What Support You Need?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-8 text-lg leading-relaxed text-white/80"
-          >
-            Let's explore together. Book a discovery call and we'll help you find the right path forward.
-          </motion.p>
+      {/* Closing CTA — floating dark glass, matches homepage's final CTA */}
+      <section className="lumina-section flex items-center">
+        <div className="lumina-container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 1.0, ease: "easeOut" as const }}
+            className="lumina-glass-dark mx-auto max-w-3xl px-8 py-14 text-center md:px-14 md:py-20"
           >
-            <Button href={SITE.calendly} variant="outline" external>
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+              STILL DECIDING?
+            </p>
+            <h2 className="mb-5 text-3xl font-bold tracking-[-0.02em] text-white md:text-4xl">
+              Not Sure What <span className="lumina-shimmer">Support</span> You Need?
+            </h2>
+            <p className="mx-auto mb-10 max-w-xl text-base leading-relaxed text-[#EFEBE3]/80 md:text-lg">
+              Let's explore together. Book a discovery call and we'll help you find the right
+              path forward.
+            </p>
+            <Button href={SITE.calendly} variant="primary" external>
               Book Discovery Call
             </Button>
           </motion.div>

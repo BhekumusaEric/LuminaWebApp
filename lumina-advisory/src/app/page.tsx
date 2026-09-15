@@ -1,342 +1,421 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import HeroSection from "@/components/sections/HeroSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import { Button } from "@/components/ui/Button";
 import { LucideIcon } from "@/components/ui/LucideIcon";
-import { QUICK_FACTS, WHY_LUMINA } from "@/lib/data";
+import { SERVICES, WHY_LUMINA, TESTIMONIALS } from "@/lib/data";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 
+/**
+ * HOMEPAGE — editorial landing page
+ * ─────────────────────────────────────────────────────────────
+ * 1. Hero                — visual first impression
+ * 2. Manifesto           — the belief, the promise, in one line
+ * 3. Practice Areas      — six ways Lumina helps (editorial list)
+ * 4. Approach            — three commitments (numbered manifesto)
+ * 5. By the Numbers      — credibility credentials as display facts
+ * 6. Featured Voice      — one pulled testimonial
+ * 7. Final CTA           — call to book a discovery call
+ *
+ * Every section is snap-target 100vh. All content sits on the
+ * shared GlobalBackdrop (no per-section backgrounds fight it).
+ * Motion timing uses cubic-bezier [0.22, 1, 0.36, 1] — the same
+ * cinematic ease we use on /services, /testimonials, /contact.
+ * ───────────────────────────────────────────────────────────── */
+
+// Numbers surfaced as editorial credentials. Curated for display,
+// not just pulled raw from QUICK_FACTS (those titles are too long).
+const CREDENTIALS = [
+  { number: "100%", label: "Black South African", sub: "female-owned consultancy" },
+  { number: "10+", label: "Years", sub: "corporate & consulting experience" },
+  { number: "MBA", label: "Cum Laude", sub: "leadership expertise" },
+  { number: "Level 1", label: "BBBEE", sub: "verified consultancy" },
+];
+
+// Featured pull-quote — first testimonial has the strongest arc.
+const FEATURED_TESTIMONIAL = TESTIMONIALS[0];
+
+const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
 export default function HomePage() {
-  // Enable scroll snapping on homepage
+  // Enable strict scroll snapping (defined in globals.css)
   useEffect(() => {
-    document.documentElement.classList.add('snap-enabled');
+    document.documentElement.classList.add("snap-enabled");
     return () => {
-      document.documentElement.classList.remove('snap-enabled');
+      document.documentElement.classList.remove("snap-enabled");
     };
   }, []);
-  // Animation variants for cards sliding in from left
-  const cardVariants = {
-    hidden: { opacity: 0, x: -60 },
-    visible: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: i * 0.15,
-        duration: 0.6,
-        ease: "easeOut" as const,
-      },
-    }),
-  };
-
-  // Animation variants for fading in
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut" as const,
-      },
-    },
-  };
-
-  // Staggered container animation
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
 
   return (
     <>
+      {/* ────────────────────────  1. HERO  ──────────────────────── */}
       <div className="snap-section snap-section-full">
         <HeroSection />
       </div>
 
-      <section className="snap-section bg-[#f6f3ee] px-6 py-20 md:py-24">
-        <div className="mx-auto w-full max-w-[1200px]">
+      {/* ────────────────────────  2. MANIFESTO  ──────────────────────── */}
+      <section className="snap-section lumina-section">
+        <div className="lumina-container">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="mb-12 text-center"
+            transition={{ duration: 1.1, ease: EASE }}
+            className="mx-auto max-w-5xl text-center"
           >
-            <h2 className="text-3xl font-bold tracking-[-0.05em] text-[#1d1b18] md:text-4xl">
-              QUICK FACTS
+            <div className="mb-8 inline-flex items-center gap-4">
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                Our Manifesto
+              </span>
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+            </div>
+
+            <p className="mb-10 text-3xl font-bold uppercase leading-[1.1] tracking-[-0.03em] text-white md:text-5xl lg:text-[3.5rem]">
+              We believe growth should be{" "}
+              <span className="lumina-shimmer">intentional</span>.
+            </p>
+
+            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/75 md:text-xl">
+              Lumina Advisory partners with individuals, teams, and organisations to unlock
+              what's already there — turning ambition into direction, potential into practice,
+              and intention into transformation.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ────────────────────────  3. PRACTICE AREAS  ──────────────────────── */}
+      <section className="snap-section lumina-section">
+        <div className="lumina-container">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-16">
+            {/* Left — sticky visual + heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="lg:sticky lg:top-32 lg:self-start"
+            >
+              {/* Visual anchor — warm image with gold-tinted frame */}
+              <div className="relative mb-8 aspect-[4/5] w-full overflow-hidden rounded-[1.25rem] border border-[#C8A24C]/20 shadow-[0_24px_60px_rgba(0,0,0,0.4)]">
+                <Image
+                  src="/images/heroes/services.jpg"
+                  alt=""
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#08060a]/70 via-[#08060a]/15 to-transparent" />
+                {/* Small caption stamp bottom-left */}
+                <div className="absolute bottom-5 left-5 flex items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.32em] text-white/85">
+                  <span className="h-px w-8 bg-[#C8A24C]" />
+                  <span>The Practice</span>
+                </div>
+              </div>
+
+              <div className="mb-6 flex items-center gap-4">
+                <span className="h-px w-12 bg-[#C8A24C]/60" />
+                <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                  Practice Areas
+                </span>
+              </div>
+              <h2 className="mb-6 text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
+                Six ways we help you unlock what&apos;s next.
+              </h2>
+              <p className="mb-8 text-base leading-relaxed text-white/70 md:text-lg">
+                From individual coaching to organisational transformation — a full spectrum
+                of development, facilitation, and strategic advisory.
+              </p>
+              <Link
+                href="/services"
+                className="group inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#D8B96F] transition-colors hover:text-white"
+              >
+                Explore all services
+                <LucideIcon
+                  name="ArrowRight"
+                  size={14}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+            </motion.div>
+
+            {/* Right — numbered list of services */}
+            <div>
+              <ul className="border-t border-white/10">
+                {SERVICES.map((service, i) => (
+                  <motion.li
+                    key={service.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.7, delay: 0.08 * i, ease: "easeOut" as const }}
+                    className="group border-b border-white/10"
+                  >
+                    <Link
+                      href={`/services#${service.id}`}
+                      className="grid grid-cols-[auto_1fr_auto] items-baseline gap-6 py-6 transition-colors md:py-7"
+                    >
+                      <span className="text-xs font-mono tabular-nums text-[#C8A24C]/60 transition-colors group-hover:text-[#C8A24C]">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="mb-1 text-xl font-bold uppercase leading-tight tracking-[-0.02em] text-white transition-colors md:text-2xl">
+                          {service.title}
+                        </h3>
+                        <p className="text-sm leading-relaxed text-white/60 transition-colors group-hover:text-white/85 md:text-base">
+                          {service.shortDescription}
+                        </p>
+                      </div>
+                      <LucideIcon
+                        name="ArrowUpRight"
+                        size={20}
+                        className="text-white/30 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#D8B96F]"
+                      />
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ────────────────────────  4. APPROACH  ──────────────────────── */}
+      <section className="snap-section lumina-section relative isolate overflow-hidden">
+        {/* Atmospheric background — very low opacity so type stays crisp */}
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+          <Image
+            src="/images/heroes/growth-ambient.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover opacity-25"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,6,10,0.85)_0%,rgba(8,6,10,0.72)_50%,rgba(8,6,10,0.9)_100%)]" />
+        </div>
+
+        <div className="lumina-container">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: EASE }}
+            className="mb-14 max-w-2xl"
+          >
+            <div className="mb-6 flex items-center gap-4">
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                Our Approach
+              </span>
+            </div>
+            <h2 className="text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
+              Three commitments that guide our work.
             </h2>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
-            className="grid gap-6 md:grid-cols-2 xl:grid-cols-4"
-          >
-            {QUICK_FACTS.map((fact, index) => (
+          <div className="grid gap-0 lg:grid-cols-3">
+            {WHY_LUMINA.map((pillar, i) => (
               <motion.div
-                key={fact.title}
-                custom={index}
-                variants={cardVariants}
-                whileHover={{ 
-                  y: -8, 
-                  scale: 1.02,
-                  transition: { duration: 0.3 } 
-                }}
-                className="flex h-full flex-col rounded-[1.6rem] border border-[#e7e0d7] bg-white p-6 shadow-[0_10px_28px_rgba(35,26,20,0.03)] transition-shadow duration-300 hover:shadow-[0_20px_40px_rgba(35,26,20,0.08)]"
+                key={pillar.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.9, delay: i * 0.12, ease: EASE }}
+                className="group relative border-t border-white/10 py-10 pr-8 lg:border-r lg:border-t lg:pr-10 lg:pl-8 lg:first:pl-0 lg:last:border-r-0"
               >
-                <motion.div
-                  initial={{ scale: 0, rotate: -180 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ 
-                    delay: index * 0.15 + 0.3,
-                    duration: 0.5,
-                    type: "spring",
-                    stiffness: 200,
-                  }}
-                  className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f3e7ba] text-[#2B2118]"
-                >
-                  <LucideIcon name={fact.icon} size={22} />
-                </motion.div>
-                <h3 className="mb-3 text-lg font-bold leading-tight text-[#2B2118]">
-                  {fact.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-[#4B4B4B]">{fact.description}</p>
+                <span className="mb-8 block font-mono text-sm tabular-nums text-[#C8A24C]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+
+                <div className="mb-5 flex items-center gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C8A24C]/15 text-[#D8B96F] transition-colors group-hover:bg-[#C8A24C]/25">
+                    <LucideIcon name={pillar.icon} size={22} />
+                  </div>
+                  <h3 className="min-w-0 flex-1 text-xl font-bold uppercase leading-tight tracking-[-0.02em] text-white md:text-2xl">
+                    {pillar.title}
+                  </h3>
+                </div>
+
+                <p className="text-base leading-relaxed text-white/75">{pillar.description}</p>
               </motion.div>
             ))}
-          </motion.div>
-        </div>
-      </section>
+          </div>
 
-      <TestimonialsSection />
-
-      <section className="snap-section relative bg-[#f9f7f4] px-6 py-20 md:py-24 overflow-hidden">
-        {/* Subtle decorative background elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#f3e7ba]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#C9A227]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-        
-        <div className="relative mx-auto grid w-full max-w-[1200px] gap-10 lg:grid-cols-[1.05fr_0.95fr_1.1fr] lg:items-stretch lg:justify-between">
-          {/* Left Column - About Lumina */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="flex flex-col justify-center"
-          >
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="mb-4 text-[10px] font-bold uppercase tracking-[0.24em] text-[#C9A227]"
-            >
-              ABOUT LUMINA
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-5 text-3xl font-bold leading-tight text-[#1d1b18] md:text-4xl"
-            >
-              ABOUT LUMINA
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-6 text-base leading-relaxed text-[#4a4641]"
-            >
-              Lumina Advisory, is a boutique advisory and development consultancy focused on people development, strategic facilitation, leadership, and organisational growth.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="mb-6 text-base leading-relaxed text-[#4a4641]"
-            >
-              At Lumina Advisory, we believe growth should be intentional. Whether you are navigating your career, developing as a leader, building confidence, or creating high-performing teams, Lumina exists to support growth that is both practical and impactful.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-base leading-relaxed text-[#4a4641]"
-            >
-              We combine strategic insight, professional experience, and people-centered development to create spaces that inspire transformation personally and professionally.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-8 rounded-[1.5rem] border border-[#e7e0d7] bg-[#f2eadf] p-5 shadow-sm"
-            >
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#2B2118]">
-                KEY FOCUS AREAS
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-[#4a4641]">
-                Career & Personal Development • Training & Skills Development • Programme Direction, Moderation & Hosting • Independent Consulting & Advisory • Strategic Facilitation & Team Alignment • Leadership Development
-              </p>
-            </motion.div>
-          </motion.div>
-
-          {/* Center Column - Image with decorative frame */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="relative min-h-[420px] overflow-hidden rounded-[2rem] border border-[#ebe0d2] bg-[#efe7de] shadow-[0_24px_70px_rgba(29,27,24,0.08)] lg:min-h-full"
-          >
-            <Image
-              src="/images/stock/image12.png"
-              alt="Lumina Advisory leader in a confident, professional office setting"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 33vw"
-              className="object-cover object-center transition-transform duration-700 hover:scale-105"
-            />
-            {/* Subtle overlay for visual depth */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
-          </motion.div>
-
-          {/* Right Column - Why Lumina */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="flex flex-col justify-center"
-          >
-            <motion.h3
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="mb-7 text-2xl font-bold leading-tight text-[#1d1b18] md:text-3xl"
-            >
-              WHY LUMINA?
-            </motion.h3>
-            <div className="space-y-4">
-              {WHY_LUMINA.map((pillar, index) => (
-                <motion.div
-                  key={pillar.title}
-                  initial={{ opacity: 0, x: 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.15,
-                    ease: "easeOut" as const
-                  }}
-                  whileHover={{ 
-                    x: 8,
-                    transition: { duration: 0.3 }
-                  }}
-                  className="rounded-[1.5rem] border border-[#e7e0d7] bg-white p-5 shadow-[0_8px_20px_rgba(29,27,24,0.04)] transition-shadow duration-300 hover:shadow-[0_12px_30px_rgba(29,27,24,0.08)]"
-                >
-                  <div className="mb-3 flex items-center gap-3">
-                    <motion.div
-                      initial={{ scale: 0, rotate: -90 }}
-                      whileInView={{ scale: 1, rotate: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ 
-                        delay: index * 0.15 + 0.3,
-                        type: "spring",
-                        stiffness: 200,
-                      }}
-                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f3e7ba] text-[#2B2118]"
-                    >
-                      <LucideIcon name={pillar.icon} size={18} />
-                    </motion.div>
-                    <h4 className="text-lg font-bold text-[#2B2118]">{pillar.title}</h4>
-                  </div>
-                  <p className="text-sm leading-relaxed text-[#4a4641]">
-                    {pillar.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="snap-section snap-section-full relative bg-[#2B2118] px-6 py-20 text-white md:py-24 overflow-hidden flex items-center">
-        {/* Animated background gradient orbs */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.15, 0.1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-          }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#C9A227]/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.1, 0.15, 0.1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-          }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#f3e7ba]/10 rounded-full blur-3xl"
-        />
-
-        <div className="relative mx-auto max-w-5xl text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="mb-5 text-3xl font-bold tracking-[-0.05em] md:text-5xl"
-          >
-            READY TO UNLOCK YOUR POTENTIAL?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mx-auto max-w-3xl text-base leading-relaxed text-white/80 md:text-lg"
-          >
-            Whether you're developing leaders, strengthening teams, or navigating organisational change, Lumina Advisory is here to help you achieve meaningful and lasting impact.
-          </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-10 flex justify-center"
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-12 border-t border-white/10 pt-8"
           >
-            <Button 
-              href="/contact" 
-              variant="primary" 
-              className="bg-[#C9A227] px-8 py-4 text-sm font-semibold tracking-[0.18em] hover:bg-[#b8911f] transition-all hover:scale-105 hover:shadow-[0_20px_40px_rgba(201,162,39,0.3)]"
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#D8B96F] transition-colors hover:text-white"
             >
-              SCHEDULE A DISCOVERY CALL
-            </Button>
+              Learn more about Lumina
+              <LucideIcon
+                name="ArrowRight"
+                size={14}
+                className="transition-transform group-hover:translate-x-1"
+              />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ────────────────────────  5. BY THE NUMBERS  ──────────────────────── */}
+      <section className="snap-section lumina-section">
+        <div className="lumina-container">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: EASE }}
+            className="mb-14 text-center"
+          >
+            <div className="mb-6 inline-flex items-center gap-4">
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                By The Numbers
+              </span>
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+            </div>
+            <h2 className="text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
+              Credentials that stand.
+            </h2>
+          </motion.div>
+
+          <div className="grid gap-0 border-t border-white/10 md:grid-cols-2 lg:grid-cols-4">
+            {CREDENTIALS.map((c, i) => (
+              <motion.div
+                key={c.label + i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.8, delay: i * 0.1, ease: EASE }}
+                className="group border-b border-white/10 px-2 py-10 transition-colors md:border-r md:last:border-r-0 md:px-6 lg:px-8"
+              >
+                <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#C8A24C]/70">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <p className="mb-3 text-5xl font-bold leading-none tracking-[-0.04em] text-white md:text-6xl lg:text-[4.5rem]">
+                  {c.number}
+                </p>
+                <p className="mb-1 text-sm font-semibold uppercase tracking-[0.18em] text-[#D8B96F]">
+                  {c.label}
+                </p>
+                <p className="text-sm leading-relaxed text-white/60">{c.sub}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ────────────────────────  6. FEATURED VOICE (magazine profile)  ──────────────────────── */}
+      <section className="snap-section lumina-section">
+        <div className="lumina-container">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-16">
+            {/* Portrait — warm-framed, moody */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1.0, ease: EASE }}
+              className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.25rem] border border-[#C8A24C]/20 shadow-[0_24px_70px_rgba(0,0,0,0.4)]"
+            >
+              <Image
+                src="/images/stock/image3.jpeg"
+                alt="A client's story of growth with Lumina Advisory"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#08060a]/70 via-[#08060a]/15 to-transparent" />
+              {/* Slide-style attribution stamp bottom-left */}
+              <div className="absolute bottom-6 left-6 flex items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.32em] text-white/85">
+                <span className="h-px w-8 bg-[#C8A24C]" />
+                <span>A Client&apos;s Story</span>
+              </div>
+            </motion.div>
+
+            {/* Quote */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1.0, ease: EASE }}
+              className="flex flex-col justify-center py-4 lg:py-8"
+            >
+              <div className="mb-8 flex items-center gap-4">
+                <span className="h-px w-12 bg-[#C8A24C]/60" />
+                <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                  In Their Words
+                </span>
+              </div>
+
+              <blockquote className="mb-10 text-2xl font-medium leading-[1.35] tracking-[-0.01em] text-white md:text-3xl lg:text-[2.15rem]">
+                <span className="mr-1 text-[#C8A24C]" aria-hidden>
+                  &ldquo;
+                </span>
+                {FEATURED_TESTIMONIAL.quote}
+                <span className="ml-1 text-[#C8A24C]" aria-hidden>
+                  &rdquo;
+                </span>
+              </blockquote>
+
+              <div className="mb-8 flex items-center gap-4">
+                <span className="h-px w-12 bg-[#C8A24C]/60" />
+                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#D8B96F]">
+                  {FEATURED_TESTIMONIAL.author}
+                </p>
+              </div>
+
+              <Link
+                href="/testimonials"
+                className="group inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#D8B96F] transition-colors hover:text-white"
+              >
+                Read more stories
+                <LucideIcon
+                  name="ArrowRight"
+                  size={14}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ────────────────────────  7. FINAL CTA  ──────────────────────── */}
+      <section className="snap-section snap-section-full lumina-section relative flex items-center">
+        <div className="lumina-container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.0, ease: EASE }}
+            className="lumina-glass-dark mx-auto max-w-4xl px-8 py-14 text-center md:px-14 md:py-20"
+          >
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+              Let's Begin
+            </p>
+            <h2 className="mb-5 text-3xl font-bold uppercase tracking-[-0.03em] text-white md:text-5xl">
+              Ready to <span className="lumina-shimmer">unlock</span> your potential?
+            </h2>
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
+              Whether you're developing leaders, strengthening teams, or navigating
+              organisational change, Lumina Advisory is here to help you achieve meaningful
+              and lasting impact.
+            </p>
+            <div className="mt-10 flex justify-center">
+              <Button href="/contact" variant="primary" className="px-8 py-4">
+                Schedule a Discovery Call
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>

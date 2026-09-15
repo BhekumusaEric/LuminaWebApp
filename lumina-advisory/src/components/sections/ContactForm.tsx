@@ -1,16 +1,16 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { motion } from "framer-motion";
+import { LucideIcon } from "@/components/ui/LucideIcon";
 import { SITE } from "@/lib/data";
 
 /**
  * ContactForm
- * Submits to Web3Forms (no backend required).
- * Setup:
- *  1. Create a free account at https://web3forms.com
- *  2. Get your access key
- *  3. Add it to SITE.web3forms.accessKey in src/lib/data.ts
- */
+ * ─────────────────────────────────────────────────────────────
+ * Dark-glass form matching the site's editorial language.
+ * Submits to Web3Forms (no backend). Access key in SITE.web3forms.
+ * ───────────────────────────────────────────────────────────── */
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -43,61 +43,90 @@ export default function ContactForm() {
   }
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-[#2B2118]/15 bg-white text-[#2B2118] text-sm placeholder:text-[#475569]/50 focus:outline-none focus:ring-2 focus:ring-[#C9A227]";
+    "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-sm text-white placeholder:text-white/40 backdrop-blur-sm transition-all focus:border-[#C8A24C]/60 focus:bg-white/[0.06] focus:outline-none focus:ring-2 focus:ring-[#C8A24C]/25";
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-8">Send a Message</h2>
+    <div className="lumina-glass-dark flex h-full flex-col p-8 md:p-10">
+      <div className="mb-8 flex items-center gap-4">
+        <span className="h-px w-12 bg-[#C8A24C]/50" />
+        <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+          Send a Message
+        </span>
+      </div>
+
+      <h2 className="mb-8 text-2xl font-bold uppercase leading-tight tracking-[-0.02em] text-white md:text-3xl">
+        Start the Conversation.
+      </h2>
 
       {status === "success" ? (
-        <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
-          <p className="text-green-800 font-semibold text-lg mb-2">Message sent!</p>
-          <p className="text-green-700 text-sm">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" as const }}
+          className="flex flex-1 flex-col items-center justify-center rounded-xl border border-[#C8A24C]/25 bg-[#C8A24C]/[0.06] p-10 text-center"
+        >
+          <div className="mb-3 inline-flex items-center gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#C8A24C]/20">
+              <LucideIcon name="Check" size={22} className="text-[#D8B96F]" />
+            </div>
+            <p className="text-lg font-semibold text-white">Message sent.</p>
+          </div>
+          <p className="text-sm leading-relaxed text-white/70">
             Thank you for reaching out. We'll be in touch shortly.
           </p>
-        </div>
+        </motion.div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <form onSubmit={handleSubmit} className="flex flex-1 flex-col gap-4">
           <input
             type="text"
             name="name"
-            placeholder="Full Name"
+            placeholder="Full name"
             required
             className={inputClass}
           />
           <input
             type="email"
             name="email"
-            placeholder="Email Address"
+            placeholder="Email address"
             required
             className={inputClass}
           />
           <input
             type="tel"
             name="phone"
-            placeholder="Contact Number"
+            placeholder="Contact number (optional)"
             className={inputClass}
           />
           <textarea
             name="message"
-            placeholder="Tell us more about your request"
+            placeholder="Tell us more about your request…"
             required
             rows={5}
-            className={inputClass}
+            className={`${inputClass} resize-none`}
           />
 
           {status === "error" && (
-            <p className="text-red-600 text-sm">
-              Something went wrong. Please try again or contact us directly.
+            <p className="text-sm text-red-300">
+              Something went wrong. Please try again or reach us directly.
             </p>
           )}
 
           <button
             type="submit"
             disabled={status === "loading"}
-            className="bg-[#C9A227] text-[#2B2118] font-semibold px-6 py-3 rounded-xl hover:bg-[#b8911f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="mt-2 inline-flex items-center justify-center gap-3 rounded-full bg-[#B8931E] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.24em] text-[#1a1410] shadow-[0_8px_24px_rgba(184,144,32,0.18)] transition-all hover:bg-[#C8A24C] hover:shadow-[0_14px_32px_rgba(184,144,32,0.28)] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {status === "loading" ? "Sending…" : "Send Message"}
+            {status === "loading" ? (
+              <>
+                <span className="h-3 w-3 animate-spin rounded-full border-2 border-[#1a1410]/40 border-t-[#1a1410]" />
+                Sending…
+              </>
+            ) : (
+              <>
+                Send Message
+                <LucideIcon name="ArrowRight" size={14} />
+              </>
+            )}
           </button>
         </form>
       )}

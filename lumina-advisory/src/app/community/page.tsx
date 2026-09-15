@@ -1,70 +1,73 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { PageHero } from "@/components/ui/PageHero";
 import { Button } from "@/components/ui/Button";
 import { LucideIcon } from "@/components/ui/LucideIcon";
 import { COMMUNITY_BENEFITS, SITE } from "@/lib/data";
 
+const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
+/**
+ * COMMUNITY PAGE — editorial dark treatment
+ * ─────────────────────────────────────────────────────────────
+ * 1. PageHero
+ * 2. Intro — centered editorial statement about the community
+ * 3. What You Can Expect — 6 benefits as image-backed cards with
+ *    icon-inline titles (kept the visual richness of images here
+ *    because the community page is where imagery genuinely helps)
+ * 4. Upcoming Events — placeholder dark-glass card
+ * 5. Final CTA — floating glass, WhatsApp Join button
+ * ───────────────────────────────────────────────────────────── */
 export default function CommunityPage() {
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" as const },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.5,
-        ease: "easeOut" as const,
-      },
-    }),
-  };
-
-  // Assign background images to each benefit card
   const benefitImages = [
-    "/images/stock/image3.jpeg",  // Career Development Conversations
-    "/images/stock/image6.jpeg",  // Live Coaching Sessions
-    "/images/stock/image9.jpeg",  // Leadership Discussions
-    "/images/stock/image10.jpeg", // Networking Opportunities
-    "/images/stock/image5.jpeg",  // Reflection Prompts
-    "/images/stock/image11.jpeg", // Growth Resources
+    "/images/stock/image3.jpeg",
+    "/images/stock/image6.jpeg",
+    "/images/stock/image9.jpeg",
+    "/images/stock/image10.jpeg",
+    "/images/stock/image5.jpeg",
+    "/images/stock/image11.jpeg",
   ];
 
   return (
     <>
       <PageHero
         headline="JOIN THE LUMINA COMMUNITY"
-        subheading="A growth-focused space for ambitious individuals"
+        subheading="A growth-focused space for ambitious individuals."
+        backgroundImage="/images/heroes/community.jpg"
       />
 
-      {/* Community Introduction */}
-      <section className="bg-[#f9f7f4] px-6 py-20 md:py-28">
-        <div className="mx-auto max-w-4xl text-center">
+      {/* ─── COMMUNITY INTRO ─── */}
+      <section className="lumina-section">
+        <div className="lumina-container">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1.0, ease: EASE }}
+            className="mx-auto max-w-3xl"
           >
-            <h2 className="mb-6 text-3xl font-bold tracking-[-0.05em] text-[#1d1b18] md:text-4xl">
-              THE LUMINA PERSONAL DEVELOPMENT COMMUNITY
+            <div className="mb-8 flex items-center justify-center gap-4">
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                The Community
+              </span>
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+            </div>
+
+            <h2 className="mb-10 text-center text-3xl font-bold uppercase leading-[1.1] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
+              A growth-focused space for those becoming their{" "}
+              <span className="lumina-shimmer">next</span> version.
             </h2>
-            <div className="space-y-4 text-base leading-relaxed text-[#4a4641] md:text-lg">
-              <p>
+
+            <div className="space-y-5 text-base leading-relaxed text-white/80 md:text-lg">
+              <p className="text-balance-justify">
                 The Lumina Personal Development Community is a growth-focused space for
                 ambitious individuals committed to becoming the next version of themselves.
               </p>
-              <p>
+              <p className="text-balance-justify">
                 This community was created to support personal and professional growth
                 through meaningful conversations, shared experiences, practical resources,
                 and intentional development.
@@ -74,133 +77,149 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      {/* What You Can Expect */}
-      <section className="bg-white px-6 py-20 md:py-28">
-        <div className="mx-auto max-w-6xl">
+      {/* ─── WHAT YOU CAN EXPECT ─── */}
+      <section className="lumina-section">
+        <div className="lumina-container">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="mb-12 text-center"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: EASE }}
+            className="mb-14 max-w-2xl"
           >
-            <h2 className="mb-4 text-3xl font-bold tracking-[-0.05em] text-[#1d1b18] md:text-4xl">
-              WHAT YOU CAN EXPECT
+            <div className="mb-6 flex items-center gap-4">
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                What To Expect
+              </span>
+            </div>
+            <h2 className="text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
+              Six ways we grow together.
             </h2>
-            <p className="text-base text-[#4a4641] md:text-lg">
-              Join a vibrant community dedicated to growth and transformation
-            </p>
           </motion.div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {COMMUNITY_BENEFITS.map((benefit, index) => (
-              <motion.div
+              <motion.article
                 key={benefit.title}
-                custom={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={cardVariants}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="group relative overflow-hidden rounded-[1.6rem] border border-[#e7e0d7] shadow-[0_10px_28px_rgba(35,26,20,0.03)] transition-all duration-300 hover:shadow-[0_18px_38px_rgba(35,26,20,0.12)]"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.8, delay: index * 0.08, ease: EASE }}
+                whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+                className="group relative overflow-hidden rounded-[1.5rem] border border-white/10 shadow-[0_14px_48px_rgba(0,0,0,0.4)] transition-all duration-500 hover:border-[#C8A24C]/30 hover:shadow-[0_24px_60px_rgba(0,0,0,0.55)]"
               >
-                {/* Background Image */}
+                {/* Background image */}
                 <div className="absolute inset-0">
                   <Image
                     src={benefitImages[index]}
-                    alt={benefit.title}
+                    alt=""
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="object-cover transition-transform duration-[3000ms] ease-out group-hover:scale-105"
                   />
-                  {/* Dark overlay for text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/95 via-[#2B2118]/70 to-[#2B2118]/40" />
+                  {/* Warm dark wash */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#08060a]/95 via-[#08060a]/70 to-[#08060a]/35" />
                 </div>
 
-                {/* Content */}
-                <div className="relative z-10 flex min-h-[260px] flex-col justify-end p-6">
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#C9A227]/90 backdrop-blur-sm">
-                    <LucideIcon name={benefit.icon} size={28} className="text-white" />
+                {/* Content — icon + title inline at bottom */}
+                <div className="relative z-10 flex min-h-[260px] items-end p-6">
+                  <div className="flex w-full items-center gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#C8A24C]/25 text-[#D8B96F] backdrop-blur-sm transition-colors group-hover:bg-[#C8A24C]/35">
+                      <LucideIcon name={benefit.icon} size={20} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="mb-1 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]/80">
+                        {String(index + 1).padStart(2, "0")}
+                      </p>
+                      <h3 className="text-base font-bold uppercase leading-tight tracking-[-0.01em] text-white md:text-lg">
+                        {benefit.title}
+                      </h3>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold leading-tight text-white">
-                    {benefit.title}
-                  </h3>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Upcoming Events */}
-      <section className="bg-[#f6f3ee] px-6 py-20 md:py-28">
-        <div className="mx-auto max-w-4xl">
+      {/* ─── UPCOMING EVENTS ─── */}
+      <section className="lumina-section">
+        <div className="lumina-container">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: EASE }}
+            className="mx-auto max-w-3xl"
           >
-            <h2 className="mb-6 text-3xl font-bold tracking-[-0.05em] text-[#1d1b18] md:text-4xl">
-              UPCOMING EVENTS
-            </h2>
-            <div className="rounded-[2rem] border border-[#e7e0d7] bg-white p-8 md:p-12">
-              <div className="mb-6 flex justify-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#C9A227]/10">
-                  <LucideIcon name="Calendar" size={32} className="text-[#C9A227]" />
+            <div className="mb-8 flex items-center justify-center gap-4">
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                Upcoming Events
+              </span>
+              <span className="h-px w-12 bg-[#C8A24C]/60" />
+            </div>
+
+            <div className="lumina-glass-dark p-10 text-center md:p-14">
+              <div className="mb-6 inline-flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C8A24C]/15 text-[#D8B96F]">
+                  <LucideIcon name="Calendar" size={22} />
                 </div>
+                <h3 className="text-2xl font-bold uppercase tracking-[-0.02em] text-white md:text-3xl">
+                  Events Coming Soon
+                </h3>
               </div>
-              <p className="mb-2 text-lg font-semibold text-[#2B2118]">
-                Events Coming Soon
-              </p>
-              <p className="text-base leading-relaxed text-[#4a4641]">
-                We're planning exciting community events, workshops, and coaching
-                sessions. Join the community to be the first to know when events are
-                announced!
+              <p className="mx-auto max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
+                We&apos;re planning workshops, coaching sessions, and community gatherings.
+                Join the community below to be the first to know when the calendar opens.
               </p>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#2B2118] via-[#342820] to-[#2B2118] px-6 py-20 text-white md:py-28">
-        {/* Decorative elements */}
-        <div className="absolute right-10 top-10 h-72 w-72 rounded-full bg-[#C9A227]/10 blur-3xl" />
-        <div className="absolute bottom-10 left-10 h-96 w-96 rounded-full bg-[#E0C76C]/5 blur-3xl" />
-
-        <div className="relative z-10 mx-auto max-w-4xl text-center">
+      {/* ─── FINAL CTA ─── */}
+      <section className="lumina-section flex items-center">
+        <div className="lumina-container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1.0, ease: EASE }}
+            className="lumina-glass-dark mx-auto max-w-3xl px-8 py-14 text-center md:px-14 md:py-20"
           >
-            <div className="mb-8 flex justify-center">
-              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#C9A227]/20">
-                <LucideIcon name="Users" size={40} className="text-[#C9A227]" />
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+              Join Us
+            </p>
+            <div className="mb-5 inline-flex items-center gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C8A24C]/15 text-[#D8B96F]">
+                <LucideIcon name="Users" size={22} />
               </div>
+              <h2 className="text-3xl font-bold uppercase tracking-[-0.02em] text-white md:text-4xl">
+                Ready to <span className="lumina-shimmer">grow</span> with us?
+              </h2>
             </div>
-            <h2 className="mb-6 text-3xl font-bold tracking-[-0.05em] md:text-5xl">
-              READY TO GROW WITH US?
-            </h2>
-            <p className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
-              Growth doesn't have to happen alone. Join a community of ambitious
-              individuals committed to personal and professional development. Connect,
-              learn, and grow together.
+            <p className="mx-auto mb-10 max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
+              Growth doesn&apos;t have to happen alone. Join a community of ambitious
+              individuals committed to becoming their next version.
             </p>
-            <Button
-              href={SITE.whatsapp.communityLink || "#"}
-              variant="primary"
-              external
-              className="bg-[#C9A227] px-8 py-4 text-sm font-semibold tracking-[0.18em] transition-all hover:scale-105 hover:bg-[#b8911f] hover:shadow-[0_20px_40px_rgba(201,162,39,0.3)]"
-            >
-              JOIN THE COMMUNITY
-            </Button>
-            <p className="mt-6 text-sm text-white/60">
-              Connect with us on WhatsApp and be part of the journey
-            </p>
+            <div className="flex flex-col items-center gap-3">
+              <Button
+                href={SITE.whatsapp.communityLink || SITE.whatsapp.link}
+                variant="primary"
+                external
+              >
+                Join the Community
+              </Button>
+              <Link
+                href="/contact"
+                className="mt-2 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/60 transition-colors hover:text-[#D8B96F]"
+              >
+                Or send us a message →
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

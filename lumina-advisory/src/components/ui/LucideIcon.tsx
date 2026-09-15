@@ -11,6 +11,7 @@ import {
   RefreshCw,
   Heart,
   MessageSquare,
+  MessageCircle,
   Globe,
   Compass,
   Layers,
@@ -22,7 +23,12 @@ import {
   ChevronRight,
   Calendar,
   ArrowUp,
+  ArrowRight,
+  ArrowUpRight,
   Phone,
+  Mail,
+  MapPin,
+  Check,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -38,6 +44,7 @@ const iconMap: Record<string, React.ElementType> = {
   RefreshCw,
   Heart,
   MessageSquare,
+  MessageCircle,
   Globe,
   Compass,
   Layers,
@@ -49,7 +56,12 @@ const iconMap: Record<string, React.ElementType> = {
   ChevronRight,
   Calendar,
   ArrowUp,
+  ArrowRight,
+  ArrowUpRight,
   Phone,
+  Mail,
+  MapPin,
+  Check,
 };
 
 interface LucideIconProps {

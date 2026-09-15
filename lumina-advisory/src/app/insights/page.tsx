@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import InsightsList from "@/components/sections/InsightsList";
 
 export const metadata: Metadata = {
@@ -11,17 +10,24 @@ export const metadata: Metadata = {
 
 /**
  * INSIGHTS PAGE
- * Sourced dynamically from Google Sheets via the InsightsList component.
- */
+ * ─────────────────────────────────────────────────────────────
+ * Articles sourced dynamically from Google Sheets via InsightsList.
+ * Editorial dark treatment — no per-section wrapper backgrounds.
+ * ───────────────────────────────────────────────────────────── */
 export default function InsightsPage() {
   return (
     <>
-      <PageHero headline="Insights for intentional growth." />
+      <PageHero
+        headline="Insights for intentional growth."
+        subheading="Perspectives on career growth, leadership, and personal transformation."
+        backgroundImage="/images/heroes/insights.jpg"
+      />
 
-      <SectionWrapper>
-        <InsightsList />
-      </SectionWrapper>
+      <section className="lumina-section">
+        <div className="lumina-container">
+          <InsightsList />
+        </div>
+      </section>
     </>
   );
 }
-

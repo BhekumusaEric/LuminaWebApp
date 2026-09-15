@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { LucideIcon } from "@/components/ui/LucideIcon";
@@ -9,220 +9,211 @@ import { TESTIMONIALS } from "@/lib/data";
 /**
  * TestimonialsSection
  * ─────────────────────────────────────────────────────────────
- * Sliding testimonials carousel with background images.
- * Auto-scrolls horizontally with smooth animations.
- * Professional client images for visual appeal.
- * ─────────────────────────────────────────────────────────────
- */
+ * Editorial-style testimonial spread. One story per slide,
+ * auto-advancing every 15s. Full-bleed portrait image on one
+ * side, quote + attribution on the other — reads like a
+ * profile page in a magazine, not a marketing carousel.
+ *
+ * Everything sits on the shared dark backdrop, so no per-section
+ * background fights the rest of the site.
+ * ───────────────────────────────────────────────────────────── */
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [direction, setDirection] = useState(0);
 
-  // Assign beautiful, professional background images to each testimonial
   const testimonialImages = [
-    "/images/stock/image3.jpeg",  // Career Coaching - Professional setting
-    "/images/stock/image6.jpeg",  // Corporate Workshop - Business environment
-    "/images/stock/image11.jpeg", // Young Professional - Career growth
-    "/images/stock/image12.jpeg", // Event Attendee - Conference/speaking
-    "/images/stock/image9.jpeg",  // Community Member - Community/connection
+    "/images/stock/image3.jpeg",
+    "/images/stock/image6.jpeg",
+    "/images/stock/image11.jpeg",
+    "/images/stock/image12.jpeg",
+    "/images/stock/image9.jpeg",
   ];
 
-  // Auto-slide every 8 seconds
+  const total = TESTIMONIALS.length;
+  const t = TESTIMONIALS[currentIndex];
+  const img = testimonialImages[currentIndex % testimonialImages.length];
+
+  // Auto-advance every 15s
   useEffect(() => {
     if (isPaused) return;
-    
-    const interval = setInterval(() => {
+    const id = setInterval(() => {
       setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [isPaused]);
+      setCurrentIndex((prev) => (prev + 1) % total);
+    }, 15000);
+    return () => clearInterval(id);
+  }, [isPaused, total]);
 
   const goToNext = () => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+    setCurrentIndex((p) => (p + 1) % total);
   };
-
-  const goToPrevious = () => {
+  const goToPrev = () => {
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+    setCurrentIndex((p) => (p - 1 + total) % total);
   };
-
-  const goToSlide = (index: number) => {
-    setDirection(index > currentIndex ? 1 : -1);
-    setCurrentIndex(index);
+  const goToSlide = (i: number) => {
+    setDirection(i > currentIndex ? 1 : -1);
+    setCurrentIndex(i);
   };
 
   const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-    }),
+    enter: (dir: number) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir < 0 ? 60 : -60, opacity: 0 }),
   };
 
   return (
-    <section 
-      className="snap-section relative overflow-hidden bg-[#f9f7f4] px-6 py-20 md:py-28"
+    <section
+      className="snap-section lumina-section relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="mb-12 text-center"
-      >
-        <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.24em] text-[#C9A227]">
-          CLIENT SUCCESS STORIES
-        </p>
-        <h2 className="mb-3 text-3xl font-bold tracking-[-0.05em] text-[#2B2118] md:text-4xl">
-          WHAT OUR CLIENTS SAY
-        </h2>
-        <p className="text-base text-[#4a4641] md:text-lg">
-          Hear from professionals, leaders, and organisations we've partnered with
-        </p>
-      </motion.div>
+      <div className="lumina-container w-full">
+        {/* Section header — matches the services page eyebrow rhythm */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-14 max-w-2xl"
+        >
+          <div className="mb-6 flex items-center gap-4">
+            <span className="h-px w-12 bg-[#C8A24C]/50" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+              Client Success Stories
+            </span>
+          </div>
+          <h2 className="text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
+            Hear from the people we've partnered with.
+          </h2>
+        </motion.div>
 
-      {/* Testimonials Slider */}
-      <div className="mx-auto max-w-6xl">
-        <div className="relative h-[500px] md:h-[550px]">
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.div
+        {/* Slide container — grid puts image + quote side by side. Full-width. */}
+        <div className="relative w-full overflow-hidden">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
+            <motion.article
               key={currentIndex}
               custom={direction}
               variants={slideVariants}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 },
-              }}
-              className="absolute inset-0"
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16"
             >
-              {/* Testimonial Card */}
-              <div className="relative h-full overflow-hidden rounded-[2rem] border border-[#e7e0d7] shadow-[0_20px_60px_rgba(29,27,24,0.12)]">
-                {/* Background Image */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={testimonialImages[currentIndex]}
-                    alt={`${TESTIMONIALS[currentIndex].author} testimonial`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 1200px"
-                    className="object-cover transition-transform duration-[8000ms] ease-linear"
-                    priority={currentIndex === 0}
-                    style={{ transform: isPaused ? 'scale(1)' : 'scale(1.05)' }}
-                  />
-                  {/* Gradient Overlay - Lighter to show more of the beautiful image */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2B2118]/95 via-[#2B2118]/70 to-[#2B2118]/20" />
-                </div>
+              {/* Portrait — subtly framed, warm border */}
+              <div className="relative min-h-[420px] w-full overflow-hidden rounded-[1.5rem] border border-[#C8A24C]/15 shadow-[0_20px_60px_rgba(0,0,0,0.4)] lg:min-h-[560px]">
+                <Image
+                  src={img}
+                  alt={`${t.author} — client of Lumina Advisory`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  priority={currentIndex === 0}
+                  className="object-cover"
+                  style={{ transform: isPaused ? "scale(1)" : "scale(1.03)", transition: "transform 15s ease-out" }}
+                />
+                {/* Warm dark wash — keeps image restrained */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#08060a]/70 via-[#08060a]/25 to-transparent" />
 
-                {/* Content */}
-                <div className="relative z-10 flex h-full flex-col justify-end p-8 md:p-12 lg:p-16">
-                  {/* Quote Icon */}
-                  <div className="mb-6 flex">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#C9A227]/90 backdrop-blur-sm">
-                      <LucideIcon name="Quote" size={32} className="text-white" />
-                    </div>
-                  </div>
-
-                  {/* Quote */}
-                  <blockquote className="mb-6 text-xl font-medium leading-relaxed text-white md:text-2xl lg:text-3xl">
-                    "{TESTIMONIALS[currentIndex].quote}"
-                  </blockquote>
-
-                  {/* Rating & Author */}
-                  <div className="flex items-center gap-4">
-                    {/* Star Rating */}
-                    <div className="flex gap-1">
-                      {Array.from({ length: TESTIMONIALS[currentIndex].rating }).map((_, i) => (
-                        <LucideIcon 
-                          key={i} 
-                          name="Star" 
-                          size={18} 
-                          className="fill-[#C9A227] text-[#C9A227]" 
-                        />
-                      ))}
-                    </div>
-
-                    <span className="h-1 w-1 rounded-full bg-white/40" />
-
-                    {/* Author */}
-                    <p className="text-sm font-semibold uppercase tracking-wider text-[#E0C76C]">
-                      {TESTIMONIALS[currentIndex].author}
-                    </p>
-                  </div>
+                {/* Slide index label, bottom-left */}
+                <div className="absolute bottom-6 left-6 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/85">
+                  <span className="text-[#C8A24C]">
+                    {String(currentIndex + 1).padStart(2, "0")}
+                  </span>
+                  <span className="h-px w-8 bg-white/40" />
+                  <span>of {String(total).padStart(2, "0")}</span>
                 </div>
               </div>
-            </motion.div>
+
+              {/* Quote column */}
+              <div className="flex flex-col justify-center py-4 lg:py-8">
+                {/* Rating */}
+                <div className="mb-8 flex items-center gap-2">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <LucideIcon
+                      key={i}
+                      name="Star"
+                      size={16}
+                      className="fill-[#C8A24C] text-[#C8A24C]"
+                    />
+                  ))}
+                </div>
+
+                {/* Quote — the star of the slide */}
+                <blockquote className="mb-10 text-2xl font-medium leading-[1.35] tracking-[-0.015em] text-white md:text-3xl lg:text-[2.15rem]">
+                  <span className="mr-1 text-[#C8A24C]" aria-hidden>&ldquo;</span>
+                  {t.quote}
+                  <span className="ml-1 text-[#C8A24C]" aria-hidden>&rdquo;</span>
+                </blockquote>
+
+                {/* Attribution */}
+                <div className="flex items-center gap-4">
+                  <span className="h-px w-12 bg-[#C8A24C]/60" />
+                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#D8B96F]">
+                    {t.author}
+                  </p>
+                </div>
+              </div>
+            </motion.article>
           </AnimatePresence>
         </div>
 
-        {/* Navigation Controls */}
-        <div className="mt-8 flex items-center justify-center gap-6">
-          {/* Previous Button */}
+        {/* Controls — prev / dots / next, restrained editorial style */}
+        <div className="mt-12 flex items-center justify-between border-t border-white/10 pt-6">
           <button
-            onClick={goToPrevious}
-            className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#2B2118]/20 text-[#2B2118] transition-all hover:border-[#C9A227] hover:bg-[#C9A227] hover:text-white hover:scale-110"
+            onClick={goToPrev}
+            className="group flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/70 transition-colors hover:text-white"
             aria-label="Previous testimonial"
           >
-            <LucideIcon name="ChevronLeft" size={24} />
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 transition-all group-hover:border-[#C8A24C] group-hover:bg-[#C8A24C]/10">
+              <LucideIcon name="ChevronLeft" size={18} />
+            </span>
+            Prev
           </button>
 
-          {/* Dots Indicator */}
-          <div className="flex gap-3">
-            {TESTIMONIALS.map((_, index) => (
+          {/* Dots */}
+          <div className="flex gap-2.5">
+            {TESTIMONIALS.map((_, i) => (
               <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`rounded-full transition-all ${
-                  index === currentIndex
-                    ? "h-3 w-10 bg-[#C9A227]"
-                    : "h-3 w-3 bg-[#2B2118]/20 hover:bg-[#2B2118]/40"
+                key={i}
+                onClick={() => goToSlide(i)}
+                aria-label={`Go to testimonial ${i + 1}`}
+                className={`h-[2px] rounded-full transition-all ${
+                  i === currentIndex
+                    ? "w-10 bg-[#C8A24C]"
+                    : "w-6 bg-white/15 hover:bg-white/35"
                 }`}
-                aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}
           </div>
 
-          {/* Next Button */}
           <button
             onClick={goToNext}
-            className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#2B2118]/20 text-[#2B2118] transition-all hover:border-[#C9A227] hover:bg-[#C9A227] hover:text-white hover:scale-110"
+            className="group flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/70 transition-colors hover:text-white"
             aria-label="Next testimonial"
           >
-            <LucideIcon name="ChevronRight" size={24} />
+            Next
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 transition-all group-hover:border-[#C8A24C] group-hover:bg-[#C8A24C]/10">
+              <LucideIcon name="ChevronRight" size={18} />
+            </span>
           </button>
         </div>
 
-        {/* Progress Bar (when auto-playing) */}
+        {/* Progress bar */}
         {!isPaused && (
           <motion.div
-            className="mx-auto mt-6 h-1 w-64 overflow-hidden rounded-full bg-[#2B2118]/10"
+            className="mx-auto mt-6 h-[2px] w-full overflow-hidden bg-white/5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.4 }}
           >
             <motion.div
-              className="h-full bg-[#C9A227]"
+              key={currentIndex}
+              className="h-full bg-[#C8A24C]/70"
               initial={{ width: "0%" }}
               animate={{ width: "100%" }}
-              transition={{ duration: 8, ease: "linear" }}
-              key={currentIndex}
+              transition={{ duration: 15, ease: "linear" }}
             />
           </motion.div>
         )}
