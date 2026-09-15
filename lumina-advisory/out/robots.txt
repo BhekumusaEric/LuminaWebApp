@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /next/
+
+Host: https://luminalegacy.co.za
+Sitemap: https://luminalegacy.co.za/sitemap.xml

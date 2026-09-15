@@ -1,17 +1,84 @@
-# Disable directory listing
+# ─────────────────────────────────────────────────────────────
+# Lumina Advisory — Apache config for cPanel (public_html)
+#
+# ➊ Compression   (mod_deflate)  →  ~65% smaller HTML/CSS/JS
+# ➋ Cache headers (mod_expires)  →  repeat visits load instantly
+# ➌ Security      (mod_headers)  →  HSTS, X-Frame-Options, etc.
+# ➍ HTTPS + SPA fallback
+#
+# All module blocks use <IfModule> so config degrades gracefully
+# on hosts that don't have every module enabled.
+# ─────────────────────────────────────────────────────────────
+
 Options -Indexes
-
-# Prevent Apache from automatically appending slashes when accessing directories
 DirectorySlash On
-
-# Set default document index
 DirectoryIndex index.html
 
+# ──────────────────────────────────────────────
+# ➊ COMPRESSION — cuts HTML/CSS/JS payload ~65%
+# ──────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml application/rss+xml
+  AddOutputFilterByType DEFLATE image/svg+xml image/x-icon
+  AddOutputFilterByType DEFLATE font/woff font/woff2 application/font-woff application/font-woff2
+</IfModule>
+
+# ──────────────────────────────────────────────
+# ➋ CACHE-CONTROL — repeat visits ~instant
+# ──────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML: never cache aggressively — we want updates visible immediately
+  ExpiresByType text/html                     "access plus 0 seconds"
+  ExpiresByType application/xhtml+xml         "access plus 0 seconds"
+
+  # CSS/JS: 1 year (Next.js emits hashed filenames — safe to cache forever)
+  ExpiresByType text/css                      "access plus 1 year"
+  ExpiresByType application/javascript        "access plus 1 year"
+  ExpiresByType text/javascript               "access plus 1 year"
+
+  # Images: 6 months
+  ExpiresByType image/jpeg                    "access plus 6 months"
+  ExpiresByType image/png                     "access plus 6 months"
+  ExpiresByType image/gif                     "access plus 6 months"
+  ExpiresByType image/webp                    "access plus 6 months"
+  ExpiresByType image/svg+xml                 "access plus 6 months"
+  ExpiresByType image/x-icon                  "access plus 1 year"
+
+  # Fonts: 1 year
+  ExpiresByType font/woff                     "access plus 1 year"
+  ExpiresByType font/woff2                    "access plus 1 year"
+  ExpiresByType application/font-woff         "access plus 1 year"
+  ExpiresByType application/font-woff2        "access plus 1 year"
+
+  # Sitemap: 1 day
+  ExpiresByType application/xml               "access plus 1 day"
+  ExpiresByType text/xml                      "access plus 1 day"
+</IfModule>
+
+# ──────────────────────────────────────────────
+# ➌ SECURITY & PRIVACY HEADERS
+# ──────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+  # HSTS — 6 months, include subdomains. Only takes effect once served over HTTPS.
+  Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains"
+</IfModule>
+
+# ──────────────────────────────────────────────
+# ➍ HTTPS + SPA fallback
+# ──────────────────────────────────────────────
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Force HTTPS Redirect
+  # Force HTTPS
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
@@ -20,7 +87,7 @@ DirectoryIndex index.html
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Fallback for routing
+  # Route folder-style URLs to index.html
   RewriteRule ^(.*)/$ $1/index.html [L]
   RewriteRule ^(.*)$ $1/index.html [L]
 </IfModule>
