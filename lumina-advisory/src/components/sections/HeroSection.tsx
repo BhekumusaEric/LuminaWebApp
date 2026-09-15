@@ -56,15 +56,20 @@ export default function HeroSection() {
       {!videoAvailable && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
           <div
-            className="hero-ken-burns absolute inset-0 bg-cover bg-center opacity-30"
+            className="hero-ken-burns absolute inset-0 bg-cover bg-center opacity-70"
             style={{ backgroundImage: `url("${getImagePath("/images/heroes/home-hero.jpg")}")` }}
           />
         </div>
       )}
 
-      {/* Deep contrast wash — text-left legibility, image reads as atmosphere not subject */}
+      {/* Directional wash — heavy on the left where text sits, light on the right where the image reads through */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,10,0.96)_0%,rgba(8,6,10,0.82)_45%,rgba(8,6,10,0.6)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,10,0.92)_0%,rgba(8,6,10,0.6)_45%,rgba(8,6,10,0.15)_100%)]"
+        aria-hidden
+      />
+      {/* Vertical fade — protects the navbar area and the bottom edge from image glare */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,6,10,0.5)_0%,transparent_20%,transparent_80%,rgba(8,6,10,0.35)_100%)]"
         aria-hidden
       />
 

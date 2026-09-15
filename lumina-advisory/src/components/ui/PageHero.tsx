@@ -33,7 +33,7 @@ export function PageHero({ headline, subheading, backgroundImage }: PageHeroProp
       {backgroundImage && (
         <div className="absolute inset-0 overflow-hidden">
           <div
-            className="hero-ken-burns absolute inset-0 bg-cover bg-center opacity-25"
+            className="hero-ken-burns absolute inset-0 bg-cover bg-center opacity-65"
             style={{ backgroundImage: `url("${getImagePath(backgroundImage)}")` }}
           />
         </div>
@@ -51,9 +51,14 @@ export function PageHero({ headline, subheading, backgroundImage }: PageHeroProp
         aria-hidden
       />
 
-      {/* Deep contrast wash — text stays crisp regardless of image */}
+      {/* Directional wash — dark on left where text lives, transparent on right so photo reads through */}
       <div
-        className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,10,0.94)_0%,rgba(8,6,10,0.78)_50%,rgba(8,6,10,0.55)_100%)]"
+        className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,6,10,0.9)_0%,rgba(8,6,10,0.55)_50%,rgba(8,6,10,0.15)_100%)]"
+        aria-hidden
+      />
+      {/* Vertical fade — keeps navbar area and bottom edge readable */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,6,10,0.5)_0%,transparent_25%,transparent_80%,rgba(8,6,10,0.4)_100%)]"
         aria-hidden
       />
 

@@ -186,16 +186,18 @@ export default function HomePage() {
 
       {/* ────────────────────────  4. APPROACH  ──────────────────────── */}
       <section className="snap-section lumina-section relative isolate overflow-hidden">
-        {/* Atmospheric background — very low opacity so type stays crisp */}
+        {/* Atmospheric background — brighter so the growth metaphor reads clearly */}
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
           <Image
             src="/images/heroes/growth-ambient.jpg"
             alt=""
             fill
             sizes="100vw"
-            className="object-cover opacity-25"
+            className="object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,6,10,0.85)_0%,rgba(8,6,10,0.72)_50%,rgba(8,6,10,0.9)_100%)]" />
+          {/* Layered wash: heavier at top and bottom (readability) + a soft mid-vignette */}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,6,10,0.85)_0%,rgba(8,6,10,0.4)_35%,rgba(8,6,10,0.4)_65%,rgba(8,6,10,0.88)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(8,6,10,0.55)_100%)]" />
         </div>
 
         <div className="lumina-container">
