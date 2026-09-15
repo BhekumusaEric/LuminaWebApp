@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Client Stories | Real Results From Lumina Advisory",
+  title: "Client Stories",
   description:
     "Career coaching clients, corporate workshop participants, and young professionals share how Lumina Advisory helped them grow with clarity, confidence, and purpose.",
   alternates: { canonical: "/testimonials/" },

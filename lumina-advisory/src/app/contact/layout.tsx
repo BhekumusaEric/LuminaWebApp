@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Lumina Advisory | Book a Consultation",
+  title: "Contact | Book a Consultation",
   description:
     "Get in touch about coaching, leadership development, or advisory work. Based in Johannesburg, serving South Africa and Africa. Call, WhatsApp, or send a message.",
   alternates: { canonical: "/contact/" },

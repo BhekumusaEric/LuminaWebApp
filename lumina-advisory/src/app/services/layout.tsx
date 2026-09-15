@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Advisory Services | Career, Leadership & Facilitation",
+  title: "Advisory Services",
   description:
     "Career and personal development coaching, leadership development, strategic facilitation, training, moderation, and independent consulting. Trusted across the South African corporate and public sectors.",
   alternates: { canonical: "/services/" },

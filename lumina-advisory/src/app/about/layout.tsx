@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Lumina Advisory | Founder Yolandi Pietersen",
+  title: "About | Founder Yolandi Pietersen",
   description:
     "Meet the founder behind Lumina Advisory. Yolandi Pietersen, MBA (Cum Laude), brings a decade of management consulting, banking, and transformation experience to career, leadership, and organisational development.",
   alternates: { canonical: "/about/" },

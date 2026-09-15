@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "The Lumina Community | Growth-Focused Space",
+  title: "The Community",
   description:
     "Join a growth-focused community for ambitious professionals. Career development conversations, live coaching sessions, leadership discussions, and upcoming events.",
   alternates: { canonical: "/community/" },
