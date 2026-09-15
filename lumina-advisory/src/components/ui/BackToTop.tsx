@@ -47,7 +47,9 @@ export default function BackToTop() {
           whileHover={{ scale: 1.1, y: -4 }}
           whileTap={{ scale: 0.95 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#C9A227] text-white shadow-[0_8px_24px_rgba(201,162,39,0.4)] transition-shadow hover:shadow-[0_12px_32px_rgba(201,162,39,0.5)]"
+          // Stacked above the WhatsApp pill (which lives at bottom-6 right-6).
+          // bottom-24 = 96px keeps a comfortable ~28px gap above the pill.
+          className="fixed bottom-24 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[#C9A227] text-white shadow-[0_8px_24px_rgba(201,162,39,0.4)] transition-shadow hover:shadow-[0_12px_32px_rgba(201,162,39,0.5)]"
           aria-label="Back to top"
         >
           <LucideIcon name="ArrowUp" size={20} />
