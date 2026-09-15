@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { PageHero } from "@/components/ui/PageHero";
 import { Button } from "@/components/ui/Button";
 import { LucideIcon } from "@/components/ui/LucideIcon";
+import EventsList from "@/components/sections/EventsList";
 import { COMMUNITY_BENEFITS, SITE } from "@/lib/data";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -152,7 +153,7 @@ export default function CommunityPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.9, ease: EASE }}
-            className="mx-auto max-w-3xl"
+            className="mx-auto mb-14 max-w-3xl"
           >
             <div className="mb-8 flex items-center justify-center gap-4">
               <span className="h-px w-12 bg-[#C8A24C]/60" />
@@ -161,22 +162,12 @@ export default function CommunityPage() {
               </span>
               <span className="h-px w-12 bg-[#C8A24C]/60" />
             </div>
-
-            <div className="lumina-glass-dark p-10 text-center md:p-14">
-              <div className="mb-6 inline-flex items-center gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C8A24C]/15 text-[#D8B96F]">
-                  <LucideIcon name="Calendar" size={22} />
-                </div>
-                <h3 className="text-2xl font-bold uppercase tracking-[-0.02em] text-white md:text-3xl">
-                  Events Coming Soon
-                </h3>
-              </div>
-              <p className="mx-auto max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
-                We&apos;re planning workshops, coaching sessions, and community gatherings.
-                Join the community below to be the first to know when the calendar opens.
-              </p>
-            </div>
+            <h2 className="text-center text-3xl font-bold uppercase leading-[1.05] tracking-[-0.03em] text-white md:text-4xl">
+              Where we&apos;re <span className="lumina-shimmer">gathering</span> next.
+            </h2>
           </motion.div>
+
+          <EventsList />
         </div>
       </section>
 

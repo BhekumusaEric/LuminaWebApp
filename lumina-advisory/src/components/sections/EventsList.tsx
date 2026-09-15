@@ -1,131 +1,192 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SITE } from "@/lib/data";
-import { fetchSheetData, type SheetEvent } from "@/lib/googleSheets";
+import { motion } from "framer-motion";
+import { SITE, getImagePath } from "@/lib/data";
+import { fetchEvents, type SheetEvent } from "@/lib/googleSheets";
+import { LucideIcon } from "@/components/ui/LucideIcon";
+import { Button } from "@/components/ui/Button";
 
+const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
+/**
+ * EventsList
+ * ─────────────────────────────────────────────────────────────
+ * Renders events the owner adds to the connected Google Sheet.
+ *  - Each event: a dark-glass hairline-separated row with
+ *    date | title + description | RSVP button
+ *  - Optional cover image on the left of the first cards
+ *  - Loading / empty / error states match InsightsList
+ *  - The whole section is hidden gracefully if `eventsGid` is
+ *    left blank in `SITE.googleSheets` (safe default)
+ * ───────────────────────────────────────────────────────────── */
 export default function EventsList() {
   const [events, setEvents] = useState<SheetEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [configured, setConfigured] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
     async function loadEvents() {
-      const spreadsheetId = SITE.googleSheets.spreadsheetId;
-      if (!spreadsheetId || !SITE.googleSheets.eventsGid) {
-        // Fallback to empty state if spreadsheet ID or events GID is not configured
-        setLoading(false);
+      const { spreadsheetId, eventsGid } = SITE.googleSheets;
+      // If the events tab isn't wired yet, treat as intentionally hidden.
+      if (!spreadsheetId || !eventsGid) {
+        if (!cancelled) {
+          setConfigured(false);
+          setLoading(false);
+        }
         return;
       }
-
       try {
-        const rawData = await fetchSheetData(spreadsheetId, SITE.googleSheets.eventsGid);
-        const parsed: SheetEvent[] = rawData.map((item, idx) => ({
-          id: item.id || idx.toString(),
-          title: item.title || "",
-          date: item.date || "",
-          time: item.time || "",
-          location: item.location || "",
-          description: item.description || "",
-          link: item.link || "",
-        }));
-        setEvents(parsed);
+        const data = await fetchEvents(spreadsheetId, eventsGid);
+        if (!cancelled) setEvents(data);
       } catch (err) {
-        console.error("Error loading events from sheet:", err);
-        setError("Unable to load upcoming events at this time.");
+        console.error("[EventsList] load error:", err);
+        if (!cancelled) setError("Unable to load events right now.");
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
-
     loadEvents();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
+  // ────── LOADING ──────
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="mx-auto max-w-4xl space-y-4">
         {[1, 2, 3].map((n) => (
           <div
             key={n}
-            className="animate-pulse bg-white/5 border border-white/10 rounded-none p-6 flex flex-col gap-4"
-          >
-            <div className="h-4 bg-white/10 rounded-none w-1/3 mb-2" />
-            <div className="h-6 bg-white/20 rounded-none w-3/4 mb-1" />
-            <div className="h-4 bg-white/10 rounded-none w-1/2 mb-2" />
-            <div className="h-4 bg-white/5 rounded-none w-full mb-1" />
-            <div className="h-4 bg-white/5 rounded-none w-5/6 mb-4" />
-            <div className="h-10 bg-white/20 rounded-none w-full" />
-          </div>
+            className="h-40 animate-pulse rounded-[1.25rem] border border-white/10 bg-white/[0.03]"
+          />
         ))}
       </div>
     );
   }
 
+  // ────── ERROR ──────
   if (error) {
     return (
-      <div className="text-center py-12">
-        <p className="text-red-400 font-medium">{error}</p>
-        <p className="text-white/40 text-sm mt-2">
-          Please check the Google Sheets configuration or contact support.
+      <div className="mx-auto max-w-md py-10 text-center">
+        <div className="mb-3 inline-flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-500/10 text-red-300">
+            <LucideIcon name="RefreshCw" size={18} />
+          </div>
+          <p className="text-lg font-semibold text-white">{error}</p>
+        </div>
+        <p className="text-sm text-white/60">
+          Please check that the Google Sheet is shared as “Anyone with the link — Viewer”.
         </p>
       </div>
     );
   }
 
-  if (events.length === 0) {
+  // ────── EMPTY / UNCONFIGURED — falls back to the placeholder ──────
+  if (!configured || events.length === 0) {
     return (
-      <div className="text-center py-16 border border-white/10 rounded-none">
-        <p className="text-white/50 text-lg font-heading">Events Coming Soon</p>
-        <p className="text-white/30 text-sm mt-2">
-          Stay connected via WhatsApp for updates.
+      <div className="lumina-glass-dark mx-auto max-w-3xl p-10 text-center md:p-14">
+        <div className="mb-6 inline-flex items-center gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C8A24C]/15 text-[#D8B96F]">
+            <LucideIcon name="Calendar" size={22} />
+          </div>
+          <h3 className="text-2xl font-bold uppercase tracking-[-0.02em] text-white md:text-3xl">
+            Events Coming Soon
+          </h3>
+        </div>
+        <p className="mx-auto max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
+          We&apos;re planning workshops, coaching sessions, and community gatherings.
+          Join the community below to be the first to know when the calendar opens.
         </p>
       </div>
     );
   }
 
+  // ────── EVENTS ──────
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {events.map((event) => {
-        // Fallback to WhatsApp link if no specific RSVP link is provided
-        const rsvpLink = event.link || SITE.whatsapp.communityLink;
-        const isExternal = rsvpLink.startsWith("http");
+    <div className="mx-auto max-w-4xl space-y-6">
+      {events.map((event, i) => (
+        <motion.article
+          key={event.id}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.8, delay: i * 0.06, ease: EASE }}
+          whileHover={{ y: -2, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+          className="group overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#12100e]/60 backdrop-blur-md transition-all duration-500 hover:border-[#C8A24C]/30"
+        >
+          <div className="flex flex-col md:flex-row">
+            {/* Optional image */}
+            {event.image && (
+              <div className="relative h-48 w-full shrink-0 overflow-hidden md:h-auto md:w-56">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={getImagePath(event.image)}
+                  alt={event.title}
+                  className="h-full w-full object-cover transition-transform duration-[2500ms] ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#08060a]/70 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#12100e]/60" />
+              </div>
+            )}
 
-        return (
-          <div
-            key={event.id}
-            className="bg-white/5 border border-white/10 rounded-none p-6 hover:border-white/20 transition-all duration-500 flex flex-col justify-between group"
-          >
-            <div>
-              <div className="flex items-center gap-2 text-xs text-[#C9A227] font-semibold uppercase tracking-widest mb-4">
-                <span>{event.date}</span>
-                {event.time && (
-                  <>
-                    <span>•</span>
-                    <span>{event.time}</span>
-                  </>
+            {/* Body */}
+            <div className="flex-1 p-6 md:p-8">
+              <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                <div className="min-w-0 flex-1">
+                  {/* Meta line: date · time · location */}
+                  <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#D8B96F]">
+                    {event.date && (
+                      <span className="flex items-center gap-2">
+                        <LucideIcon name="Calendar" size={12} />
+                        {event.date}
+                      </span>
+                    )}
+                    {event.time && (
+                      <>
+                        <span className="text-white/25">·</span>
+                        <span className="flex items-center gap-2 text-white/70">
+                          <LucideIcon name="Clock" size={12} />
+                          {event.time}
+                        </span>
+                      </>
+                    )}
+                    {event.location && (
+                      <>
+                        <span className="text-white/25">·</span>
+                        <span className="flex items-center gap-2 text-white/70">
+                          <LucideIcon name="MapPin" size={12} />
+                          {event.location}
+                        </span>
+                      </>
+                    )}
+                  </div>
+
+                  <h3 className="mb-3 text-xl font-bold uppercase leading-tight tracking-[-0.01em] text-white transition-colors group-hover:text-[#D8B96F] md:text-2xl">
+                    {event.title}
+                  </h3>
+                  {event.description && (
+                    <p className="max-w-2xl text-sm leading-relaxed text-white/70 md:text-base">
+                      {event.description}
+                    </p>
+                  )}
+                </div>
+
+                {/* RSVP button */}
+                {event.link && (
+                  <div className="shrink-0 md:pt-1">
+                    <Button href={event.link} variant="primary" external>
+                      RSVP
+                    </Button>
+                  </div>
                 )}
               </div>
-              <h3 className="text-2xl font-heading font-bold text-white mb-3 group-hover:text-[#C9A227] transition-colors">{event.title}</h3>
-              {event.location && (
-                <p className="text-white/50 text-xs mb-4 flex items-center gap-1 uppercase tracking-wider">
-                  <span>📍</span> {event.location}
-                </p>
-              )}
-              <p className="text-white/70 text-sm leading-loose mb-8 whitespace-pre-line">
-                {event.description}
-              </p>
             </div>
-            <a
-              href={rsvpLink}
-              target={isExternal ? "_blank" : undefined}
-              rel={isExternal ? "noopener noreferrer" : undefined}
-              className="inline-flex items-center justify-center bg-white text-[#2B2118] font-semibold text-xs tracking-widest uppercase px-5 py-3.5 rounded-none hover:bg-[#C9A227] hover:text-white transition-colors mt-auto w-full text-center"
-            >
-              RSVP & Join
-            </a>
           </div>
-        );
-      })}
+        </motion.article>
+      ))}
     </div>
   );
 }

@@ -25,9 +25,24 @@ export const SITE = {
     accessKey: "", // TODO: Add Web3Forms access key from web3forms.com
   },
   googleSheets: {
-    spreadsheetId: "2PACX-1vR1LcScz_C6XnwFVPPZjkGPXtz9tTy9x4Dsby0lC8mhOFB56vU8DtN7GK9X5qWz-rxwTZ0CIzJbcVAT", // Linked to user's Google Sheet
-    articlesGid: "0",     // GID of the Insights tab
-    eventsGid: "",      // TODO: Add GID of the Events tab when created
+    // ────────────────────────────────────────────────────────────
+    // GOOGLE SHEET CONNECTION
+    // ────────────────────────────────────────────────────────────
+    // 1. Open the Google Sheet in your browser
+    // 2. Share it as: "Anyone with the link — Viewer"
+    // 3. Copy the sheet ID from the URL bar:
+    //    docs.google.com/spreadsheets/d/[THIS_IS_THE_ID]/edit#gid=0
+    // 4. Paste it below.
+    //
+    // Each tab (worksheet) has its own `gid` in the URL — look at
+    // the URL when a tab is selected: `#gid=1234567890`. Copy the
+    // number and paste it as articlesGid or eventsGid below.
+    //
+    // See SHEETS_SETUP.md at the repo root for full owner-facing docs.
+    // ────────────────────────────────────────────────────────────
+    spreadsheetId: "2PACX-1vR1LcScz_C6XnwFVPPZjkGPXtz9tTy9x4Dsby0lC8mhOFB56vU8DtN7GK9X5qWz-rxwTZ0CIzJbcVAT",
+    articlesGid: "0",     // GID of the Articles / Insights tab
+    eventsGid: "",        // GID of the Events tab — leave empty to hide upcoming events
   },
 };
 
