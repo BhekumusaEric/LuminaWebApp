@@ -167,3 +167,54 @@ npm run build
 Then push to GitHub, and in cPanel: **Git Version Control → Manage → Pull or Deploy → Update from Remote → Deploy HEAD Commit**.
 
 **Editing rows in the sheet does not require any redeploy** — only the initial `spreadsheetId` / `gid` connection does.
+
+
+---
+
+## Sample content — copy-paste starter kit
+
+Use these to see the layout come to life. All rows are on-brand for Lumina (career growth, leadership, women in leadership, transformation, SA context). Replace the `link` URLs with real LinkedIn / Medium / blog posts once written.
+
+### Articles tab — 6 sample rows
+
+Copy the block below (starting from `id` through the last URL), open your **Articles** tab in Google Sheets, click cell **A1**, and paste. Google Sheets will split it into columns automatically.
+
+```
+id	slug	category	title	summary	readingTime	publishDate	image	featured	link
+1	career-clarity-next-move	Career Growth	Career Clarity: How To Choose Your Next Move Intentionally	Most professionals default into their next role. Intentional careers are built differently. A practical framework for stepping back, seeing your options clearly, and moving with purpose — not pressure.	7 min read	12 Feb 2026	/images/stock/image3.jpeg	true	https://www.linkedin.com/pulse/YOUR-ARTICLE-URL-1
+2	leading-without-losing-yourself	Women in Leadership	Leading Without Losing Yourself: A Guide For Women Stepping Up	The pressure to lead like everyone else is quiet, constant, and costly. Notes on holding your voice, protecting your energy, and building authority on your own terms.	6 min read	28 Jan 2026	/images/stock/image9.jpeg		https://www.linkedin.com/pulse/YOUR-ARTICLE-URL-2
+3	first-90-days-new-managers	Leadership	The First 90 Days: A Field Guide For New Managers	The transition from doing to leading breaks more careers than any single skill gap. A week-by-week framework for the first 90 days — listening, calibrating, and earning the room.	9 min read	14 Jan 2026	/images/stock/image6.jpeg		https://www.linkedin.com/pulse/YOUR-ARTICLE-URL-3
+4	emotional-intelligence-executive-advantage	Leadership	Why Emotional Intelligence Is The New Executive Advantage	Strategy is table stakes. What separates senior leaders now is the capacity to read a room, regulate under pressure, and hold hard conversations without hardening themselves. Here's how to build it.	5 min read	18 Dec 2025	/images/stock/image4.jpeg		https://www.linkedin.com/pulse/YOUR-ARTICLE-URL-4
+5	growth-doesnt-happen-alone	Personal Growth	Growth Doesn't Happen Alone: The Case For Learning In Community	Solo ambition has a ceiling. The professionals compounding the fastest are the ones who've built a small circle of honest voices around them. What that circle actually looks like — and how to build yours.	4 min read	02 Dec 2025	/images/stock/image11.jpeg		https://www.linkedin.com/pulse/YOUR-ARTICLE-URL-5
+6	transformation-beyond-compliance	Transformation	Transformation Beyond Compliance: What Real Change Actually Looks Like	Too many transformation programmes stop at the audit line. Real change is measured in how decisions get made, who gets a seat, and whose careers are visibly moving. Notes from the boardroom.	8 min read	20 Nov 2025	/images/stock/image10.jpeg		https://www.linkedin.com/pulse/YOUR-ARTICLE-URL-6
+```
+
+**How the site will render this:**
+
+- Row 1 (`featured = true`) appears as the **big hero card** at the top of the Insights page
+- Rows 2–6 fill the **3-column grid** below, in the order you list them
+- Each card shows: category tag + reading time + date, then the title, then a 3-line summary preview
+- Clicking a card opens the URL in `link` in a new tab
+
+### Events tab — 3 sample rows
+
+Same idea — copy the block, click cell **A1** of the Events tab, paste.
+
+```
+id	title	date	time	location	description	link	image
+1	Career Clarity Workshop: Choosing Your Next Move	Saturday, 21 March 2026	10:00 – 12:30 SAST	Online (Zoom)	A hands-on morning session for professionals at a career crossroads. Leave with a framework, a decision, and a first action to take on Monday.	https://forms.gle/YOUR-RSVP-FORM-1	/images/stock/image5.jpeg
+2	Women In Leadership: A Community Conversation	Thursday, 17 April 2026	18:30 – 20:00 SAST	Sandton, Johannesburg	An intimate in-person conversation on leading with authenticity. Hosted by Yolandi Pietersen with a small circle of senior women. Limited seats.	https://forms.gle/YOUR-RSVP-FORM-2	/images/stock/image8.jpeg
+3	The First 90 Days: Live Coaching For New Managers	Wednesday, 14 May 2026	17:00 – 18:30 SAST	Online (Zoom)	Newly promoted or preparing for a step up? A 90-minute live coaching session on the transition from doing to leading — with structured Q&A.	https://forms.gle/YOUR-RSVP-FORM-3	/images/stock/image7.jpeg
+```
+
+**How the site will render this:**
+
+- Each event = one **wide dark-glass row** with an image on the left, meta on top (`📅 date · 🕐 time · 📍 location`), title, description, and an **RSVP button** on the right
+- Events appear in the order you list them — usually chronological is best
+
+### Reminders when adapting these
+
+- **Only one row should have `featured = true`** — that's the big hero. Leave the rest blank.
+- **Replace `link` URLs** with your actual LinkedIn posts / RSVP forms before promoting the site. Right now they're placeholders that will 404.
+- The **`image` column** uses images already in the repo (`/images/stock/imageN.jpeg`) so they load immediately. Swap in your own by uploading to `lumina-advisory/public/images/` and referencing the path, or use direct Unsplash URLs like `https://images.unsplash.com/photo-1573497491765-dccce02b29df?w=1200&q=80`.
+- **Row order in the sheet = display order on the site.** Drag rows in Google Sheets to reorder.
