@@ -50,24 +50,54 @@ export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Community", href: "/community" },
   { label: "Insights", href: "/insights" },
-  { label: "What People Are Saying", href: "/testimonials" },
   { label: "Contact", href: "/contact" },
 ];
 
 export const SERVICES = [
   {
+    id: "consulting-advisory",
+    icon: "Briefcase",
+    title: "Independent Consulting & Advisory",
+    shortDescription:
+      "We partner with organisations to solve business challenges, navigate change and turn strategic priorities into practical action. Our advisory support combines structured problem-solving, stakeholder insight and practical recommendations to drive meaningful and sustainable outcomes.",
+    offerings: [
+      "Strategy & Business Advisory",
+      "Transformation & Change Support",
+      "Programme & Project Advisory",
+      "Customer Experience Improvement",
+      "Product & Service Development",
+      "Stakeholder Engagement",
+    ],
+  },
+  {
+    id: "speaking-moderation",
+    icon: "Mic",
+    title: "Speaking, Moderation & Programme Direction",
+    shortDescription:
+      "We bring insight, energy and meaningful engagement to conferences, corporate events and professional conversations. From keynote speaking and panel moderation to programme direction and hosting, we create experiences that connect with audiences and leave a lasting impression.",
+    offerings: [
+      "Keynote Speaking",
+      "Programme Direction & MC Services",
+      "Panel Moderation",
+      "Fireside Chats & Executive Conversations",
+      "Conferences & Corporate Events",
+      "Internal Broadcasts & Corporate Hosting",
+    ],
+  },
+  {
     id: "career-development",
     icon: "Target",
-    title: "Career & Personal Development",
+    title: "Career & Professional Development",
     shortDescription:
-      "Supporting individuals in navigating growth intentionally both personally and professionally.",
+      "We support professionals in navigating career decisions, transitions and growth with greater clarity, confidence and intention. Through tailored career advisory and development support, we help individuals strengthen their professional positioning and take practical steps towards their career goals.",
     offerings: [
-      "Career strategy sessions",
-      "Personal development coaching",
-      "Confidence and growth workshops",
-      "Professional development support",
+      "Career Strategy Sessions",
+      "Career Transition Support",
+      "CV & Professional Profile Development",
+      "LinkedIn & Personal Branding",
+      "Interview Preparation",
+      "Career Development Workshops",
     ],
   },
   {
@@ -75,42 +105,14 @@ export const SERVICES = [
     icon: "BookOpen",
     title: "Training & Skills Development",
     shortDescription:
-      "Delivering engaging and practical learning experiences designed for growth and capability building.",
+      "We design engaging, practical learning experiences that strengthen capability and equip people with skills they can apply in the workplace. Our programmes can be tailored to organisational needs, from graduate and early-career development to professional skills and personal effectiveness.",
     offerings: [
-      "Training programmes",
-      "Graduate development sessions",
-      "Skills development workshops",
-      "Early-career professional programmes",
-    ],
-  },
-  {
-    id: "programme-direction",
-    icon: "Mic",
-    title: "Programme Direction, Moderation & Hosting",
-    shortDescription:
-      "Professional moderation and facilitation for impactful events and conversations.",
-    offerings: [
-      "Corporate events (Speaker, Host & Programme Director)",
-      "Panel discussions",
-      "Conferences",
-      "Internal broadcasts and hosting",
-    ],
-  },
-  {
-    id: "consulting-advisory",
-    icon: "Briefcase",
-    title: "Independent Consulting & Advisory",
-    shortDescription:
-      "Providing strategic consulting and advisory support to organisations.",
-    offerings: [
-      "Strategy advisory",
-      "Programme and project support",
-      "Business transformation",
-      "People advisory",
-      "Customer experience improvement",
-      "Product development",
-      "Stakeholder engagement",
-      "Change and implementation support",
+      "Professional Skills Workshops",
+      "Graduate & Early-Career Development",
+      "Communication & Presentation Skills",
+      "Career Readiness Programmes",
+      "Personal Effectiveness Workshops",
+      "Custom Learning Programmes",
     ],
   },
   {
@@ -118,11 +120,13 @@ export const SERVICES = [
     icon: "Users",
     title: "Strategic Facilitation",
     shortDescription:
-      "Facilitating impactful conversations that drive alignment, clarity, collaboration, and team effectiveness.",
+      "We design and facilitate purposeful sessions that help leaders and teams create clarity, strengthen alignment and make meaningful decisions. From strategy workshops to team alignment sessions, we turn productive conversations into clear actions and shared accountability.",
     offerings: [
-      "Leadership alignment sessions",
-      "Strategy workshops",
-      "Team effectiveness facilitation",
+      "Strategy & Planning Workshops",
+      "Leadership Alignment Sessions",
+      "Team Alignment & Effectiveness Sessions",
+      "Stakeholder Engagement Workshops",
+      "Reflection & Strategy Reset Sessions",
     ],
   },
   {
@@ -130,12 +134,13 @@ export const SERVICES = [
     icon: "Award",
     title: "Leadership Development",
     shortDescription:
-      "Developing confident, self-aware, and high-performing leaders.",
+      "We develop confident, self-aware and effective leaders equipped to navigate complexity, lead people and drive meaningful change. Our leadership interventions combine practical tools, reflection and real-world application to strengthen leadership capability at every stage.",
     offerings: [
-      "Leadership workshops",
-      "Women in leadership sessions",
-      "High-performance team development",
-      "Organisational culture conversations",
+      "Leadership Development Workshops",
+      "Emerging Leader Programmes",
+      "Women in Leadership Sessions",
+      "Leading Through Change",
+      "High-Performance Team Development",
     ],
   },
 ];
@@ -155,17 +160,17 @@ export const QUICK_FACTS = [
   },
   {
     icon: "Briefcase",
-    title: "10+ Years Corporate & Consulting Experience",
+    title: "9+ Years Corporate & Consulting Experience",
     description: "Deep expertise across management consulting, banking, and transformation.",
   },
   {
     icon: "Award",
-    title: "MBA Cum Laude Leadership Expertise",
+    title: "MBA Cum Laude Digital Transformation",
     description: "Academic excellence combined with practical industry experience.",
   },
   {
     icon: "Building2",
-    title: "Private & Public Sector Experience",
+    title: "BBBEE Level 1 Consultancy",
     description: "Trusted partner across government and corporate sectors.",
   },
 ];
@@ -191,57 +196,64 @@ export const WHY_LUMINA = [
   },
 ];
 
+// "The values that guide us" — About page's 3-value section.
+// Distinct from WHY_LUMINA (still used by Home's "Our Approach" section) —
+// see design.md for why these are kept as two separate arrays.
 export const CORE_VALUES = [
-  { icon: "TrendingUp", title: "Intentional Growth" },
-  { icon: "Award", title: "Leadership" },
-  { icon: "RefreshCw", title: "Transformation" },
-  { icon: "Sparkles", title: "Excellence" },
-  { icon: "Heart", title: "Human Connection" },
+  {
+    icon: "HeartHandshake",
+    title: "People-Centred",
+    description:
+      "We put people at the heart of every solution, recognising that meaningful transformation starts with understanding human needs.",
+  },
+  {
+    icon: "TrendingUp",
+    title: "Intentional Growth",
+    description:
+      "We believe sustainable growth is deliberate, grounded in clarity, purpose and meaningful action.",
+  },
+  {
+    icon: "Target",
+    title: "Practical Impact",
+    description:
+      "We create solutions that are actionable, relevant and designed to deliver meaningful, measurable outcomes.",
+  },
 ];
 
-export const COMMUNITY_BENEFITS = [
-  { icon: "MessageSquare", title: "Career Development Conversations" },
-  { icon: "Target", title: "Live Coaching Sessions" },
-  { icon: "Award", title: "Leadership Discussions" },
-  { icon: "Globe", title: "Networking Opportunities" },
-  { icon: "Compass", title: "Reflection Prompts" },
-  { icon: "Layers", title: "Growth Resources" },
+// "Trusted By" — logo strip on the About page.
+// TODO: Replace `logo` paths with real logo assets once supplied by the client.
+export const TRUSTED_BY = [
+  { name: "FNB", logo: "/images/logos/fnb.svg" },
+  { name: "NWU", logo: "/images/logos/nwu.svg" },
+  { name: "UJ", logo: "/images/logos/uj.svg" },
+  { name: "UNISA", logo: "/images/logos/unisa.svg" },
+  { name: "Daily Theta", logo: "/images/logos/daily-theta.svg" },
 ];
 
+// Per the client's "In Their Words" draft for the About page, only these
+// 3 testimonials are specified. The former "Career Coaching Client" and
+// "Community Member" quotes are dropped here — the latter referenced the
+// now-removed Community page and would read as stale.
 export const TESTIMONIALS = [
   {
     id: 1,
-    quote:
-      "Yolandi helped me see my career from a completely different perspective. I left our session with clarity, confidence, and a practical action plan for my next steps.",
-    author: "Career Coaching Client",
-    rating: 5,
-  },
-  {
-    id: 2,
     quote:
       "The session was professionally facilitated, highly engaging, and left the team with clear outcomes and next steps. A truly valuable experience.",
     author: "Corporate Workshop Client",
     rating: 5,
   },
   {
-    id: 3,
+    id: 2,
     quote:
       "The interview preparation session was incredibly valuable. I felt more prepared, more confident, and ultimately performed much better than I would have on my own.",
     author: "Young Professional",
     rating: 5,
   },
   {
-    id: 4,
+    id: 3,
     quote:
       "Yolandi brings energy, professionalism, and authenticity to every engagement. She connects with audiences in a way that inspires action.",
     author: "Event Attendee",
-    rating: 5,
-  },
-  {
-    id: 5,
-    quote:
-      "Being part of the Lumina community has reminded me that growth doesn't have to happen alone. The conversations, resources, and support have been invaluable.",
-    author: "Community Member",
     rating: 5,
   },
 ];
@@ -251,13 +263,13 @@ export const FOUNDER = {
   title: "Founder & Managing Director",
   qualifications: "MBA Cum Laude",
   shortBio:
-    "Yolandi Pietersen is a consultant, facilitator, leadership development professional, and entrepreneur with a passion for helping individuals and organisations unlock their full potential.",
+    "Yolandi Pietersen (MBA) is the Founder and Managing Director of Lumina Advisory, a strategist, consultant, facilitator and speaker with over eight years of experience across management consulting and financial services.",
   detailedBio: [
-    "Yolandi Pietersen is a consultant, facilitator, leadership development professional, and entrepreneur with a passion for helping individuals and organisations unlock their full potential.",
-    "With a career spanning management consulting, banking, leadership development, and strategic transformation, Yolandi brings a unique combination of corporate expertise and people-centred development to every engagement. Throughout her career, she has advised organisations across the public and private sectors on strategy, transformation, organisational effectiveness, leadership development, digital transformation, and business growth initiatives.",
-    "Yolandi holds an MBA, which she completed Cum Laude. Her academic achievements, combined with practical industry experience, have shaped her belief that meaningful growth happens when strategy, leadership, and personal development come together.",
-    "As the founder of Lumina Advisory, Yolandi is committed to creating transformative development experiences that empower professionals, leaders, and organisations to grow with clarity, confidence, and purpose. Through facilitation, training, coaching, and thought leadership, she aims to inspire intentional growth and lasting impact.",
-    "Her mission is simple: To help people become the most confident, capable, and purposeful versions of themselves."
+    "Yolandi Pietersen (MBA) is the Founder and Managing Director of Lumina Advisory, a strategist, consultant, facilitator and speaker with over eight years of experience across management consulting and financial services.",
+    "Her career spans management consulting, banking, strategy, transformation, customer experience and digital innovation, giving her a strong foundation in solving complex business challenges, facilitating strategic conversations and supporting meaningful organisational growth.",
+    "Yolandi holds an MBA, which she completed Cum Laude. Her academic achievements, combined with practical industry experience, have shaped her belief that meaningful growth happens when strategy, leadership and people come together.",
+    "As the Founder of Lumina Advisory, Yolandi is committed to creating transformative experiences that empower professionals, leaders and organisations to grow with clarity, confidence and purpose. Through consulting, facilitation, training, coaching and thought leadership, she helps turn ambition into meaningful action and lasting impact.",
+    "Her mission is simple: to help people become the most confident, capable and purposeful versions of themselves.",
   ],
   timeline: [
     "Management Consulting",
@@ -275,11 +287,7 @@ export const MISSION_VISION = {
   vision:
     "To become a trusted partner for career, leadership, and personal development across Africa and beyond.",
   whoWeAre: [
-    "Lumina Advisory, is a Level 1 BBBEE boutique advisory and development consultancy focused on people development, strategic facilitation, leadership, and organisational growth.",
-    "We partner with corporates, professionals, and emerging leaders to provide strategic advisory, leadership development, facilitation, and capability-building interventions that drive meaningful transformation and sustainable growth.",
-    "Our work combines strategic insight, practical industry experience, and people-centred development to create solutions that are both intentional and results-driven.",
-    "We provide services across independent consulting and advisory, strategic facilitation, leadership development, training and skills development, career and personal development, as well as programme direction, moderation, and hosting.",
-    "Through every engagement, Lumina Advisory aims to create spaces that inspire growth, strengthen leadership, and empower individuals and organisations to perform with clarity, confidence, and purpose."
+    "Lumina Advisory is a Level 1 B-BBEE boutique advisory and development consultancy focused on people development, strategic facilitation, leadership, and organisational growth. We partner with organisations, professionals, and emerging leaders to deliver practical, people-centred solutions across consulting and advisory, leadership development, training, facilitation, career development, and programme direction. Drawing on experience across management consulting, financial services, transformation, and people development, we combine strategic insight with practical expertise to create meaningful and sustainable outcomes.",
   ],
 };
 

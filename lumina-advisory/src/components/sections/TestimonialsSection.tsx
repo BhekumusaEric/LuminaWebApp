@@ -2,9 +2,21 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { LucideIcon } from "@/components/ui/LucideIcon";
 import { TESTIMONIALS } from "@/lib/data";
+
+interface TestimonialsSectionProps {
+  /** Small uppercase label above the heading. Defaults to "Client Success Stories". */
+  eyebrow?: string;
+  /** Section heading. Defaults to "Hear from the people we've partnered with." */
+  heading?: string;
+  /** Optional intro paragraph shown under the heading. */
+  intro?: string;
+  /** Optional link rendered below the controls (e.g. "Read more stories" → /about#testimonials). */
+  footerLink?: { href: string; label: string };
+}
 
 /**
  * TestimonialsSection
@@ -16,8 +28,16 @@ import { TESTIMONIALS } from "@/lib/data";
  *
  * Everything sits on the shared dark backdrop, so no per-section
  * background fights the rest of the site.
+ *
+ * Reused on the About page (under "In Their Words") with custom
+ * eyebrow/heading/intro text via props.
  * ───────────────────────────────────────────────────────────── */
-export default function TestimonialsSection() {
+export default function TestimonialsSection({
+  eyebrow = "Client Success Stories",
+  heading = "Hear from the people we've partnered with.",
+  intro,
+  footerLink,
+}: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [direction, setDirection] = useState(0);
@@ -34,13 +54,16 @@ export default function TestimonialsSection() {
   const t = TESTIMONIALS[currentIndex];
   const img = testimonialImages[currentIndex % testimonialImages.length];
 
-  // Auto-advance every 15s
+  // Auto-advance every 5s — fast enough that visitors notice it moving
+  // on its own without having to wait around.
+  const AUTO_ADVANCE_MS = 5000;
+
   useEffect(() => {
     if (isPaused) return;
     const id = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % total);
-    }, 15000);
+    }, AUTO_ADVANCE_MS);
     return () => clearInterval(id);
   }, [isPaused, total]);
 
@@ -81,12 +104,17 @@ export default function TestimonialsSection() {
           <div className="mb-6 flex items-center gap-4">
             <span className="h-px w-12 bg-[#C8A24C]/50" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
-              Client Success Stories
+              {eyebrow}
             </span>
           </div>
-          <h2 className="text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
-            Hear from the people we've partnered with.
+          <h2 className={`text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl ${intro ? "mb-5" : ""}`}>
+            {heading}
           </h2>
+          {intro && (
+            <p className="text-balance-justify text-base leading-relaxed text-white/70 md:text-lg">
+              {intro}
+            </p>
+          )}
         </motion.div>
 
         {/* Slide container — grid puts image + quote side by side. Full-width. */}
@@ -111,7 +139,7 @@ export default function TestimonialsSection() {
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   priority={currentIndex === 0}
                   className="object-cover"
-                  style={{ transform: isPaused ? "scale(1)" : "scale(1.03)", transition: "transform 15s ease-out" }}
+                  style={{ transform: isPaused ? "scale(1)" : "scale(1.03)", transition: `transform ${AUTO_ADVANCE_MS / 1000}s ease-out` }}
                 />
                 {/* Warm dark wash — keeps image restrained */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#08060a]/70 via-[#08060a]/25 to-transparent" />
@@ -213,9 +241,27 @@ export default function TestimonialsSection() {
               className="h-full bg-[#C8A24C]/70"
               initial={{ width: "0%" }}
               animate={{ width: "100%" }}
-              transition={{ duration: 15, ease: "linear" }}
+              transition={{ duration: AUTO_ADVANCE_MS / 1000, ease: "linear" }}
             />
           </motion.div>
+        )}
+
+        {/* Optional footer link — e.g. Home linking through to the full
+            testimonials section on About */}
+        {footerLink && (
+          <div className="mt-10 flex justify-center">
+            <Link
+              href={footerLink.href}
+              className="group inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#D8B96F] transition-colors hover:text-white"
+            >
+              {footerLink.label}
+              <LucideIcon
+                name="ArrowRight"
+                size={14}
+                className="transition-transform group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
         )}
       </div>
     </section>

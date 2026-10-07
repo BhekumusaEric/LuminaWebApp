@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NAV_LINKS, SITE } from "@/lib/data";
+import { NAV_LINKS } from "@/lib/data";
 import { Button } from "@/components/ui/Button";
 
 /**
@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/Button";
  * ─────────────────────────────────────────────────────────────
  * Sticky after scroll. Mobile hamburger menu included.
  * Nav links live in src/lib/data.ts — add/remove links there.
- * The CTA button points to SITE.calendly (also in data.ts).
+ * The CTA button ("Get in touch") links to /contact.
  * ─────────────────────────────────────────────────────────────
  */
 export default function Navbar() {
@@ -69,8 +69,8 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:block">
-          <Button href={SITE.calendly} variant="primary" external className="px-5 py-2.5 text-[10px] tracking-[0.18em] hover:brightness-110">
-            BOOK A CONSULTATION
+          <Button href="/contact" variant="primary" className="px-5 py-2.5 text-[10px] tracking-[0.18em] hover:brightness-110">
+            GET IN TOUCH
           </Button>
         </div>
 
@@ -149,12 +149,11 @@ export default function Navbar() {
                   transition={{ delay: NAV_LINKS.length * 0.05 + 0.1 }}
                 >
                   <Button 
-                    href={SITE.calendly} 
+                    href="/contact" 
                     variant="primary" 
-                    external 
                     className="mt-4 w-full py-4 text-sm"
                   >
-                    BOOK A CONSULTATION
+                    GET IN TOUCH
                   </Button>
                 </motion.div>
               </div>

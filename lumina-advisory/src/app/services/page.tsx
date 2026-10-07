@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { PageHero } from "@/components/ui/PageHero";
 import { Button } from "@/components/ui/Button";
-import { SERVICES, SITE } from "@/lib/data";
+import { SERVICES } from "@/lib/data";
 
 /**
  * SERVICES PAGE — editorial full-bleed layout
@@ -82,8 +82,11 @@ export default function ServicesPage() {
               }}
             />
 
-            {/* Content column — alternates left/right */}
-            <div className="lumina-container relative z-10 py-24 md:py-28">
+            {/* Content column — alternates left/right.
+                Fonts/spacing tightened across the board (title, description,
+                offerings list) so the now-longer descriptions still fit
+                comfortably within one viewport per service. */}
+            <div className="lumina-container relative z-10 py-16 md:py-20">
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -92,7 +95,7 @@ export default function ServicesPage() {
                 className={`max-w-xl md:max-w-[560px] ${isEven ? "" : "ml-auto"}`}
               >
                 {/* Numbered eyebrow — the McKinsey signature move */}
-                <div className="mb-8 flex items-center gap-4">
+                <div className="mb-5 flex items-center gap-4">
                   <span className="text-xs font-semibold tracking-[0.32em] text-[#C8A24C]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -102,19 +105,19 @@ export default function ServicesPage() {
                   </span>
                 </div>
 
-                {/* Massive service title */}
-                <h2 className="mb-8 text-4xl font-bold uppercase leading-[0.98] tracking-[-0.04em] text-white md:text-5xl lg:text-[3.75rem]">
+                {/* Service title — sized down one notch so longer descriptions fit */}
+                <h2 className="mb-4 text-3xl font-bold uppercase leading-[1.0] tracking-[-0.03em] text-white md:text-4xl lg:text-[2.75rem]">
                   {service.title}
                 </h2>
 
                 {/* Description */}
-                <p className="text-balance-justify mb-12 text-lg leading-relaxed text-[#EFEBE3]/85 md:text-xl">
+                <p className="text-balance-justify mb-6 text-sm leading-relaxed text-[#EFEBE3]/85 md:text-base">
                   {service.shortDescription}
                 </p>
 
                 {/* "What we offer" — hairline-separated list, editorial style */}
-                <div className="mb-14">
-                  <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+                <div className="mb-8">
+                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
                     What we offer
                   </p>
                   <ul className="border-t border-white/10">
@@ -129,7 +132,7 @@ export default function ServicesPage() {
                           duration: 0.6,
                           ease: "easeOut" as const,
                         }}
-                        className="group flex items-baseline gap-6 border-b border-white/10 py-4 text-base text-[#EFEBE3]/85 transition-colors hover:text-white md:text-lg"
+                        className="group flex items-baseline gap-6 border-b border-white/10 py-2 text-sm text-[#EFEBE3]/85 transition-colors hover:text-white md:text-base"
                       >
                         <span className="text-xs font-mono tabular-nums text-[#C8A24C]/60 group-hover:text-[#C8A24C]">
                           {String(idx + 1).padStart(2, "0")}
@@ -167,11 +170,11 @@ export default function ServicesPage() {
               Not Sure What <span className="lumina-shimmer">Support</span> You Need?
             </h2>
             <p className="mx-auto mb-10 max-w-xl text-base leading-relaxed text-[#EFEBE3]/80 md:text-lg">
-              Let's explore together. Book a discovery call and we'll help you find the right
+              Let's explore together. Get in touch and we'll help you find the right
               path forward.
             </p>
-            <Button href={SITE.calendly} variant="primary" external>
-              Book Discovery Call
+            <Button href="/contact" variant="primary">
+              Get in touch
             </Button>
           </motion.div>
         </div>

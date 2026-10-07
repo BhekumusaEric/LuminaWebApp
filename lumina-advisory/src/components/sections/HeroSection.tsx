@@ -76,15 +76,6 @@ export default function HeroSection() {
       {/* Foreground content */}
       <div className="lumina-container relative z-10 py-24 md:py-28">
         <div className="max-w-4xl">
-          <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" as const }}
-            className="mb-6 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C] sm:text-xs"
-          >
-            WHERE AMBITION MEETS INTENTIONAL GROWTH
-          </motion.p>
-
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
