@@ -43,9 +43,9 @@ export default function TestimonialsSection({
   const [direction, setDirection] = useState(0);
 
   const testimonialImages = [
-    "/images/stock/testimonial-office.jpg",
-    "/images/stock/image6.jpeg",
-    "/images/stock/image11.jpeg",
+    "/images/stock/testimonial-1.jpg", // lady with mic
+    "/images/stock/testimonial-2.jpg", // lady facing gentleman
+    "/images/stock/testimonial-3.jpg", // event audience
   ];
 
   const total = TESTIMONIALS.length;

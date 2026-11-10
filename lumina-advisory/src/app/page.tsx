@@ -76,8 +76,8 @@ export default function HomePage() {
               {/* Visual anchor — warm image with gold-tinted frame */}
               <div className="relative mb-8 aspect-[4/5] w-full overflow-hidden rounded-[1.25rem] border border-[#C8A24C]/20 shadow-[0_24px_60px_rgba(0,0,0,0.4)]">
                 <Image
-                  src="/images/heroes/services.jpg"
-                  alt=""
+                  src="/images/stock/our-expertise.jpg"
+                  alt="Lumina Advisory leading a strategy session"
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover object-center"

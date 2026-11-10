@@ -23,13 +23,14 @@ export default function ServicesPage() {
   // Indexed to match SERVICES array order in data.ts:
   // 0 speaking-moderation, 1 career-development, 2 training-skills,
   // 3 facilitation, 4 consulting-advisory, 5 leadership
+  // Client-supplied photos (LuminaWebPics).
   const serviceImages = [
-    "/images/stock/speaking-keynote.jpg", // Speaking, Moderation & Programme Direction
-    "/images/stock/image4.jpeg",          // Career & Professional Development
-    "/images/stock/image5.jpeg",          // Training & Skills Development
-    "/images/stock/image10.jpeg",         // Strategic Facilitation
-    "/images/stock/image8.jpeg",          // Independent Consulting & Advisory
-    "/images/stock/image11.jpeg",         // Leadership Development
+    "/images/stock/svc-speaking.jpg",     // Speaking, Moderation & Programme Direction
+    "/images/stock/svc-career.jpg",       // Career & Professional Development
+    "/images/stock/svc-training.jpg",     // Training & Skills Development
+    "/images/stock/svc-facilitation.jpg", // Strategic Facilitation
+    "/images/stock/svc-consulting.jpg",   // Independent Consulting & Advisory
+    "/images/stock/svc-leadership.jpg",   // Leadership Development
   ];
 
   const total = SERVICES.length;
