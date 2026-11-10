@@ -6,7 +6,6 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Button } from "@/components/ui/Button";
 import { FOUNDER, MISSION_VISION, CORE_VALUES, TRUSTED_BY } from "@/lib/data";
 import { LucideIcon } from "@/components/ui/LucideIcon";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -17,17 +16,15 @@ const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
  * 2. Who We Are — centered editorial paragraph block
  * 3. The Values That Guide Us — 3-column numbered manifesto
  * 4. Our Founder — portrait + bio + hairline-separated timeline
- * 5. Trusted By — client/partner logo strip
- * 6. In Their Words — testimonials (moved here from the former
- *    standalone /testimonials page)
- * 7. Final CTA — floating dark glass
+ * 5. Trusted By — full-width gold-tinted partner logo strip
+ * 6. Final CTA — floating dark glass
  * ───────────────────────────────────────────────────────────── */
 export default function AboutPage() {
   return (
     <>
       <PageHero
         headline="ABOUT LUMINA ADVISORY"
-        subheading="Where ambition meets intentional growth."
+        subheading="People, Strategy, Impact"
         backgroundImage="/images/heroes/about.jpg"
       />
 
@@ -53,7 +50,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-tr from-[#08060a]/70 via-[#08060a]/15 to-transparent" />
               <div className="absolute bottom-6 left-6 flex items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.32em] text-white/85">
                 <span className="h-px w-8 bg-[#C8A24C]" />
-                <span>Boutique. Focused. Human.</span>
+                <span>Boutique · Focused · Human</span>
               </div>
             </motion.div>
 
@@ -72,7 +69,7 @@ export default function AboutPage() {
               </div>
 
               <h2 className="mb-8 text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
-                A boutique advisory built on <span className="lumina-shimmer">intention</span>.
+                A boutique advisory built on <span className="lumina-shimmer">intention</span>
               </h2>
 
               <div className="space-y-5 text-base leading-relaxed text-white/80 md:text-lg">
@@ -126,7 +123,7 @@ export default function AboutPage() {
               </span>
             </div>
             <h2 className="text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
-              The values that guide us.
+              The values that guide us
             </h2>
           </motion.div>
 
@@ -144,7 +141,10 @@ export default function AboutPage() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
-                <div className="mb-5 flex items-center gap-4">
+                {/* Fixed-height header row so a title that wraps to two lines
+                    (e.g. "Intentional Growth") doesn't push its description
+                    out of line with the other two columns. */}
+                <div className="mb-5 flex min-h-[4rem] items-center gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C8A24C]/15 text-[#D8B96F] transition-colors group-hover:bg-[#C8A24C]/25">
                     <LucideIcon name={value.icon} size={22} />
                   </div>
@@ -179,7 +179,7 @@ export default function AboutPage() {
               </span>
             </div>
             <h2 className="text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
-              Meet {FOUNDER.name.split(" ")[0]}.
+              Meet {FOUNDER.name.split(" ")[0]}
             </h2>
           </motion.div>
 
@@ -248,25 +248,27 @@ export default function AboutPage() {
       </section>
 
       {/* ─── TRUSTED BY ─── */}
-      {/* Tightened vertical padding — this section is just a logo strip,
-          it doesn't need the full lumina-section spacing on either side. */}
-      <section className="lumina-section !py-4 md:!py-5">
+      {/* Full-width gold-tinted band. The coloured strip spans the whole
+          viewport (breaks out of lumina-container) while the content stays
+          centred inside it, with the logos distributed evenly across. */}
+      <section className="relative isolate w-full overflow-hidden border-y border-[#C8A24C]/20 bg-gradient-to-r from-[#C8A24C]/[0.06] via-[#C8A24C]/[0.14] to-[#C8A24C]/[0.06] py-10 md:py-12">
         <div className="lumina-container">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: EASE }}
-            className="mb-4 flex items-center justify-center gap-4 text-center"
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8, ease: EASE }}
+            className="mb-8 flex items-center justify-center gap-4 text-center"
           >
             <span className="h-px w-12 bg-[#C8A24C]/60" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#D8B96F]">
               Trusted By
             </span>
             <span className="h-px w-12 bg-[#C8A24C]/60" />
           </motion.div>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+          {/* Logos distributed evenly across the full width */}
+          <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-8">
             {TRUSTED_BY.map((partner, i) => (
               <motion.div
                 key={partner.name}
@@ -274,11 +276,11 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}
-                className="flex h-14 items-center justify-center opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                className="flex flex-1 basis-[40%] items-center justify-center opacity-80 transition-opacity duration-300 hover:opacity-100 sm:basis-auto"
               >
                 {/* Logo assets not yet supplied — name-chip fallback keeps this
                     section intentional-looking until real logos are provided. */}
-                <span className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
+                <span className="whitespace-nowrap text-base font-semibold uppercase tracking-[0.22em] text-white/85 md:text-lg">
                   {partner.name}
                 </span>
               </motion.div>
@@ -286,17 +288,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* ─── IN THEIR WORDS (testimonials, moved here from /testimonials) ─── */}
-      {/* `!pb-0` tightens the gap to the Final CTA right below it (About-only
-          override — Home's usage of this component keeps its own spacing). */}
-      <div id="testimonials" className="[&>section]:!pb-0">
-        <TestimonialsSection
-          eyebrow="In Their Words"
-          heading="The impact of our work."
-          intro="From professionals navigating career growth to organisations developing their people and leaders, our work is centred on creating meaningful, practical impact."
-        />
-      </div>
 
       {/* ─── FINAL CTA ─── */}
       <section className="lumina-section flex items-center !pt-10 !pb-10 md:!pt-12 md:!pb-12">

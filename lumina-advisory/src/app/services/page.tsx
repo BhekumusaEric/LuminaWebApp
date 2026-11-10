@@ -20,13 +20,16 @@ import { SERVICES } from "@/lib/data";
  * fighting the image — the image is the atmosphere.
  * ───────────────────────────────────────────────────────────── */
 export default function ServicesPage() {
+  // Indexed to match SERVICES array order in data.ts:
+  // 0 speaking-moderation, 1 career-development, 2 training-skills,
+  // 3 facilitation, 4 consulting-advisory, 5 leadership
   const serviceImages = [
-    "/images/stock/image4.jpeg",  // Career & Personal Development
-    "/images/stock/image5.jpeg",  // Training & Skills Development
-    "/images/stock/image7.jpeg",  // Programme Direction
-    "/images/stock/image8.jpeg",  // Consulting & Advisory
-    "/images/stock/image10.jpeg", // Strategic Facilitation
-    "/images/stock/image11.jpeg", // Leadership Development
+    "/images/stock/speaking-keynote.jpg", // Speaking, Moderation & Programme Direction
+    "/images/stock/image4.jpeg",          // Career & Professional Development
+    "/images/stock/image5.jpeg",          // Training & Skills Development
+    "/images/stock/image10.jpeg",         // Strategic Facilitation
+    "/images/stock/image8.jpeg",          // Independent Consulting & Advisory
+    "/images/stock/image11.jpeg",         // Leadership Development
   ];
 
   const total = SERVICES.length;
@@ -110,9 +113,9 @@ export default function ServicesPage() {
                   {service.title}
                 </h2>
 
-                {/* Description */}
+                {/* Description — full detailed version on the Services page */}
                 <p className="text-balance-justify mb-6 text-sm leading-relaxed text-[#EFEBE3]/85 md:text-base">
-                  {service.shortDescription}
+                  {service.detailedDescription}
                 </p>
 
                 {/* "What we offer" — hairline-separated list, editorial style */}

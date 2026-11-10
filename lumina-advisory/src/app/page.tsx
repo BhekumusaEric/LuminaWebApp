@@ -55,8 +55,14 @@ export default function HomePage() {
         <HeroSection />
       </div>
 
-      {/* ────────────────────────  2. PRACTICE AREAS  ──────────────────────── */}
-      <section className="snap-section lumina-section">
+      {/* ────────────────────────  2. OUR EXPERTISE  ──────────────────────── */}
+      {/* Not a snap-section: this content column is taller than the viewport
+          on some screens, and forcing min-h:100vh + vertical centering left a
+          large empty gap below the services list before "By The Numbers".
+          Sizing to content with normal section padding removes that gap.
+          Reduced bottom padding so it doesn't double up with the next
+          section's top padding where the two meet. */}
+      <section className="lumina-section !pb-6 md:!pb-8">
         <div className="lumina-container">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-16">
             {/* Left — sticky visual + heading */}
@@ -77,31 +83,22 @@ export default function HomePage() {
                   className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#08060a]/70 via-[#08060a]/15 to-transparent" />
-                {/* Small caption stamp bottom-left */}
-                <div className="absolute bottom-5 left-5 flex items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.32em] text-white/85">
-                  <span className="h-px w-8 bg-[#C8A24C]" />
-                  <span>The Practice</span>
-                </div>
               </div>
 
               <div className="mb-6 flex items-center gap-4">
                 <span className="h-px w-12 bg-[#C8A24C]/60" />
                 <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#C8A24C]">
-                  Practice Areas
+                  Our Expertise
                 </span>
               </div>
-              <h2 className="mb-6 text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
-                Six ways we help you unlock what&apos;s next.
+              <h2 className="mb-8 text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
+                How We Create Impact
               </h2>
-              <p className="mb-8 text-base leading-relaxed text-white/70 md:text-lg">
-                From individual coaching to organisational transformation — a full spectrum
-                of development, facilitation, and strategic advisory.
-              </p>
               <Link
                 href="/services"
                 className="group inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#D8B96F] transition-colors hover:text-white"
               >
-                Explore all services
+                Explore detailed services
                 <LucideIcon
                   name="ArrowRight"
                   size={14}
@@ -152,7 +149,9 @@ export default function HomePage() {
       </section>
 
       {/* ────────────────────────  3. BY THE NUMBERS  ──────────────────────── */}
-      <section className="snap-section lumina-section relative isolate overflow-hidden">
+      {/* Reduced top padding so it meets the Our Expertise section above with
+          a single balanced gap instead of two stacked section paddings. */}
+      <section className="snap-section lumina-section relative isolate overflow-hidden !pt-6 !pb-6 md:!pt-8 md:!pb-8">
         {/* Warm glow accents — brighter and more saturated so this section
             doesn't read as flat/dark next to the surrounding sections. */}
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
@@ -186,7 +185,7 @@ export default function HomePage() {
               <span className="h-px w-12 bg-[#C8A24C]/60" />
             </div>
             <h2 className="text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] text-white md:text-4xl lg:text-5xl">
-              Credentials that build.
+              Credentials that build
             </h2>
           </motion.div>
 
@@ -230,7 +229,7 @@ export default function HomePage() {
           the voice being trusted here, not Yolandi personally.
           `!pb-0` tightens the gap to the Final CTA right below it (Home-only
           override — About still uses the component's default spacing). */}
-      <div className="[&>section]:!pb-0">
+      <div className="[&>section]:!pb-0 [&>section]:!pt-6 md:[&>section]:!pt-8">
         <TestimonialsSection
           eyebrow="Trusted To Deliver Impact"
           heading="Hear from the people we've partnered with."

@@ -43,20 +43,17 @@ export default function TestimonialsSection({
   const [direction, setDirection] = useState(0);
 
   const testimonialImages = [
-    "/images/stock/image3.jpeg",
+    "/images/stock/testimonial-office.jpg",
     "/images/stock/image6.jpeg",
     "/images/stock/image11.jpeg",
-    "/images/stock/image12.jpeg",
-    "/images/stock/image9.jpeg",
   ];
 
   const total = TESTIMONIALS.length;
   const t = TESTIMONIALS[currentIndex];
   const img = testimonialImages[currentIndex % testimonialImages.length];
 
-  // Auto-advance every 5s — fast enough that visitors notice it moving
-  // on its own without having to wait around.
-  const AUTO_ADVANCE_MS = 5000;
+  // Auto-advance every 4s — client asked for the testimonials to move faster.
+  const AUTO_ADVANCE_MS = 4000;
 
   useEffect(() => {
     if (isPaused) return;

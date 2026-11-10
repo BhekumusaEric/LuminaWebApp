@@ -3,43 +3,70 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { SITE, getImagePath } from "@/lib/data";
+import { SITE, getImagePath, CODE_ARTICLES } from "@/lib/data";
 import { fetchArticles, type SheetArticle } from "@/lib/googleSheets";
 import { LucideIcon } from "@/components/ui/LucideIcon";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 /**
+ * Code-authored articles (from data.ts) mapped into the same shape as
+ * sheet articles. Their `link` points to the on-site article page, so the
+ * existing internal-link handling in ArticleCard/ArticleHero renders them
+ * as a <Link> rather than an external <a>.
+ */
+const CODE_AS_SHEET: SheetArticle[] = CODE_ARTICLES.map((a) => ({
+  id: a.id,
+  slug: a.slug,
+  category: a.category,
+  title: a.title,
+  summary: a.summary,
+  readingTime: a.readingTime,
+  publishDate: a.publishDate,
+  image: a.image,
+  featured: a.featured,
+  link: `/insights/${a.slug}`,
+}));
+
+/**
  * InsightsList
  * ─────────────────────────────────────────────────────────────
- * Renders articles the owner adds to the connected Google Sheet.
+ * Hybrid article list:
+ *  - CODE_ARTICLES (authored in data.ts) → full pages at /insights/<slug>
+ *  - Google Sheet articles → teaser cards linking out to an external URL
+ * Both sources are merged and shown together.
+ *
  *  - Featured article: full-width hero card with dark image wash
  *  - Rest: grid of dark-glass cards
  *  - Loading / empty / error states are all dark-themed and editorial
- *  - Each card links to the article's external URL (LinkedIn, Medium,
- *    the owner's blog, etc.) — set in the `link` column of the sheet.
  * ───────────────────────────────────────────────────────────── */
 export default function InsightsList() {
-  const [articles, setArticles] = useState<SheetArticle[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Seed with the code articles so they render immediately (and even if the
+  // sheet is empty or unreachable). Sheet articles are appended on load.
+  const [articles, setArticles] = useState<SheetArticle[]>(CODE_AS_SHEET);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     async function loadArticles() {
       const { spreadsheetId, articlesGid } = SITE.googleSheets;
-      if (!spreadsheetId) {
-        if (!cancelled) setLoading(false);
-        return;
-      }
+      if (!spreadsheetId) return;
       try {
-        const data = await fetchArticles(spreadsheetId, articlesGid);
-        if (!cancelled) setArticles(data);
+        const sheet = await fetchArticles(spreadsheetId, articlesGid);
+        if (cancelled || sheet.length === 0) return;
+        // Merge: code articles first, then sheet articles not already present
+        // (match on slug to avoid duplicates if the same article is in both).
+        const codeSlugs = new Set(CODE_AS_SHEET.map((a) => a.slug));
+        const merged = [
+          ...CODE_AS_SHEET,
+          ...sheet.filter((a) => !codeSlugs.has(a.slug)),
+        ];
+        setArticles(merged);
       } catch (err) {
-        console.error("[InsightsList] load error:", err);
-        if (!cancelled) setError("Unable to load articles right now.");
-      } finally {
-        if (!cancelled) setLoading(false);
+        console.error("[InsightsList] sheet load error:", err);
+        if (!cancelled && CODE_AS_SHEET.length === 0) {
+          setError("Unable to load articles right now.");
+        }
       }
     }
     loadArticles();
@@ -47,31 +74,6 @@ export default function InsightsList() {
       cancelled = true;
     };
   }, []);
-
-  // ────── LOADING ──────
-  if (loading) {
-    return (
-      <div>
-        <div className="mb-16 h-72 animate-pulse rounded-[1.5rem] border border-white/10 bg-white/[0.03]" />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {[1, 2, 3].map((n) => (
-            <div
-              key={n}
-              className="animate-pulse overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03]"
-            >
-              <div className="h-44 bg-white/[0.03]" />
-              <div className="space-y-3 p-6">
-                <div className="h-3 w-1/4 rounded bg-white/10" />
-                <div className="h-5 w-3/4 rounded bg-white/10" />
-                <div className="h-3 w-full rounded bg-white/[0.06]" />
-                <div className="h-3 w-5/6 rounded bg-white/[0.06]" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   // ────── ERROR ──────
   if (error) {
